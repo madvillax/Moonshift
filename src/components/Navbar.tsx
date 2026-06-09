@@ -64,7 +64,7 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className="flex items-center gap-1 text-[11px] font-medium uppercase tracking-[0.12em] text-text-muted hover:text-text-primary transition-colors duration-200"
+                className="flex items-center gap-1 text-[11px] font-medium uppercase tracking-[0.12em] text-black dark:text-text-muted hover:text-black dark:hover:text-text-primary transition-colors duration-200"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
               >
                 {link.name}
@@ -76,7 +76,7 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-3">
             <button
               onClick={toggleTheme}
-              className="p-2 text-text-muted hover:text-text-primary transition-colors duration-150"
+              className="p-2 text-black dark:text-text-muted hover:text-black dark:hover:text-text-primary transition-colors duration-150"
               aria-label="Toggle theme"
             >
               {theme === "light" ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
@@ -92,7 +92,7 @@ export default function Navbar() {
 
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 text-text-secondary hover:text-text-primary"
+            className="lg:hidden p-2 text-black dark:text-text-secondary hover:text-black dark:hover:text-text-primary"
           >
             {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -112,7 +112,7 @@ export default function Navbar() {
                 <a
                   key={link.name}
                   href={link.href}
-                  className="flex items-center justify-between text-[13px] font-medium uppercase tracking-[0.1em] text-text-secondary hover:text-text-primary transition-colors"
+                  className="flex items-center justify-between text-[13px] font-medium uppercase tracking-[0.1em] text-black dark:text-text-secondary hover:text-black dark:hover:text-text-primary transition-colors"
                   style={{ fontFamily: "var(--font-space-grotesk)" }}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
