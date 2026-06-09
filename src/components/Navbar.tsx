@@ -31,16 +31,18 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? theme === "light"
-            ? "bg-white/90 backdrop-blur-xl border-b border-black/10 shadow-[0_1px_0_rgba(0,0,0,0.06)]"
-            : "bg-[#0A0A0A]/95 backdrop-blur-xl border-b border-white/10 shadow-[0_1px_0_rgba(255,255,255,0.1)]"
-          : "bg-bg-deep border-b border-transparent"
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 flex justify-center px-6 lg:px-10"
     >
-      <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
-        <div className="flex items-center justify-between h-16">
+      <div
+        className={`w-full max-w-[1200px] transition-all duration-500 ${
+          isScrolled
+            ? theme === "light"
+              ? "mt-0 bg-white/90 backdrop-blur-xl border border-black/10 shadow-[0_1px_0_rgba(0,0,0,0.06)]"
+              : "mt-0 bg-[#0A0A0A]/95 backdrop-blur-xl border border-white/10 shadow-[0_1px_0_rgba(255,255,255,0.1)]"
+            : "mt-3 bg-bg-deep border border-transparent"
+        }`}
+      >
+        <div className="flex items-center justify-between h-16 px-6 lg:px-10">
           <a href="#" className="flex items-center gap-2">
             <img
               src={
@@ -105,7 +107,9 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "100vh" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden fixed inset-0 top-16 bg-bg-deep z-40 overflow-y-auto"
+            className={`lg:hidden fixed inset-0 z-40 overflow-y-auto bg-bg-deep ${
+              isScrolled ? "top-16" : "top-[76px]"
+            }`}
           >
             <div className="px-6 py-8 space-y-6">
               {navLinks.map((link) => (
