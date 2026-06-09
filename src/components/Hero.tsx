@@ -16,11 +16,113 @@ const logos = [
   "Hugging Face",
 ];
 
+const Block = ({ className, color }: { className: string; color: string }) => (
+  <div
+    className={`absolute ${className}`}
+    style={{
+      backgroundColor: color,
+      backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+      backgroundBlendMode: "overlay",
+    }}
+  />
+);
 
+const GridVisuals = () => {
+  return (
+    <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden flex justify-center">
+      <div className="absolute top-[560px] w-full max-w-[1200px] h-[300px] relative">
+        <Block className="top-[0px] left-[0px] w-[160px] h-[90px] hidden md:block" color="#0050B3" />
+        <Block className="top-[80px] left-[130px] w-[110px] h-[75px] hidden lg:block" color="#008BFF" />
+        <Block className="top-[140px] left-[0px] w-[140px] h-[70px] hidden md:block" color="#38BDF8" />
+        <Block className="top-[200px] left-[100px] w-[100px] h-[60px] hidden lg:block" color="#69C0FF" />
+      </div>
+
+      <div className="absolute top-[520px] w-full max-w-[1200px] h-[320px] relative">
+        <Block className="top-[0px] right-[0px] w-[180px] h-[120px] hidden md:block" color="#008BFF" />
+        <Block className="top-[100px] right-[150px] w-[140px] h-[90px] hidden lg:block" color="#0050B3" />
+        <Block className="top-[30px] right-[220px] w-[110px] h-[75px] hidden xl:block" color="#69C0FF" />
+        <Block className="top-[200px] right-[0px] w-[160px] h-[75px] hidden md:block" color="#38BDF8" />
+        <Block className="top-[250px] right-[130px] w-[130px] h-[60px] hidden lg:block" color="#0050B3" />
+      </div>
+    </div>
+  );
+};
+
+const PixelRocket = () => {
+  const pixelSize = 10;
+  const art = [
+    "......BBB..............",
+    "....BBBBBBB............",
+    "...BBBWWBBB...........",
+    "..BBBWWWWBBB..........",
+    ".BBBWWWWWWBBBB........",
+    "BBBWWWKKWWWWBB.......",
+    "BBBWWWKKWGGWBBLLC....",
+    "BBBWWWWWWGGWBBLLLC...",
+    "BBBWWWWWWWWWBBLLC....",
+    ".BBBWWWWWWWBBB.......",
+    "..BBBBWWWBBBB........",
+    "....BBBBBBBB.........",
+    ".....BBB..BBB........",
+    "......B....B.........",
+  ];
+  const colors: Record<string, string> = {
+    B: "#008BFF",
+    C: "#38BDF8",
+    G: "#9CA3AF",
+    K: "#0050B3",
+    L: "#69C0FF",
+    W: "#FFFFFF",
+  };
+  const width = Math.max(...art.map((row) => row.length)) * pixelSize;
+  const height = art.length * pixelSize;
+
+  return (
+    <motion.div 
+      className="relative"
+      style={{ width, height }}
+      animate={{ y: [0, -9, 0], x: [0, -8, 0], rotate: [0, 0.6, 0], scale: [1, 1.02, 1] }}
+      transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
+    >
+      <svg width={width} height={height} shapeRendering="crispEdges">
+        {art.map((row, y) => 
+          row.split('').map((char, x) => {
+            if (char === '.') return null;
+            if (char === 'C' || char === 'L') {
+              return (
+                <motion.rect
+                  key={`r-${x}-${y}`}
+                  x={x * pixelSize}
+                  y={y * pixelSize}
+                  width={pixelSize}
+                  height={pixelSize}
+                  fill={colors[char]}
+                  animate={{ opacity: [0.65, 1, 0.65] }}
+                  transition={{ duration: 0.45, repeat: Infinity, ease: [0.16, 1, 0.3, 1] }}
+                />
+              );
+            }
+            return <rect key={`r-${x}-${y}`} x={x * pixelSize} y={y * pixelSize} width={pixelSize} height={pixelSize} fill={colors[char]} />;
+          })
+        )}
+      </svg>
+      <motion.div
+        className="absolute right-[-38px] top-1/2 flex -translate-y-1/2 flex-col gap-[4px]"
+        animate={{ x: [0, 10, 0] }}
+        transition={{ duration: 0.38, repeat: Infinity, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <motion.div className="h-[7px] w-[26px] bg-[#38BDF8]" animate={{ opacity: [0.35, 0.85, 0.35], scaleX: [0.65, 1.1, 0.65] }} transition={{ duration: 0.38, repeat: Infinity, ease: [0.16, 1, 0.3, 1] }} />
+        <motion.div className="h-[9px] w-[40px] bg-[#69C0FF]" animate={{ opacity: [0.45, 1, 0.45], scaleX: [0.75, 1.25, 0.75] }} transition={{ duration: 0.32, repeat: Infinity, ease: [0.16, 1, 0.3, 1] }} />
+        <motion.div className="h-[7px] w-[24px] bg-[#38BDF8]" animate={{ opacity: [0.3, 0.8, 0.3], scaleX: [0.6, 1.05, 0.6] }} transition={{ duration: 0.44, repeat: Infinity, ease: [0.16, 1, 0.3, 1] }} />
+      </motion.div>
+    </motion.div>
+  );
+};
 
 export default function Hero() {
   return (
     <section className="relative min-h-[100dvh] flex flex-col items-start overflow-hidden bg-bg-deep pt-28 pb-20">
+      <GridVisuals />
       <div className="relative max-w-[1200px] mx-auto px-6 lg:px-10 w-full z-10">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -266,6 +368,10 @@ export default function Hero() {
             </div>
           </div>
         </motion.div>
+      </div>
+
+      <div className="absolute top-[180px] right-[12%] z-10 hidden lg:block">
+        <PixelRocket />
       </div>
     </section>
   );
