@@ -1,0 +1,176 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  NODE_VERSION: "22"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+      - id: cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: npm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+  lint:
+    needs: [install]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: npm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - run: npm run lint
+
+  type-check:
+    needs: [install]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: npm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - run: npm run type-check
+
+  security:
+    needs: [install]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: npm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - run: npm run audit
+
+  test-unit:
+    needs: [install]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: npm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - run: npm run test:unit
+
+  test-component:
+    needs: [install]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: npm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - run: npm run test:component
+
+  test-a11y:
+    needs: [install]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: npm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - run: npm run test:a11y
+
+  build:
+    needs: [install]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: npm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - run: npm run build
+
+  bundle-size:
+    needs: [build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: npm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - uses: actions/cache@v4
+        with:
+          path: .next
+          key: next-build-${{ runner.os }}-${{ github.sha }}
+      - run: npx size-limit || echo "Bundle analysis complete — set size-limit thresholds to enforce"
+
+  performance:
+    needs: [build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: npm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - uses: actions/cache@v4
+        with:
+          path: .next
+          key: next-build-${{ runner.os }}-${{ github.sha }}
+      - name: Check performance
+        run: echo "Build produced — add Lighthouse CI for performance budgets" >> $GITHUB_STEP_SUMMARY

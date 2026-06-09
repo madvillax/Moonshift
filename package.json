@@ -6,7 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:unit": "vitest run src/__tests__/unit",
+    "test:component": "vitest run src/components/__tests__ src/app/__tests__",
+    "test:a11y": "vitest run src/__tests__/a11y",
+    "audit": "npm audit --audit-level=high"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -19,12 +26,21 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^6.0.2",
+    "axe-core": "^4.12.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.7",
+    "jsdom": "^29.1.1",
+    "size-limit": "^12.1.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.8",
+    "vitest-axe": "^0.1.0"
   }
 }
