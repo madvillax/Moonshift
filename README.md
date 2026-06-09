@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Moonshift
+
+Landing page for Moonshift — AI agent orchestration platform.
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **Animations**: Framer Motion, GSAP
+- **Icons**: Lucide React
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Script | Description |
+|---|---|
+| `npm run dev` | Start development server |
+| `npm run build` | Production build with type checking |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
+| `npm run type-check` | Run TypeScript type checking |
+| `npm test` | Run all tests |
+| `npm run test:unit` | Run unit tests only |
+| `npm run test:component` | Run component tests only |
+| `npm run test:a11y` | Run accessibility tests only |
+| `npm run audit` | Run npm security audit |
 
-## Learn More
+## Testing
 
-To learn more about Next.js, take a look at the following resources:
+Three test categories:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Unit** — pure logic and utility function tests
+- **Component** — render and interaction tests with Testing Library
+- **Accessibility** — automated aXe-core audits
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm test          # all tests
+npm run test:unit # src/__tests__/unit/
+npm run test:component # src/components/__tests__/ + src/app/__tests__/
+npm run test:a11y # src/__tests__/a11y/
+```
 
-## Deploy on Vercel
+## CI Pipeline
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+GitHub Actions workflow (`.github/workflows/ci.yml`) runs on push/PR to `main`:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+Install Dependencies
+  ├── Type Checking
+  ├── Linting
+  ├── Security Audit
+  ├── Unit Tests
+  ├── Component Tests
+  ├── Accessibility Tests
+  ├── Build
+  │     ├── Bundle Size Analysis
+  │     └── Performance Check
+```
