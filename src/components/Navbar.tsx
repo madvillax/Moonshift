@@ -33,7 +33,9 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-[#0A0A0A]/95 backdrop-blur-xl border-b border-white/10 shadow-[0_1px_0_rgba(255,255,255,0.1)]"
+          ? theme === "light"
+            ? "bg-white/90 backdrop-blur-xl border-b border-black/10 shadow-[0_1px_0_rgba(0,0,0,0.06)]"
+            : "bg-[#0A0A0A]/95 backdrop-blur-xl border-b border-white/10 shadow-[0_1px_0_rgba(255,255,255,0.1)]"
           : "bg-bg-deep border-b border-transparent"
       }`}
     >
@@ -41,9 +43,19 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           <a href="#" className="flex items-center gap-2">
             <img
-              src="/branding/moonshift-wordmark.svg"
+              src={
+                theme === "light"
+                  ? "/branding/moonshift-wordmark-black-cropped.svg"
+                  : "/branding/moonshift-wordmark.svg"
+              }
               alt="Moonshift"
-              className="h-7 w-auto dark:brightness-0 dark:invert"
+              className={`h-7 w-auto transition-all duration-500 ${
+                theme === "light"
+                  ? ""
+                  : isScrolled
+                    ? "brightness-0 invert"
+                    : "dark:brightness-0 dark:invert"
+              }`}
             />
           </a>
 
