@@ -81,7 +81,7 @@ const PixelRocket = () => {
     <motion.div 
       className="relative"
       style={{ width, height }}
-      animate={{ y: [0, -9, 0], x: [0, -8, 0], rotate: [0, 0.6, 0], scale: [1, 1.02, 1] }}
+      animate={{ y: [0, -9, 0], x: [0, -8, 0], rotate: [0, 0.6, 0] }}
       transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
     >
       <svg width={width} height={height} shapeRendering="crispEdges">
