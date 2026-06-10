@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, Sun, Moon } from "lucide-react";
+import Image from "next/image";
 import { useTheme } from "./ThemeProvider";
 
 const navLinks = [
@@ -18,9 +19,24 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
 
+  const memoizedNavLinks = useMemo(() => navLinks, []);
+  const handleToggleMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen((prev) => !prev);
+  }, []);
+  const handleCloseMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen(false);
+  }, []);
+
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 50);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -43,26 +59,28 @@ export default function Navbar() {
         }`}
       >
         <div className="flex items-center justify-between h-16 px-6 lg:px-10">
-          <a href="#" className="flex items-center gap-2">
-            <img
+          <a href="#" className="flex items-center gap-2 relative h-7 w-[140px]">
+            <Image
               src={
                 theme === "light"
                   ? "/branding/moonshift-wordmark-black-cropped.svg"
                   : "/branding/moonshift-wordmark.svg"
               }
               alt="Moonshift"
-              className={`h-7 w-auto transition-all duration-500 ${
+              fill
+              className={`object-contain object-left transition-all duration-500 ${
                 theme === "light"
                   ? ""
                   : isScrolled
                     ? "brightness-0 invert"
                     : "dark:brightness-0 dark:invert"
               }`}
+              priority
             />
           </a>
 
           <div className="hidden lg:flex items-center gap-6">
-            {navLinks.map((link) => (
+            {memoizedNavLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
@@ -93,7 +111,7 @@ export default function Navbar() {
           </div>
 
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            onClick={handleToggleMobileMenu}
             className="lg:hidden p-2 text-black dark:text-text-secondary hover:text-black dark:hover:text-text-primary"
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           >
@@ -113,13 +131,13 @@ export default function Navbar() {
             }`}
           >
             <div className="px-6 py-8 space-y-6">
-              {navLinks.map((link) => (
+              {memoizedNavLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
                   className="flex items-center justify-between text-[13px] font-medium uppercase tracking-[0.1em] text-black dark:text-text-secondary hover:text-black dark:hover:text-text-primary transition-colors"
                   style={{ fontFamily: "var(--font-space-grotesk)" }}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={handleCloseMobileMenu}
                 >
                   {link.name}
                   {link.hasDropdown && <ChevronDown className="w-4 h-4" />}
@@ -129,7 +147,7 @@ export default function Navbar() {
                 <button
                   onClick={() => {
                     toggleTheme();
-                    setIsMobileMenuOpen(false);
+                    handleCloseMobileMenu();
                   }}
                   className="flex items-center justify-center gap-2 w-full px-5 py-3 text-[13px] font-medium border border-border-default text-text-primary hover:border-text-muted transition-colors"
                 >

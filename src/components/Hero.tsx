@@ -48,61 +48,61 @@ const GridVisuals = () => {
   );
 };
 
-const PixelRocket = () => {
-  const pixelSize = 10;
-  const art = [
-    "......BBB..............",
-    "....BBBBBBB............",
-    "...BBBWWBBB...........",
-    "..BBBWWWWBBB..........",
-    ".BBBWWWWWWBBBB........",
-    "BBBWWWKKWWWWBB.......",
-    "BBBWWWKKWGGWBBLLC....",
-    "BBBWWWWWWGGWBBLLLC...",
-    "BBBWWWWWWWWWBBLLC....",
-    ".BBBWWWWWWWBBB.......",
-    "..BBBBWWWBBBB........",
-    "....BBBBBBBB.........",
-    ".....BBB..BBB........",
-    "......B....B.........",
-  ];
-  const colors: Record<string, string> = {
-    B: "#008BFF",
-    C: "#38BDF8",
-    G: "#9CA3AF",
-    K: "#0050B3",
-    L: "#69C0FF",
-    W: "#FFFFFF",
-  };
-  const width = Math.max(...art.map((row) => row.length)) * pixelSize;
-  const height = art.length * pixelSize;
+const ROCKET_PIXEL_SIZE = 10;
+const rocketArt = [
+  "......BBB..............",
+  "....BBBBBBB............",
+  "...BBBWWBBB...........",
+  "..BBBWWWWBBB..........",
+  ".BBBWWWWWWBBBB........",
+  "BBBWWWKKWWWWBB.......",
+  "BBBWWWKKWGGWBBLLC....",
+  "BBBWWWWWWGGWBBLLLC...",
+  "BBBWWWWWWWWWBBLLC....",
+  ".BBBWWWWWWWBBB.......",
+  "..BBBBWWWBBBB........",
+  "....BBBBBBBB.........",
+  ".....BBB..BBB........",
+  "......B....B.........",
+];
+const rocketColors: Record<string, string> = {
+  B: "#008BFF",
+  C: "#38BDF8",
+  G: "#9CA3AF",
+  K: "#0050B3",
+  L: "#69C0FF",
+  W: "#FFFFFF",
+};
+const rocketWidth = Math.max(...rocketArt.map((row) => row.length)) * ROCKET_PIXEL_SIZE;
+const rocketHeight = rocketArt.length * ROCKET_PIXEL_SIZE;
 
+const PixelRocket = () => {
   return (
     <motion.div 
       className="relative"
-      style={{ width, height }}
+      style={{ width: rocketWidth, height: rocketHeight }}
       animate={{ y: [0, -9, 0], x: [0, -8, 0], rotate: [0, 0.6, 0] }}
       transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
     >
-      <svg width={width} height={height} shapeRendering="crispEdges">
-        {art.map((row, y) => 
+      <svg width={rocketWidth} height={rocketHeight} shapeRendering="crispEdges">
+        {rocketArt.map((row, y) => 
           row.split('').map((char, x) => {
             if (char === '.') return null;
             if (char === 'C' || char === 'L') {
               return (
                 <motion.rect
                   key={`r-${x}-${y}`}
-                  x={x * pixelSize}
-                  y={y * pixelSize}
-                  width={pixelSize}
-                  height={pixelSize}
-                  fill={colors[char]}
+                  x={x * ROCKET_PIXEL_SIZE}
+                  y={y * ROCKET_PIXEL_SIZE}
+                  width={ROCKET_PIXEL_SIZE}
+                  height={ROCKET_PIXEL_SIZE}
+                  fill={rocketColors[char]}
                   animate={{ opacity: [0.65, 1, 0.65] }}
                   transition={{ duration: 0.45, repeat: Infinity, ease: [0.16, 1, 0.3, 1] }}
                 />
               );
             }
-            return <rect key={`r-${x}-${y}`} x={x * pixelSize} y={y * pixelSize} width={pixelSize} height={pixelSize} fill={colors[char]} />;
+            return <rect key={`r-${x}-${y}`} x={x * ROCKET_PIXEL_SIZE} y={y * ROCKET_PIXEL_SIZE} width={ROCKET_PIXEL_SIZE} height={ROCKET_PIXEL_SIZE} fill={rocketColors[char]} />;
           })
         )}
       </svg>

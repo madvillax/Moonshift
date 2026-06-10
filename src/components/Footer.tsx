@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { ExternalLink, Globe, Mail, MessageCircle } from "lucide-react";
 
@@ -82,11 +83,15 @@ const shipColors: Record<string, string> = {
   W: "#FFFFFF",
 };
 
-function PixelShip({ className, delay = 0 }: { className: string; delay?: number }) {
-  const pixelSize = 6;
-  const width = Math.max(...shipArt.map((row) => row.length)) * pixelSize;
-  const height = shipArt.length * pixelSize;
+const SHIP_PIXEL_SIZE = 6;
+const shipWidth = Math.max(...shipArt.map((row) => row.length)) * SHIP_PIXEL_SIZE;
+const shipHeight = shipArt.length * SHIP_PIXEL_SIZE;
 
+const CLOUD_PIXEL_SIZE = 8;
+const cloudWidth = Math.max(...cloudArt.map((row) => row.length)) * CLOUD_PIXEL_SIZE;
+const cloudHeight = cloudArt.length * CLOUD_PIXEL_SIZE;
+
+function PixelShip({ className, delay = 0 }: { className: string; delay?: number }) {
   return (
     <motion.div
       aria-hidden="true"
@@ -104,8 +109,8 @@ function PixelShip({ className, delay = 0 }: { className: string; delay?: number
         <div className="h-[7px] w-20 bg-[#69C0FF]/85" />
         <div className="h-[5px] w-8 bg-white/55" />
       </motion.div>
-      <div className="drop-shadow-[0_7px_0_rgba(0,80,179,0.14)]" style={{ width, height }}>
-        <svg width={width} height={height} shapeRendering="crispEdges">
+      <div className="drop-shadow-[0_7px_0_rgba(0,80,179,0.14)]" style={{ width: shipWidth, height: shipHeight }}>
+        <svg width={shipWidth} height={shipHeight} shapeRendering="crispEdges">
           {shipArt.map((row, y) =>
             row.split("").map((char, x) => {
               if (char === ".") return null;
@@ -113,10 +118,10 @@ function PixelShip({ className, delay = 0 }: { className: string; delay?: number
                 return (
                   <motion.rect
                     key={`${x}-${y}`}
-                    x={x * pixelSize}
-                    y={y * pixelSize}
-                    width={pixelSize}
-                    height={pixelSize}
+                    x={x * SHIP_PIXEL_SIZE}
+                    y={y * SHIP_PIXEL_SIZE}
+                    width={SHIP_PIXEL_SIZE}
+                    height={SHIP_PIXEL_SIZE}
                     fill={shipColors[char]}
                     animate={{ opacity: [0.55, 1, 0.55] }}
                     transition={{ duration: 0.28, repeat: Infinity, ease: "linear" }}
@@ -126,10 +131,10 @@ function PixelShip({ className, delay = 0 }: { className: string; delay?: number
               return (
                 <rect
                   key={`${x}-${y}`}
-                  x={x * pixelSize}
-                  y={y * pixelSize}
-                  width={pixelSize}
-                  height={pixelSize}
+                  x={x * SHIP_PIXEL_SIZE}
+                  y={y * SHIP_PIXEL_SIZE}
+                  width={SHIP_PIXEL_SIZE}
+                  height={SHIP_PIXEL_SIZE}
                   fill={shipColors[char]}
                 />
               );
@@ -142,28 +147,24 @@ function PixelShip({ className, delay = 0 }: { className: string; delay?: number
 }
 
 function PixelCloud({ className, delay }: { className: string; delay: number }) {
-  const pixelSize = 8;
-  const width = Math.max(...cloudArt.map((row) => row.length)) * pixelSize;
-  const height = cloudArt.length * pixelSize;
-
   return (
     <motion.div
       aria-hidden="true"
       className={`absolute drop-shadow-[0_18px_0_rgba(0,80,179,0.08)] ${className}`}
-      style={{ width, height }}
+      style={{ width: cloudWidth, height: cloudHeight }}
       animate={{ x: [0, 20, 0] }}
       transition={{ duration: 8.5, delay, repeat: Infinity, ease: "easeInOut" }}
     >
-      <svg width={width} height={height} shapeRendering="crispEdges">
+      <svg width={cloudWidth} height={cloudHeight} shapeRendering="crispEdges">
         {cloudArt.map((row, y) =>
           row.split("").map((char, x) =>
             char === "." ? null : (
               <rect
                 key={`${x}-${y}`}
-                x={x * pixelSize}
-                y={y * pixelSize}
-                width={pixelSize}
-                height={pixelSize}
+                x={x * CLOUD_PIXEL_SIZE}
+                y={y * CLOUD_PIXEL_SIZE}
+                width={CLOUD_PIXEL_SIZE}
+                height={CLOUD_PIXEL_SIZE}
                 fill={cloudColors[char]}
               />
             ),

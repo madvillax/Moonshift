@@ -78,14 +78,14 @@ function PromptVisual() {
   );
 }
 
-function AgentsVisual() {
-  const agents = [
-    ["planner", "100%"],
-    ["backend", "92%"],
-    ["frontend", "78%"],
-    ["deployer", "64%"],
-  ];
+const agentProgress = [
+  ["planner", "100%"],
+  ["backend", "92%"],
+  ["frontend", "78%"],
+  ["deployer", "64%"],
+];
 
+function AgentsVisual() {
   return (
     <div className="border border-border-default bg-bg-surface p-4">
       <div className="mb-5 flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.18em] text-text-secondary">
@@ -93,7 +93,7 @@ function AgentsVisual() {
         <span>14/14</span>
       </div>
       <div className="space-y-4">
-        {agents.map(([agent, width], index) => (
+        {agentProgress.map(([agent, width], index) => (
           <div key={agent} className="grid grid-cols-[1fr_96px] items-center gap-4 font-mono text-[13px] text-text-secondary">
             <div><span className="text-[#008BFF]">•</span> {agent}</div>
             <div className="h-1.5 bg-border-default">
@@ -133,14 +133,14 @@ function LaunchVisual() {
   );
 }
 
-function HandoffVisual() {
-  const items = ["repository", "environment", "test suite", "release notes", "handoff log"];
+const handoffItems = ["repository", "environment", "test suite", "release notes", "handoff log"];
 
+function HandoffVisual() {
   return (
     <div className="border border-border-default bg-bg-surface p-4">
       <div className="mb-5 text-[11px] uppercase tracking-[0.18em] text-text-secondary">handoff packet</div>
       <div className="space-y-3">
-        {items.map((item, index) => (
+        {handoffItems.map((item, index) => (
           <motion.div
             key={item}
             className="flex items-center justify-between border border-border-default bg-bg-elevated px-4 py-3 text-[13px] text-text-secondary"
