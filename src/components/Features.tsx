@@ -1,188 +1,261 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import {
-  Sparkles,
-  Bot,
-  Layers,
-  TestTube,
-  Shield,
-  Rocket,
-  Server,
-  GitBranch,
-  Megaphone,
-  FileCheck,
-  ScrollText,
-  Lock,
-} from "lucide-react";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import type { MotionValue } from "framer-motion";
+import { CheckCircle2, GitBranch, MousePointer2, Network, Rocket } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
-const features = [
+type Step = {
+  id: string;
+  eyebrow: string;
+  title: string;
+  body: string;
+  icon: LucideIcon;
+  visual: "prompt" | "agents" | "launch" | "handoff";
+};
+
+const steps: Step[] = [
   {
     id: "01",
-    title: "AI-Powered Product Generation",
-    description: "Generate complete applications from natural language prompts. Describe what you want, and Moonshift handles the rest.",
-    code: `$ moonshift generate "E-commerce platform"
-● Analyzing requirements...
-● Generating architecture...
-● Scaffolding frontend...
-● Scaffolding backend...
-✨ Generation complete in 45s`
+    eyebrow: "Prompt to executable plan",
+    title: "Describe the outcome.",
+    body: "Write what you want shipped in plain language. Moonshift turns the prompt into requirements, constraints, flows, data, gates, and a build plan you can approve.",
+    icon: MousePointer2,
+    visual: "prompt",
   },
   {
     id: "02",
-    title: "Autonomous Development Agents",
-    description: "Multiple specialized AI agents collaborate to build and launch products. Each agent handles a specific domain with expertise.",
-    code: `[Agent: Architect] Designing system...
-[Agent: Frontend] Building React components...
-[Agent: Backend] Creating API routes...
-[Agent: DevOps] Configuring deployment...
-● Agents synchronized successfully`
+    eyebrow: "Autonomy begins",
+    title: "Approve once. Watch it build.",
+    body: "Agents fan out across frontend, backend, tests, deploy, copy, and release work. Every phase streams progress so you are watching the launch, not managing tickets.",
+    icon: Network,
+    visual: "agents",
   },
   {
     id: "03",
-    title: "Full-Stack Application Development",
-    description: "Frontend, backend, APIs, database, authentication, and business logic generation. Everything you need in one platform.",
-    code: `├── src/
-│   ├── app/          # Next.js App Router
-│   ├── components/   # React Components
-│   ├── lib/          # Utilities
-│   └── api/          # Backend Routes
-├── prisma/           # Database Schema
-└── package.json      # Dependencies`
+    eyebrow: "Production-ready output",
+    title: "Wake up launched.",
+    body: "A deployed URL, repository, tests, release notes, and launch assets are prepared together. The product ships with the operational pieces already connected.",
+    icon: Rocket,
+    visual: "launch",
   },
   {
     id: "04",
-    title: "Automated Testing",
-    description: "Automatic validation of application functionality and workflows. Catch issues before they reach production.",
-    code: `$ moonshift test
-● Running test suite...
-✓ Frontend components (124 tests)
-✓ API endpoints (45 tests)
-✓ Database queries (32 tests)
-✓ E2E workflows (12 tests)
-✨ All tests passed`
+    eyebrow: "Clean handoff",
+    title: "Own the stack afterwards.",
+    body: "Code, infrastructure, docs, and decisions stay transparent. Moonshift logs the handoff so your team can extend the product without reverse engineering the build.",
+    icon: GitBranch,
+    visual: "handoff",
   },
 ];
 
-const subFeatures = [
-  { icon: Server, label: "INFRASTRUCTURE", title: "Infrastructure Ownership", desc: "Users maintain ownership of hosting, databases, and deployment environments." },
-  { icon: GitBranch, label: "SOURCE CODE", title: "Source Code Ownership", desc: "Generated repositories belong entirely to the user. Export anytime." },
-  { icon: Megaphone, label: "MARKETING", title: "Marketing Asset Generation", desc: "Create launch-ready content and promotional materials automatically." },
-  { icon: FileCheck, label: "LAUNCH", title: "Launch Automation", desc: "Generate everything required to release a product publicly." },
-  { icon: ScrollText, label: "TRANSPARENCY", title: "Public Build Logs", desc: "Transparent visibility into application creation and deployment processes." },
-  { icon: Lock, label: "FREEDOM", title: "Vendor Lock-In Free", desc: "Users can continue development independently of the platform." },
-];
+function PromptVisual() {
+  return (
+    <div className="space-y-4">
+      <div className="border border-border-default bg-bg-surface p-4">
+        <div className="mb-4 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-text-secondary">
+          <span className="h-2 w-2 bg-text-muted" />
+          <span className="h-2 w-2 bg-border-default" />
+          <span className="h-2 w-2 bg-border-subtle" />
+          <span className="ml-2">/moonshift · prompt</span>
+        </div>
+        <div className="font-mono text-[13px] leading-[1.75] text-text-primary">
+          <span className="text-[#008BFF]">&gt;</span> Internal admin panel
+          <br />
+          <span className="pl-5 text-text-secondary">refunds · users · roles · gates</span>
+        </div>
+        <div className="mt-4 border-t border-border-default pt-4 font-mono text-[12px] leading-[1.7] text-text-secondary">
+          <span className="text-[#008BFF]">✓</span> planner · drafting contract
+          <br />
+          <span className="pl-5">flows · data · constraints</span>
+        </div>
+      </div>
+      <div className="border border-border-default bg-bg-elevated px-4 py-3 font-mono text-[11px] uppercase tracking-[0.18em] text-text-secondary">
+        ↳ Prompt becomes executable plan.
+      </div>
+    </div>
+  );
+}
 
-export default function Features() {
-  const [activeFeature, setActiveFeature] = useState(0);
+function AgentsVisual() {
+  const agents = [
+    ["planner", "100%"],
+    ["backend", "92%"],
+    ["frontend", "78%"],
+    ["deployer", "64%"],
+  ];
 
   return (
-    <section id="features" className="relative py-32 bg-bg-deep">
-      <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-24"
-        >
-          <div className="text-[11px] md:text-[13px] font-medium uppercase tracking-[0.1em] text-text-muted mb-6" style={{ fontFamily: "var(--font-space-grotesk)" }}>
-            THE PLATFORM
+    <div className="border border-border-default bg-bg-surface p-4">
+      <div className="mb-5 flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.18em] text-text-secondary">
+        <span><span className="text-[#008BFF]">●</span> phase 04 · streaming</span>
+        <span>14/14</span>
+      </div>
+      <div className="space-y-4">
+        {agents.map(([agent, width], index) => (
+          <div key={agent} className="grid grid-cols-[1fr_96px] items-center gap-4 font-mono text-[13px] text-text-secondary">
+            <div><span className="text-[#008BFF]">•</span> {agent}</div>
+            <div className="h-1.5 bg-border-default">
+              <motion.div
+                className="h-full bg-[#008BFF]"
+                initial={{ width: 0 }}
+                whileInView={{ width }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
+              />
+            </div>
           </div>
-          <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-text-primary max-w-2xl leading-[1.1]" style={{ fontFamily: "var(--font-dm-sans)" }}>
-            Everything you need to <span className="text-accent">build and ship</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function LaunchVisual() {
+  return (
+    <div className="space-y-4 border border-border-default bg-bg-surface p-4">
+      <div className="flex items-center justify-between border border-border-default bg-bg-elevated px-4 py-3 font-mono text-[13px] text-text-primary">
+        <span><span className="text-[#008BFF]">●</span> acme.moonshift.page</span>
+        <span>→</span>
+      </div>
+      <div className="grid grid-cols-3 gap-3 border-b border-border-default pb-4 font-mono text-[11px] uppercase tracking-[0.16em] text-text-secondary">
+        <span>repo</span>
+        <span>vercel</span>
+        <span className="text-[#008BFF]">live</span>
+      </div>
+      <div className="space-y-3 font-mono text-[13px] text-text-secondary">
+        <div className="flex justify-between"><span>✓ X post · 270c</span><span className="text-text-muted">drafted</span></div>
+        <div className="flex justify-between"><span>✓ LinkedIn · 1.1k</span><span className="text-text-muted">drafted</span></div>
+        <div className="flex justify-between"><span className="text-[#008BFF]">◆ Publish gate</span><span className="text-[#008BFF]">awaiting</span></div>
+      </div>
+    </div>
+  );
+}
+
+function HandoffVisual() {
+  const items = ["repository", "environment", "test suite", "release notes", "handoff log"];
+
+  return (
+    <div className="border border-border-default bg-bg-surface p-4">
+      <div className="mb-5 text-[11px] uppercase tracking-[0.18em] text-text-secondary">handoff packet</div>
+      <div className="space-y-3">
+        {items.map((item, index) => (
+          <motion.div
+            key={item}
+            className="flex items-center justify-between border border-border-default bg-bg-elevated px-4 py-3 text-[13px] text-text-secondary"
+            initial={{ opacity: 0, x: 14 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.28, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <span className="capitalize">{item}</span>
+            <CheckCircle2 className="h-4 w-4 text-[#008BFF]" />
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function StepVisual({ visual }: { visual: Step["visual"] }) {
+  if (visual === "prompt") return <PromptVisual />;
+  if (visual === "agents") return <AgentsVisual />;
+  if (visual === "launch") return <LaunchVisual />;
+  return <HandoffVisual />;
+}
+
+function StackedStepCard({ step, index, progress }: { step: Step; index: number; progress: MotionValue<number> }) {
+  const Icon = step.icon;
+  const start = index * 0.19;
+  const settle = start + 0.14;
+  const y = useTransform(progress, [start, settle], index === 0 ? [0, 0] : [980, 0]);
+
+  return (
+    <motion.article
+      className="absolute inset-0 transform-gpu overflow-hidden border border-border-default bg-bg-surface will-change-transform"
+      style={{ y, zIndex: index + 1 }}
+    >
+      <div className="grid h-full lg:grid-cols-[1.35fr_1fr]">
+        <div className="flex flex-col justify-between border-b border-border-default bg-bg-surface p-5 md:p-6 lg:border-b-0 lg:border-r">
+          <div>
+            <div className="mb-6 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span className="font-mono text-[18px] leading-none text-text-primary">
+                  {step.id}
+                </span>
+                <span className="font-mono text-[18px] leading-none text-text-muted">/ 04</span>
+              </div>
+              <Icon className="h-5 w-5 text-text-secondary" />
+            </div>
+            <p className="mb-3 text-[10px] uppercase tracking-[0.18em] text-accent" style={{ fontFamily: "var(--font-space-grotesk)" }}>
+              {step.eyebrow}
+            </p>
+            <h3 className="max-w-xl text-3xl font-medium leading-[1.08] tracking-[-0.035em] text-text-primary md:text-[42px]" style={{ fontFamily: "var(--font-dm-sans)" }}>
+              {step.title}
+            </h3>
+            <p className="mt-4 max-w-xl text-[15px] leading-[1.65] text-text-secondary md:text-[16px]">
+              {step.body}
+            </p>
+          </div>
+          <a
+            href="#pricing"
+            className="mt-6 inline-flex w-fit items-center justify-center rounded-full bg-text-primary px-5 py-2.5 text-[13px] font-semibold text-bg-deep transition-transform duration-150 hover:scale-[1.02]"
+          >
+            Start building
+          </a>
+        </div>
+
+        <div className="relative flex items-center justify-center overflow-hidden bg-accent p-5 md:p-8">
+          <div className="relative w-full max-w-[300px]">
+            <StepVisual visual={step.visual} />
+          </div>
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
+function StepsStack() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+
+  return (
+    <div ref={ref} className="relative h-[430vh]">
+      <div className="sticky top-0 flex h-screen items-center overflow-hidden py-24">
+        <div className="relative isolate mx-auto h-[min(460px,calc(100vh-160px))] w-full max-w-[920px] [contain:layout]">
+          {steps.map((step, index) => (
+            <StackedStepCard key={step.id} step={step} index={index} progress={scrollYProgress} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function Features() {
+  return (
+    <section id="features" className="relative bg-bg-deep py-24 md:py-32">
+      <div className="relative mx-auto max-w-[1200px] px-6 lg:px-10">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-120px" }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-16 max-w-3xl"
+        >
+          <div className="mb-5 text-[11px] font-medium uppercase tracking-[0.18em] text-accent" style={{ fontFamily: "var(--font-space-grotesk)" }}>
+            How Moonshift works
+          </div>
+          <h2 className="text-4xl font-medium leading-[1.04] tracking-[-0.03em] text-text-primary md:text-6xl" style={{ fontFamily: "var(--font-dm-sans)" }}>
+            From prompt to product, in four visible steps.
           </h2>
-          <p className="mt-6 text-lg text-text-secondary max-w-2xl leading-[1.6]">
-            From idea to deployment, Moonshift handles every step of the software development lifecycle automatically.
+          <p className="mt-6 max-w-2xl text-[16px] leading-[1.7] text-text-secondary">
+            Each card enters from below and stacks on the last one, so the full build sequence accumulates before the page releases to the next section.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-          <div className="lg:col-span-5 space-y-8">
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature.id}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ delay: index * 0.1, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className={`cursor-pointer group ${activeFeature === index ? 'opacity-100' : 'opacity-50 hover:opacity-80 transition-opacity'}`}
-                onClick={() => setActiveFeature(index)}
-              >
-                <div className="flex gap-6">
-                  <div className={`text-3xl font-mono font-medium ${activeFeature === index ? 'text-accent' : 'text-text-muted'}`}>
-                    {feature.id}
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-medium text-text-primary mb-3" style={{ fontFamily: "var(--font-dm-sans)" }}>{feature.title}</h3>
-                    <p className="text-text-secondary leading-[1.6]">{feature.description}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ delay: 0.2, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-7 sticky top-32"
-          >
-            <div className="bg-bg-elevated border border-border-subtle rounded-none overflow-hidden shadow-2xl">
-              <div className="flex items-center px-4 py-3 border-b border-border-subtle bg-bg-surface">
-                <div className="flex gap-2">
-                  <div className="w-3 h-3 rounded-full bg-[#EF4444]/20 border border-[#EF4444]/50" />
-                  <div className="w-3 h-3 rounded-full bg-[#F59E0B]/20 border border-[#F59E0B]/50" />
-                  <div className="w-3 h-3 rounded-full bg-[#22C55E]/20 border border-[#22C55E]/50" />
-                </div>
-                <div className="mx-auto text-[12px] font-mono text-text-muted">terminal</div>
-              </div>
-              <div className="p-8 font-mono text-[13px] leading-[1.7] overflow-x-auto min-h-[300px]">
-                <pre className="text-text-secondary whitespace-pre-wrap">
-                  {features[activeFeature].code}
-                </pre>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-40"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {subFeatures.map((feature, index) => {
-              const Icon = feature.icon;
-              return (
-                <motion.div
-                  key={feature.title}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ delay: index * 0.08, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                  className="group bg-bg-surface border border-border-subtle rounded-none p-6 hover:border-border-default transition-colors duration-150"
-                >
-                  <div className="flex items-center gap-3 mb-4">
-                    <Icon className="w-5 h-5 text-text-muted group-hover:text-text-primary transition-colors" />
-                    <span className="text-[11px] font-medium uppercase tracking-[0.1em] text-text-muted" style={{ fontFamily: "var(--font-space-grotesk)" }}>
-                      {feature.label}
-                    </span>
-                  </div>
-                  <h4 className="text-xl font-medium mb-3 text-text-primary" style={{ fontFamily: "var(--font-dm-sans)" }}>{feature.title}</h4>
-                  <p className="text-[15px] text-text-secondary leading-[1.6] mb-6">{feature.desc}</p>
-                  <a href="#" className="inline-flex items-center text-[14px] font-medium text-text-muted group-hover:text-text-primary transition-colors" style={{ fontFamily: "var(--font-space-grotesk)" }}>
-                    Learn more &rarr;
-                  </a>
-                </motion.div>
-              );
-            })}
-          </div>
-        </motion.div>
+        <StepsStack />
       </div>
     </section>
   );
