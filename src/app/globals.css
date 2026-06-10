@@ -58,6 +58,10 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  background: var(--bg-deep);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-default) var(--bg-deep);
 }
 
 body {
@@ -66,6 +70,7 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {

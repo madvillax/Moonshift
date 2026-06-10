@@ -191,7 +191,7 @@ function PixelSkyScene() {
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[#0A0A0A] pb-8 pt-0 text-white">
+    <footer className="relative overflow-hidden bg-[#0A0A0A] w-screen pb-8 pt-0 text-white">
       <div className="w-full">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
