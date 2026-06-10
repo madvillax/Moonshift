@@ -64,19 +64,15 @@ const cloudColors: Record<string, string> = {
 };
 
 const shipArt = [
-  "...........BBB....",
-  ".........BBBBBB...",
-  ".......BBBWWBBB..",
-  ".....BBBBWWWWBBB.",
-  "...BBBBBWWWWWWBBB",
-  ".BBBBBKKWWWWWWWWB",
-  "BBBKKKKKWWCCWWWWB",
-  ".BBBBBKKWWWWWWWWB",
-  "...BBBBBWWWWWWBBB",
-  ".....BBBBWWWWBBB.",
-  ".......BBBWWBBB..",
-  ".........BBBBBB...",
-  "...........BBB....",
+  "........BB....",
+  "......BBBBB...",
+  "....BBWWWWBB.",
+  "..BBKWWWCWWB",
+  "BBBBKKWWWWWB",
+  "..BBKWWWCWWB",
+  "....BBWWWWBB.",
+  "......BBBBB...",
+  "........BB....",
 ];
 
 const shipColors: Record<string, string> = {
@@ -87,7 +83,7 @@ const shipColors: Record<string, string> = {
 };
 
 function PixelShip({ className, delay = 0 }: { className: string; delay?: number }) {
-  const pixelSize = 7;
+  const pixelSize = 6;
   const width = Math.max(...shipArt.map((row) => row.length)) * pixelSize;
   const height = shipArt.length * pixelSize;
 
@@ -96,19 +92,19 @@ function PixelShip({ className, delay = 0 }: { className: string; delay?: number
       aria-hidden="true"
       className={`absolute flex items-center ${className}`}
       initial={{ x: "-36vw", opacity: 0 }}
-      animate={{ x: ["-36vw", "116vw"], y: [0, -5, 3, -2, 0], opacity: [0, 1, 1, 0] }}
-      transition={{ duration: 5.2, delay, repeat: Infinity, ease: "linear" }}
+      animate={{ x: ["-36vw", "116vw"], y: [0, -3, 2, 0], opacity: [0, 0.9, 0.9, 0] }}
+      transition={{ duration: 6.4, delay, repeat: Infinity, ease: "linear" }}
     >
       <motion.div
-        className="mr-[-3px] flex flex-col items-end gap-[6px]"
-        animate={{ x: [0, -16, 0], opacity: [0.25, 1, 0.25] }}
-        transition={{ duration: 0.18, repeat: Infinity, ease: "linear" }}
+        className="mr-[-2px] flex flex-col items-end gap-[5px]"
+        animate={{ x: [0, -10, 0], opacity: [0.22, 0.72, 0.22] }}
+        transition={{ duration: 0.24, repeat: Infinity, ease: "linear" }}
       >
-        <div className="h-[7px] w-20 bg-white/80" />
-        <div className="h-[10px] w-32 bg-[#69C0FF]" />
-        <div className="h-[7px] w-16 bg-white/70" />
+        <div className="h-[5px] w-10 bg-white/65" />
+        <div className="h-[7px] w-20 bg-[#69C0FF]/85" />
+        <div className="h-[5px] w-8 bg-white/55" />
       </motion.div>
-      <div className="drop-shadow-[0_10px_0_rgba(0,80,179,0.18)]" style={{ width, height }}>
+      <div className="drop-shadow-[0_7px_0_rgba(0,80,179,0.14)]" style={{ width, height }}>
         <svg width={width} height={height} shapeRendering="crispEdges">
           {shipArt.map((row, y) =>
             row.split("").map((char, x) => {
@@ -187,17 +183,16 @@ function PixelSkyScene() {
       {clouds.map((cloud) => (
         <PixelCloud key={cloud.className} className={cloud.className} delay={cloud.delay} />
       ))}
-      <PixelShip className="left-[-18%] top-[18%]" />
-      <PixelShip className="left-[-28%] top-[48%] scale-75" delay={1.9} />
-      <PixelShip className="left-[-22%] top-[70%] scale-90" delay={3.7} />
+      <PixelShip className="left-[-18%] top-[24%]" />
+      <PixelShip className="left-[-28%] top-[64%] scale-90" delay={3.2} />
     </div>
   );
 }
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[#0A0A0A] px-4 pb-8 pt-20 text-white sm:px-6 lg:px-10">
-      <div className="mx-auto max-w-[1200px]">
+    <footer className="relative overflow-hidden bg-[#0A0A0A] pb-8 pt-0 text-white">
+      <div className="w-full">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
