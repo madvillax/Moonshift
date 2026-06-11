@@ -20,11 +20,12 @@ describe("Navbar", () => {
         <Navbar />
       </ThemeProvider>,
     );
-    expect(screen.getByText("PRODUCTS")).toBeInTheDocument();
-    expect(screen.getByText("SOLUTIONS")).toBeInTheDocument();
-    expect(screen.getByText("TOOLKITS")).toBeInTheDocument();
-    expect(screen.getByText("BLOG")).toBeInTheDocument();
-    expect(screen.getByText("DOCS")).toBeInTheDocument();
+    expect(screen.getByText("How it works")).toBeInTheDocument();
+    expect(screen.getByText("Templates")).toBeInTheDocument();
+    expect(screen.getByText("Roadmap")).toBeInTheDocument();
+    expect(screen.getByText("Night Shift")).toBeInTheDocument();
+    expect(screen.getByText("Pricing")).toBeInTheDocument();
+    expect(screen.getByText("Docs")).toBeInTheDocument();
   });
 
   it("renders the theme toggle button", () => {

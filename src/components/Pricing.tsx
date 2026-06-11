@@ -193,12 +193,6 @@ export default function Pricing() {
                       : "border-border-default bg-bg-surface text-text-primary"
                   }`}
                 >
-                  {plan.highlighted && (
-                    <>
-                      <div className="pointer-events-none absolute right-0 top-0 h-40 w-44 opacity-35 [background-image:radial-gradient(rgba(255,255,255,0.72)_1px,transparent_1px)] [background-size:18px_18px] [mask-image:linear-gradient(135deg,black,transparent_72%)]" />
-                      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.08),transparent_42%)] opacity-70" />
-                    </>
-                  )}
                   <div className="relative flex flex-1 flex-col">
                     <div className="mb-6 flex items-start gap-4">
                       <div className="flex items-center gap-4">

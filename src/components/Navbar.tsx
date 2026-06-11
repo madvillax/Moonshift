@@ -7,11 +7,12 @@ import Image from "next/image";
 import { useTheme } from "./ThemeProvider";
 
 const navLinks = [
-  { name: "PRODUCTS", href: "#features", hasDropdown: true },
-  { name: "SOLUTIONS", href: "#solutions", hasDropdown: true },
-  { name: "TOOLKITS", href: "#toolkits" },
-  { name: "BLOG", href: "#blog" },
-  { name: "DOCS", href: "#docs" },
+  { name: "How it works", href: "/#features" },
+  { name: "Templates", href: "/#showcase" },
+  { name: "Roadmap", href: "/roadmap" },
+  { name: "Night Shift", href: "/#showcase" },
+  { name: "Pricing", href: "/#pricing" },
+  { name: "Docs", href: "/#faq" },
 ];
 
 export default function Navbar() {
@@ -84,11 +85,10 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className="flex items-center gap-1 text-[11px] font-medium uppercase tracking-[0.12em] text-black dark:text-text-muted hover:text-black dark:hover:text-text-primary transition-colors duration-200"
+                className="flex items-center gap-1 text-[12px] font-semibold tracking-[0.06em] text-black dark:text-text-muted hover:text-black dark:hover:text-text-primary transition-colors duration-200"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
               >
                 {link.name}
-                {link.hasDropdown && <ChevronDown className="w-3 h-3 ml-0.5" />}
               </a>
             ))}
           </div>
@@ -135,12 +135,11 @@ export default function Navbar() {
                 <a
                   key={link.name}
                   href={link.href}
-                  className="flex items-center justify-between text-[13px] font-medium uppercase tracking-[0.1em] text-black dark:text-text-secondary hover:text-black dark:hover:text-text-primary transition-colors"
+                  className="flex items-center justify-between text-[14px] font-semibold tracking-[0.06em] text-black dark:text-text-secondary hover:text-black dark:hover:text-text-primary transition-colors"
                   style={{ fontFamily: "var(--font-space-grotesk)" }}
                   onClick={handleCloseMobileMenu}
                 >
                   {link.name}
-                  {link.hasDropdown && <ChevronDown className="w-4 h-4" />}
                 </a>
               ))}
               <div className="pt-8 border-t border-border-subtle space-y-4">
