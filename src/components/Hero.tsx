@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Plus, Mic, ArrowUp, Lightbulb } from "lucide-react";
+
 
 const logos = [
   "Vercel",
@@ -111,10 +111,7 @@ export default function Hero() {
     <section className="relative min-h-[100dvh] flex flex-col items-start overflow-hidden bg-bg-deep pt-28 pb-20">
       <GridVisuals />
       <div className="relative max-w-[1200px] mx-auto px-6 lg:px-10 w-full z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        <div
           className="flex flex-col items-start text-left mb-6"
         >
           <h1
@@ -148,23 +145,15 @@ export default function Hero() {
               <span className="ml-1 group-hover:translate-x-0.5 transition-transform">→</span>
             </a>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-  className="max-w-[640px] mx-auto w-full mb-12"
+        <div
+          className="max-w-[640px] mx-auto w-full mb-12"
         >
           <PromptBox />
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full"
-        >
+        <div className="w-full">
           <div className="bg-bg-elevated border border-border-subtle rounded-none overflow-hidden">
             <div className="flex items-center px-4 py-3 border-b border-border-subtle bg-bg-surface">
               <div className="flex gap-2">
@@ -331,14 +320,9 @@ export default function Hero() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="mt-24 border-t border-border-subtle pt-12 overflow-hidden"
-        >
+        <div className="mt-24 border-t border-border-subtle pt-12 overflow-hidden">
           <p className="text-center text-[11px] font-medium text-text-muted mb-8 uppercase tracking-[0.1em]">
             TRUSTED BY DEVELOPERS AT
           </p>
@@ -354,7 +338,7 @@ export default function Hero() {
               ))}
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       <div className="absolute top-[180px] right-[12%] z-10 hidden lg:block">
