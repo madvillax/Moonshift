@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo, useCallback } from "react";
 
-import { Menu, X, ChevronDown, Sun, Moon } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import Image from "next/image";
 import { useTheme } from "./ThemeProvider";
 

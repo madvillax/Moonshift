@@ -38,7 +38,7 @@ const faqs = [
   },
 ];
 
-function FAQItem({ faq, index }: { faq: typeof faqs[0]; index: number }) {
+function FAQItem({ faq }: { faq: typeof faqs[0] }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -74,8 +74,8 @@ export default function FAQ() {
         </div>
 
         <div className="bg-bg-surface border border-border-subtle rounded-none p-6 md:p-8">
-          {faqs.map((faq, index) => (
-            <FAQItem key={index} faq={faq} index={index} />
+          {faqs.map((faq) => (
+            <FAQItem key={faq.question} faq={faq} />
           ))}
         </div>
       </div>
