@@ -19,11 +19,7 @@ const logos = [
 const Block = ({ className, color }: { className: string; color: string }) => (
   <div
     className={`absolute ${className}`}
-    style={{
-      backgroundColor: color,
-      backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-      backgroundBlendMode: "overlay",
-    }}
+    style={{ backgroundColor: color, opacity: 0.7 }}
   />
 );
 
@@ -78,44 +74,35 @@ const rocketHeight = rocketArt.length * ROCKET_PIXEL_SIZE;
 
 const PixelRocket = () => {
   return (
-    <motion.div 
-      className="relative"
-      style={{ width: rocketWidth, height: rocketHeight }}
-      animate={{ y: [0, -9, 0], x: [0, -8, 0], rotate: [0, 0.6, 0] }}
-      transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
-    >
-      <svg width={rocketWidth} height={rocketHeight} shapeRendering="crispEdges">
-        {rocketArt.map((row, y) => 
-          row.split('').map((char, x) => {
-            if (char === '.') return null;
-            if (char === 'C' || char === 'L') {
-              return (
-                <motion.rect
-                  key={`r-${x}-${y}`}
-                  x={x * ROCKET_PIXEL_SIZE}
-                  y={y * ROCKET_PIXEL_SIZE}
-                  width={ROCKET_PIXEL_SIZE}
-                  height={ROCKET_PIXEL_SIZE}
-                  fill={rocketColors[char]}
-                  animate={{ opacity: [0.65, 1, 0.65] }}
-                  transition={{ duration: 0.45, repeat: Infinity, ease: [0.16, 1, 0.3, 1] }}
-                />
-              );
-            }
-            return <rect key={`r-${x}-${y}`} x={x * ROCKET_PIXEL_SIZE} y={y * ROCKET_PIXEL_SIZE} width={ROCKET_PIXEL_SIZE} height={ROCKET_PIXEL_SIZE} fill={rocketColors[char]} />;
-          })
-        )}
-      </svg>
-      <motion.div
-        className="absolute right-[-38px] top-1/2 flex -translate-y-1/2 flex-col gap-[4px]"
-        animate={{ x: [0, 10, 0] }}
-        transition={{ duration: 0.38, repeat: Infinity, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <motion.div className="h-[7px] w-[26px] bg-[#38BDF8]" animate={{ opacity: [0.35, 0.85, 0.35], scaleX: [0.65, 1.1, 0.65] }} transition={{ duration: 0.38, repeat: Infinity, ease: [0.16, 1, 0.3, 1] }} />
-        <motion.div className="h-[9px] w-[40px] bg-[#69C0FF]" animate={{ opacity: [0.45, 1, 0.45], scaleX: [0.75, 1.25, 0.75] }} transition={{ duration: 0.32, repeat: Infinity, ease: [0.16, 1, 0.3, 1] }} />
-        <motion.div className="h-[7px] w-[24px] bg-[#38BDF8]" animate={{ opacity: [0.3, 0.8, 0.3], scaleX: [0.6, 1.05, 0.6] }} transition={{ duration: 0.44, repeat: Infinity, ease: [0.16, 1, 0.3, 1] }} />
-      </motion.div>
-    </motion.div>
+    <div className="rocket-hover">
+      <style>{`
+        @keyframes rocket-float { 0%,100% { transform: translate(0,0) rotate(0deg); } 50% { transform: translate(-8px,-9px) rotate(0.6deg); } }
+        @keyframes rocket-exhaust { 0%,100% { transform: translateX(0); opacity: 1; } 50% { transform: translateX(10px); opacity: 0.7; } }
+        @keyframes exhaust-pulse1 { 0%,100% { opacity: 0.5; transform: scaleX(0.7); } 50% { opacity: 0.9; transform: scaleX(1.05); } }
+        @keyframes exhaust-pulse2 { 0%,100% { opacity: 0.4; transform: scaleX(0.75); } 50% { opacity: 1; transform: scaleX(1.1); } }
+        @keyframes exhaust-pulse3 { 0%,100% { opacity: 0.35; transform: scaleX(0.65); } 50% { opacity: 0.85; transform: scaleX(1); } }
+        .rocket-hover { animation: rocket-float 2.6s ease-in-out infinite; }
+        .rocket-exhaust { animation: rocket-exhaust 0.38s linear infinite; }
+        .exhaust-1 { animation: exhaust-pulse1 0.38s linear infinite; }
+        .exhaust-2 { animation: exhaust-pulse2 0.32s linear infinite; }
+        .exhaust-3 { animation: exhaust-pulse3 0.44s linear infinite; }
+      `}</style>
+      <div className="relative" style={{ width: rocketWidth, height: rocketHeight }}>
+        <svg width={rocketWidth} height={rocketHeight} shapeRendering="crispEdges">
+          {rocketArt.map((row, y) => 
+            row.split('').map((char, x) => {
+              if (char === '.') return null;
+              return <rect key={`r-${x}-${y}`} x={x * ROCKET_PIXEL_SIZE} y={y * ROCKET_PIXEL_SIZE} width={ROCKET_PIXEL_SIZE} height={ROCKET_PIXEL_SIZE} fill={rocketColors[char]} />;
+            })
+          )}
+        </svg>
+        <div className="rocket-exhaust absolute right-[-38px] top-1/2 flex -translate-y-1/2 flex-col gap-[4px]">
+          <div className="exhaust-1 h-[7px] w-[26px] bg-[#38BDF8]" />
+          <div className="exhaust-2 h-[9px] w-[40px] bg-[#69C0FF]" />
+          <div className="exhaust-3 h-[7px] w-[24px] bg-[#38BDF8]" />
+        </div>
+      </div>
+    </div>
   );
 };
 

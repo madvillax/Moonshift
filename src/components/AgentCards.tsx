@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+
 import {
   Brain,
   Database,
@@ -85,20 +85,14 @@ export default function AgentCards() {
   return (
     <section id="showcase" className="relative py-32 bg-bg-deep">
       <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-20"
-        >
+        <div className="mb-20">
           <div className="text-[11px] md:text-[13px] font-medium uppercase tracking-[0.1em] text-text-muted mb-6" style={{ fontFamily: "var(--font-space-grotesk)" }}>
             THE AGENT SYSTEM
           </div>
           <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-text-primary max-w-2xl leading-[1.1]" style={{ fontFamily: "var(--font-dm-sans)" }}>
             A specialized team of <span className="text-text-secondary">AI developers</span>
           </h2>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {agents.map((agent, index) => {
@@ -106,12 +100,8 @@ export default function AgentCards() {
             const isActive = agent.status === "Active";
             
             return (
-              <motion.div
+              <div
                 key={agent.name}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ delay: index * 0.06, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 className="group bg-bg-surface border border-border-subtle rounded-none p-6 hover:border-border-default transition-colors duration-150 flex flex-col h-full"
               >
                 <div className="flex items-center justify-between mb-6">
@@ -141,7 +131,7 @@ export default function AgentCards() {
                     View capabilities &rarr;
                   </a>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>

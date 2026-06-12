@@ -1,231 +1,187 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import type { MotionValue } from "framer-motion";
-import { CheckCircle2, GitBranch, MousePointer2, Network, Rocket } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-
-type Step = {
-  id: string;
-  eyebrow: string;
-  title: string;
-  body: string;
-  icon: LucideIcon;
-  visual: "prompt" | "agents" | "launch" | "handoff";
-};
-
-const steps: Step[] = [
+const features = [
   {
-    id: "01",
-    eyebrow: "Prompt to executable plan",
-    title: "Describe the outcome.",
-    body: "Write what you want shipped in plain language. Moonshift turns the prompt into requirements, constraints, flows, data, gates, and a build plan you can approve.",
-    icon: MousePointer2,
-    visual: "prompt",
+    id: "deploy",
+    title: "One-Prompt Deploy",
+    description: "Describe your app in plain text. Moonshift plans, builds, tests, and deploys it in ~6 minutes.",
+    visual: "deploy",
   },
   {
-    id: "02",
-    eyebrow: "Autonomy begins",
-    title: "Approve once. Watch it build.",
-    body: "Agents fan out across frontend, backend, tests, deploy, copy, and release work. Every phase streams progress so you are watching the launch, not managing tickets.",
-    icon: Network,
-    visual: "agents",
+    id: "infra",
+    title: "Your Infra, Your Code",
+    description: "Repo on your GitHub. Deployed to your Vercel. You own every line of code.",
+    visual: "infra",
   },
   {
-    id: "03",
-    eyebrow: "Production-ready output",
-    title: "Wake up launched.",
-    body: "A deployed URL, repository, tests, release notes, and launch assets are prepared together. The product ships with the operational pieces already connected.",
-    icon: Rocket,
-    visual: "launch",
+    id: "marketing",
+    title: "Marketing on Autopilot",
+    description: "Launch posts for X and LinkedIn are drafted automatically. One-click approval.",
+    visual: "marketing",
   },
   {
-    id: "04",
-    eyebrow: "Clean handoff",
-    title: "Own the stack afterwards.",
-    body: "Code, infrastructure, docs, and decisions stay transparent. Moonshift logs the handoff so your team can extend the product without reverse engineering the build.",
-    icon: GitBranch,
-    visual: "handoff",
+    id: "url",
+    title: "Branded URL + Custom Domain",
+    description: "Get yourapp.moonshift.page instantly. Connect your own domain in one click.",
+    visual: "url",
+  },
+  {
+    id: "security",
+    title: "Testing + Security Audit",
+    description: "Automated tests and security audits run before every deploy. Vulnerabilities caught early.",
+    visual: "security",
+  },
+  {
+    id: "maintain",
+    title: "Never-Stop Maintenance",
+    description: "Agents keep monitoring, patching, and optimizing performance after you ship.",
+    visual: "maintain",
   },
 ];
 
-function PromptVisual() {
+function DeployVisual() {
   return (
-    <div className="space-y-4">
-      <div className="border border-border-default bg-bg-surface p-4">
-        <div className="mb-4 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-text-secondary">
-          <span className="h-2 w-2 bg-text-muted" />
-          <span className="h-2 w-2 bg-border-default" />
-          <span className="h-2 w-2 bg-border-subtle" />
-          <span className="ml-2">/moonshift · prompt</span>
+    <div className="w-full h-full flex items-center justify-center p-4">
+      <div className="w-full border border-border-default bg-bg-surface p-3">
+        <div className="flex items-center gap-2 mb-2">
+          <div className="w-2 h-2 bg-[#FF5F57]" />
+          <div className="w-2 h-2 bg-[#FEBC2E]" />
+          <div className="w-2 h-2 bg-[#28C840]" />
+          <span className="text-[8px] font-mono text-text-muted ml-2">app.moonshift.page</span>
         </div>
-        <div className="font-mono text-[13px] leading-[1.75] text-text-primary">
-          <span className="text-[#008BFF]">&gt;</span> Internal admin panel
-          <br />
-          <span className="pl-5 text-text-secondary">refunds · users · roles · gates</span>
-        </div>
-        <div className="mt-4 border-t border-border-default pt-4 font-mono text-[12px] leading-[1.7] text-text-secondary">
-          <span className="text-[#008BFF]">✓</span> planner · drafting contract
-          <br />
-          <span className="pl-5">flows · data · constraints</span>
-        </div>
-      </div>
-      <div className="border border-border-default bg-bg-elevated px-4 py-3 font-mono text-[11px] uppercase tracking-[0.18em] text-text-secondary">
-        ↳ Prompt becomes executable plan.
+        <div className="w-8 h-8 bg-[#008BFF] mb-2" />
+        <div className="w-24 h-2 bg-border-default mb-1" />
+        <div className="w-16 h-2 bg-border-default" />
       </div>
     </div>
   );
 }
 
-const agentProgress = [
-  ["planner", "100%"],
-  ["backend", "92%"],
-  ["frontend", "78%"],
-  ["deployer", "64%"],
-];
-
-function AgentsVisual() {
+function InfraVisual() {
   return (
-    <div className="border border-border-default bg-bg-surface p-4">
-      <div className="mb-5 flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.18em] text-text-secondary">
-        <span><span className="text-[#008BFF]">●</span> phase 04 · streaming</span>
-        <span>14/14</span>
+    <div className="w-full h-full flex items-center justify-center p-4">
+      <div className="relative w-24 h-24">
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          <ellipse cx="50" cy="50" rx="45" ry="15" fill="none" stroke="rgba(0,139,255,0.15)" strokeWidth="1" />
+          <ellipse cx="50" cy="50" rx="45" ry="15" fill="none" stroke="rgba(0,139,255,0.1)" strokeWidth="1" transform="rotate(60 50 50)" />
+          <ellipse cx="50" cy="50" rx="45" ry="15" fill="none" stroke="rgba(0,139,255,0.1)" strokeWidth="1" transform="rotate(120 50 50)" />
+          <path d="M50 20 L65 40 L65 60 L50 70 L35 60 L35 40 Z" fill="#008BFF" opacity="0.8" />
+          <path d="M50 20 L50 70" stroke="#0050B3" strokeWidth="2" />
+          <path d="M35 40 L65 40" stroke="#0050B3" strokeWidth="1" />
+        </svg>
       </div>
-      <div className="space-y-4">
-        {agentProgress.map(([agent, width], index) => (
-          <div key={agent} className="grid grid-cols-[1fr_96px] items-center gap-4 font-mono text-[13px] text-text-secondary">
-            <div><span className="text-[#008BFF]">•</span> {agent}</div>
-            <div className="h-1.5 bg-border-default">
-              <motion.div
-                className="h-full bg-[#008BFF]"
-                initial={{ width: 0 }}
-                whileInView={{ width }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.55, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
-              />
-            </div>
+    </div>
+  );
+}
+
+function MarketingVisual() {
+  return (
+    <div className="w-full h-full flex items-center justify-center p-4 gap-3">
+      <div className="w-10 h-10 border border-border-default flex items-center justify-center">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="text-[#008BFF]">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+        </svg>
+      </div>
+      <div className="w-10 h-10 border border-border-default flex items-center justify-center">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-[#008BFF]">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+        </svg>
+      </div>
+      <div className="w-10 h-10 border border-border-default flex items-center justify-center">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-[#008BFF]">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+          <rect x="2" y="9" width="4" height="12" />
+          <circle cx="4" cy="4" r="2" />
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+function URLVisual() {
+  return (
+    <div className="w-full h-full flex items-center justify-center p-4">
+      <div className="w-full space-y-3">
+        <div className="flex items-center gap-2 border border-border-default bg-bg-surface p-3">
+          <div className="w-2 h-2 bg-[#FF5F57]" />
+          <div className="w-2 h-2 bg-[#FEBC2E]" />
+          <div className="w-2 h-2 bg-[#28C840]" />
+          <div className="flex-1 h-5 bg-bg-elevated flex items-center px-2">
+            <span className="text-[9px] font-mono text-text-muted">yourapp.moonshift.page</span>
           </div>
-        ))}
+        </div>
+        <div className="flex items-center justify-center gap-2">
+          <span className="text-[10px] font-mono text-text-muted">or</span>
+        </div>
+        <div className="flex items-center gap-2 border border-border-default bg-bg-surface p-3">
+          <div className="w-2 h-2 bg-[#FF5F57]" />
+          <div className="w-2 h-2 bg-[#FEBC2E]" />
+          <div className="w-2 h-2 bg-[#28C840]" />
+          <div className="flex-1 h-5 bg-bg-elevated flex items-center px-2">
+            <span className="text-[9px] font-mono text-[#008BFF]">yourapp.com</span>
+          </div>
+          <span className="text-[8px] font-mono uppercase tracking-wider text-[#22C55E] border border-[#22C55E] px-1.5 py-0.5">Custom</span>
+        </div>
       </div>
     </div>
   );
 }
 
-function LaunchVisual() {
+function SecurityVisual() {
   return (
-    <div className="space-y-4 border border-border-default bg-bg-surface p-4">
-      <div className="flex items-center justify-between border border-border-default bg-bg-elevated px-4 py-3 font-mono text-[13px] text-text-primary">
-        <span><span className="text-[#008BFF]">●</span> acme.moonshift.page</span>
-        <span>→</span>
-      </div>
-      <div className="grid grid-cols-3 gap-3 border-b border-border-default pb-4 font-mono text-[11px] uppercase tracking-[0.16em] text-text-secondary">
-        <span>repo</span>
-        <span>vercel</span>
-        <span className="text-[#008BFF]">live</span>
-      </div>
-      <div className="space-y-3 font-mono text-[13px] text-text-secondary">
-        <div className="flex justify-between"><span>✓ X post · 270c</span><span className="text-text-muted">drafted</span></div>
-        <div className="flex justify-between"><span>✓ LinkedIn · 1.1k</span><span className="text-text-muted">drafted</span></div>
-        <div className="flex justify-between"><span className="text-[#008BFF]">◆ Publish gate</span><span className="text-[#008BFF]">awaiting</span></div>
-      </div>
-    </div>
-  );
-}
-
-const handoffItems = ["repository", "environment", "test suite", "release notes", "handoff log"];
-
-function HandoffVisual() {
-  return (
-    <div className="border border-border-default bg-bg-surface p-4">
-      <div className="mb-5 text-[11px] uppercase tracking-[0.18em] text-text-secondary">handoff packet</div>
-      <div className="space-y-3">
-        {handoffItems.map((item, index) => (
-          <motion.div
-            key={item}
-            className="flex items-center justify-between border border-border-default bg-bg-elevated px-4 py-3 text-[13px] text-text-secondary"
-            initial={{ opacity: 0, x: 14 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.28, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <span className="capitalize">{item}</span>
-            <CheckCircle2 className="h-4 w-4 text-[#008BFF]" />
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function StepVisual({ visual }: { visual: Step["visual"] }) {
-  if (visual === "prompt") return <PromptVisual />;
-  if (visual === "agents") return <AgentsVisual />;
-  if (visual === "launch") return <LaunchVisual />;
-  return <HandoffVisual />;
-}
-
-function StackedStepCard({ step, index, progress }: { step: Step; index: number; progress: MotionValue<number> }) {
-  const Icon = step.icon;
-  const start = index * 0.19;
-  const settle = start + 0.14;
-  const y = useTransform(progress, [start, settle], index === 0 ? [0, 0] : [980, 0]);
-
-  return (
-    <motion.article
-      className="absolute inset-0 transform-gpu overflow-hidden border border-border-default bg-bg-surface will-change-transform"
-      style={{ y, zIndex: index + 1 }}
-    >
-      <div className="grid h-full lg:grid-cols-[1.35fr_1fr]">
-        <div className="flex flex-col justify-between border-b border-border-default bg-bg-surface p-5 md:p-6 lg:border-b-0 lg:border-r">
-          <div>
-            <div className="mb-6 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <span className="font-mono text-[18px] leading-none text-text-primary">
-                  {step.id}
-                </span>
-                <span className="font-mono text-[18px] leading-none text-text-muted">/ 04</span>
+    <div className="w-full h-full flex items-center justify-center p-4">
+      <div className="w-full border border-border-default bg-bg-surface p-4">
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-6 h-6 border border-[#008BFF] flex items-center justify-center">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#008BFF" strokeWidth="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+          </div>
+          <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-text-muted">Security Check</span>
+        </div>
+        <div className="space-y-3">
+          {[
+            { label: "Tests Passed", status: "14/14" },
+            { label: "Security Scan", status: "Clean" },
+            { label: "Ready to Deploy", status: "Yes" },
+          ].map((item) => (
+            <div key={item.label} className="flex items-center justify-between">
+              <span className="text-[11px] font-mono text-text-secondary">{item.label}</span>
+              <div className="flex items-center gap-1.5">
+                <span className="text-[10px] font-mono text-[#22C55E]">{item.status}</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
               </div>
-              <Icon className="h-5 w-5 text-text-secondary" />
             </div>
-            <p className="mb-3 text-[10px] uppercase tracking-[0.18em] text-accent" style={{ fontFamily: "var(--font-space-grotesk)" }}>
-              {step.eyebrow}
-            </p>
-            <h3 className="max-w-xl text-3xl font-medium leading-[1.08] tracking-[-0.035em] text-text-primary md:text-[42px]" style={{ fontFamily: "var(--font-dm-sans)" }}>
-              {step.title}
-            </h3>
-            <p className="mt-4 max-w-xl text-[15px] leading-[1.65] text-text-secondary md:text-[16px]">
-              {step.body}
-            </p>
-          </div>
-          <a
-            href="#pricing"
-            className="mt-6 inline-flex w-fit items-center justify-center rounded-full bg-text-primary px-5 py-2.5 text-[13px] font-semibold text-bg-deep transition-transform duration-150 hover:scale-[1.02]"
-          >
-            Start building
-          </a>
+          ))}
         </div>
-
-        <div className="relative flex items-center justify-center overflow-hidden bg-accent p-5 md:p-8">
-          <div className="relative w-full max-w-[300px]">
-            <StepVisual visual={step.visual} />
-          </div>
+        <div className="w-full h-1 bg-bg-elevated mt-3">
+          <div className="h-full bg-[#008BFF] w-full" />
         </div>
       </div>
-    </motion.article>
+    </div>
   );
 }
 
-function StepsStack() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-
+function MaintainVisual() {
   return (
-    <div ref={ref} className="relative h-[430vh]">
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden py-24">
-        <div className="relative isolate mx-auto h-[min(460px,calc(100vh-160px))] w-full max-w-[920px] [contain:layout]">
-          {steps.map((step, index) => (
-            <StackedStepCard key={step.id} step={step} index={index} progress={scrollYProgress} />
+    <div className="w-full h-full flex items-center justify-center p-4">
+      <div className="w-full border border-border-default bg-bg-surface p-4">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-text-muted">System Health</span>
+          <span className="text-[9px] font-mono text-[#008BFF]">99.9% uptime</span>
+        </div>
+        <div className="space-y-2">
+          {[85, 70, 60].map((w, i) => (
+            <div key={i} className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-[#008BFF]" />
+              <div className="flex-1 h-2 bg-bg-elevated">
+                <div className="h-full bg-[#008BFF]" style={{ width: `${w}%` }} />
+              </div>
+            </div>
           ))}
         </div>
       </div>
@@ -233,29 +189,59 @@ function StepsStack() {
   );
 }
 
+const visualMap: Record<string, React.FC> = {
+  deploy: DeployVisual,
+  infra: InfraVisual,
+  marketing: MarketingVisual,
+  url: URLVisual,
+  security: SecurityVisual,
+  maintain: MaintainVisual,
+};
+
+function FeatureCard({ feature }: { feature: typeof features[0] }) {
+  const Visual = visualMap[feature.visual];
+  return (
+    <div className="border border-border-default bg-bg-deep overflow-hidden flex flex-col h-[320px]">
+      <div className="h-[160px] relative overflow-hidden">
+        <Visual />
+      </div>
+      <div className="p-5 border-t border-border-default flex-1">
+        <h3 className="text-lg font-medium text-text-primary mb-2" style={{ fontFamily: "var(--font-dm-sans)" }}>
+          {feature.title}
+        </h3>
+        <p className="text-[13px] leading-[1.6] text-text-secondary font-sans">
+          {feature.description}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export default function Features() {
   return (
-    <section id="features" className="relative bg-bg-deep py-24 md:py-32">
-      <div className="relative mx-auto max-w-[1200px] px-6 lg:px-10">
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-120px" }}
-          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-16 max-w-3xl"
-        >
-          <div className="mb-5 text-[11px] font-medium uppercase tracking-[0.18em] text-accent" style={{ fontFamily: "var(--font-space-grotesk)" }}>
-            How Moonshift works
-          </div>
-          <h2 className="text-4xl font-medium leading-[1.04] tracking-[-0.03em] text-text-primary md:text-6xl" style={{ fontFamily: "var(--font-dm-sans)" }}>
-            From prompt to product, in four visible steps.
-          </h2>
-          <p className="mt-6 max-w-2xl text-[16px] leading-[1.7] text-text-secondary">
-            Each card enters from below and stacks on the last one, so the full build sequence accumulates before the page releases to the next section.
-          </p>
-        </motion.div>
+    <section id="features" className="relative bg-bg-deep py-24 md:py-32 overflow-hidden">
+      <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)`, backgroundSize: "60px 60px" }} />
 
-        <StepsStack />
+      <div className="relative mx-auto max-w-[1200px] px-6 lg:px-10">
+        <div className="mb-16 md:mb-20 max-w-3xl">
+          <div className="mb-5 text-[11px] font-medium uppercase tracking-[0.18em] text-accent" style={{ fontFamily: "var(--font-space-grotesk)" }}>
+            Platform Features
+          </div>
+          <h2 className="text-4xl font-medium leading-[1.04] tracking-[-0.03em] text-text-primary md:text-5xl lg:text-6xl" style={{ fontFamily: "var(--font-dm-sans)" }}>
+            Everything you need to ship faster.
+          </h2>
+          <p className="mt-6 max-w-2xl text-[16px] leading-[1.7] text-text-secondary font-sans">
+            From one prompt to a deployed product — Moonshift handles the entire lifecycle.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-border-default border border-border-default" style={{ contain: "layout style" }}>
+          {features.map((feature) => (
+            <div key={feature.id} className="bg-bg-deep">
+              <FeatureCard feature={feature} />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

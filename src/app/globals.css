@@ -64,6 +64,20 @@ html {
   scrollbar-color: var(--border-default) var(--bg-deep);
 }
 
+section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
+}
+
+.sticky {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+#solutions .sticky {
+  contain: layout style;
+}
+
 body {
   background: var(--bg-deep);
   color: var(--text-primary);

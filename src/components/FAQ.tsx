@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
 const faqs = [
@@ -51,29 +50,15 @@ function FAQItem({ faq, index }: { faq: typeof faqs[0]; index: number }) {
         <h3 className="text-lg font-medium text-text-primary pr-4" style={{ fontFamily: "var(--font-dm-sans)" }}>
           {faq.question}
         </h3>
-        <motion.div
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.2 }}
-          className="flex-shrink-0"
-        >
+        <div className={`flex-shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>
           <ChevronDown className="w-5 h-5 text-text-muted group-hover:text-accent transition-colors" />
-        </motion.div>
+        </div>
       </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden"
-          >
-            <p className="pb-6 text-[15px] text-text-secondary leading-[1.6]">
-              {faq.answer}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div className={`overflow-hidden transition-all duration-300 ease-out ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
+        <p className="pb-6 text-[15px] text-text-secondary leading-[1.6]">
+          {faq.answer}
+        </p>
+      </div>
     </div>
   );
 }
@@ -82,29 +67,17 @@ export default function FAQ() {
   return (
     <section id="faq" className="relative py-32 bg-bg-deep">
       <div className="max-w-[800px] mx-auto px-6 lg:px-10">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-16 text-center"
-        >
+        <div className="mb-16 text-center">
           <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-text-primary" style={{ fontFamily: "var(--font-dm-sans)" }}>
             Frequently Asked Questions
           </h2>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ delay: 0.1, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="bg-bg-surface border border-border-subtle rounded-none p-6 md:p-8"
-        >
+        <div className="bg-bg-surface border border-border-subtle rounded-none p-6 md:p-8">
           {faqs.map((faq, index) => (
             <FAQItem key={index} faq={faq} index={index} />
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

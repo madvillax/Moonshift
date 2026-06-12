@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+
 import { Menu, X, ChevronDown, Sun, Moon } from "lucide-react";
 import Image from "next/image";
 import { useTheme } from "./ThemeProvider";
@@ -44,18 +44,16 @@ export default function Navbar() {
   }, []);
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed top-0 left-0 right-0 z-50 flex justify-center px-6 lg:px-10"
-    >
+    <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center px-6 lg:px-10 animate-[slideDown_0.6s_ease-out]">
+      <style>{`
+        @keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+      `}</style>
       <div
         className={`w-full max-w-[1200px] transition-all duration-500 ${
           isScrolled
             ? theme === "light"
-              ? "mt-0 bg-white/90 backdrop-blur-xl border border-black/10 shadow-[0_1px_0_rgba(0,0,0,0.06)]"
-              : "mt-0 bg-[#0A0A0A]/95 backdrop-blur-xl border border-white/10 shadow-[0_1px_0_rgba(255,255,255,0.1)]"
+              ? "mt-0 bg-white/95 border border-black/10 shadow-[0_1px_0_rgba(0,0,0,0.06)]"
+              : "mt-0 bg-[#0A0A0A]/98 border border-white/10 shadow-[0_1px_0_rgba(255,255,255,0.1)]"
             : "mt-3 bg-bg-deep border border-transparent"
         }`}
       >
@@ -76,7 +74,7 @@ export default function Navbar() {
                     ? "brightness-0 invert"
                     : "dark:brightness-0 dark:invert"
               }`}
-              priority
+              loading="eager"
             />
           </a>
 
@@ -120,16 +118,15 @@ export default function Navbar() {
         </div>
       </div>
 
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "100vh" }}
-            exit={{ opacity: 0, height: 0 }}
-            className={`lg:hidden fixed inset-0 z-40 overflow-y-auto bg-bg-deep ${
-              isScrolled ? "top-16" : "top-[76px]"
-            }`}
-          >
+      {isMobileMenuOpen && (
+          <div className={`lg:hidden fixed inset-0 z-40 overflow-y-auto bg-bg-deep transition-all duration-300 ${
+            isMobileMenuOpen ? "opacity-100" : "opacity-0"
+          } ${
+            isScrolled ? "top-16" : "top-[76px]"
+          }`}>
+            <style>{`
+              @keyframes menuOpen { from { opacity: 0; } to { opacity: 1; } }
+            `}</style>
             <div className="px-6 py-8 space-y-6">
               {memoizedNavLinks.map((link) => (
                 <a
@@ -162,9 +159,8 @@ export default function Navbar() {
                 </a>
               </div>
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
-    </motion.nav>
+    </nav>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 type Billing = "monthly" | "annual";
 
@@ -62,13 +61,7 @@ export default function Pricing() {
   return (
     <section id="pricing" className="relative overflow-hidden bg-bg-deep py-28 md:py-36">
       <div className="relative mx-auto max-w-[1320px] px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-120px" }}
-          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="mx-auto mb-10 max-w-4xl text-center md:mb-12"
-        >
+        <div className="mx-auto mb-10 max-w-4xl text-center md:mb-12">
           <p
             className="mb-5 text-[11px] font-medium uppercase tracking-[0.28em] text-accent"
             style={{ fontFamily: "var(--font-space-grotesk)" }}
@@ -86,15 +79,9 @@ export default function Pricing() {
           >
             Your first launch is free: <strong className="text-text-primary">5,000 moons, no card.</strong> A typical launch costs ~$0.60, and every run has a <strong className="text-text-primary">hard spend ceiling.</strong>
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="mx-auto mb-10 flex max-w-[1320px] flex-col items-center justify-between gap-5 md:mb-12 md:flex-row"
-        >
+        <div className="mx-auto mb-10 flex max-w-[1320px] flex-col items-center justify-between gap-5 md:mb-12 md:flex-row">
           <div className="flex w-full flex-col gap-3 rounded-none border border-border-default bg-bg-surface p-4 md:w-auto md:min-w-[520px]">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -137,13 +124,6 @@ export default function Pricing() {
               className="relative px-5 py-2.5 text-[13px] font-medium uppercase tracking-[0.16em] transition-colors duration-200"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              {billing === "monthly" && (
-                <motion.div
-                  layoutId="billing-pill"
-                  className="absolute inset-0 rounded-none bg-text-primary"
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                />
-              )}
               <span className={`relative z-10 ${billing === "monthly" ? "text-bg-deep" : "text-text-secondary hover:text-text-primary"}`}>
                 Monthly
               </span>
@@ -153,13 +133,6 @@ export default function Pricing() {
               className="relative flex items-center gap-2 px-5 py-2.5 text-[13px] font-medium uppercase tracking-[0.16em] transition-colors duration-200"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              {billing === "annual" && (
-                <motion.div
-                  layoutId="billing-pill"
-                  className="absolute inset-0 rounded-none bg-text-primary"
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                />
-              )}
               <span className={`relative z-10 ${billing === "annual" ? "text-bg-deep" : "text-text-secondary hover:text-text-primary"}`}>
                 Annual
               </span>
@@ -174,20 +147,15 @@ export default function Pricing() {
               </span>
             </button>
           </div>
-        </motion.div>
+        </div>
 
         <div className="grid gap-4 lg:grid-cols-3 lg:gap-4">
-          <AnimatePresence mode="wait">
-            {plans.map((plan, index) => {
-              const tier = plan[billing];
-              return (
-                <motion.article
-                  key={`${plan.label}-${billing}`}
-                  initial={{ opacity: 0, y: 22 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ delay: index * 0.08, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                  className={`group relative flex min-h-[500px] flex-col overflow-hidden border p-5 md:p-6 ${
+          {plans.map((plan) => {
+            const tier = plan[billing];
+            return (
+              <article
+                key={`${plan.label}-${billing}`}
+                className={`group relative flex min-h-[500px] flex-col overflow-hidden border p-5 md:p-6 ${
                     plan.highlighted
                       ? "border-accent bg-[#008bff] text-white"
                       : "border-border-default bg-bg-surface text-text-primary"
@@ -273,10 +241,9 @@ export default function Pricing() {
                       {plan.cta} →
                     </a>
                   </div>
-                </motion.article>
+                </article>
               );
-            })}
-          </AnimatePresence>
+          })}
         </div>
       </div>
     </section>
