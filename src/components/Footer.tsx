@@ -1,7 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
-import { motion } from "framer-motion";
 import { ExternalLink, Globe, Mail, MessageCircle } from "lucide-react";
 
 const footerLinks = {
@@ -182,13 +180,7 @@ export default function Footer() {
   return (
     <footer className="relative overflow-hidden bg-[#0A0A0A] w-screen pb-8 pt-0 text-white">
       <div className="w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-120px" }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="space-y-0"
-        >
+        <div className="space-y-0">
           <PixelSkyScene />
 
           <div className="grid gap-8 bg-[linear-gradient(180deg,#008BFF_0%,#008BFF_26%,#0050B3_48%,#0A0A0A_72%,#0A0A0A_100%)] p-5 md:grid-cols-[1.2fr_2fr] md:p-8">
@@ -234,16 +226,12 @@ export default function Footer() {
           </div>
 
           <div className="overflow-hidden bg-[#0A0A0A]">
-            <motion.h2
+            <h2
               className="select-none px-2 pb-4 pt-2 text-[20vw] font-semibold leading-[0.78] tracking-[-0.09em] text-white md:text-[16vw] lg:text-[180px]"
               style={{ fontFamily: "var(--font-dm-sans)" }}
-              initial={{ y: 48, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
               Moonshift
-            </motion.h2>
+            </h2>
             <div className="flex flex-col gap-3 px-5 py-5 text-[12px] uppercase tracking-[0.14em] text-white/70 md:flex-row md:items-center md:justify-between">
               <p>&copy; {new Date().getFullYear()} Moonshift Inc.</p>
               <div className="flex gap-5">
@@ -252,7 +240,7 @@ export default function Footer() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </footer>
   );
