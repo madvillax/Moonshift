@@ -1,9 +1,8 @@
 import Hero from "@/components/Hero";
 import Workflow from "@/components/Workflow";
 import Features from "@/components/Features";
-import AgentCards from "@/components/AgentCards";
 import Pricing from "@/components/Pricing";
-import FAQ from "@/components/FAQ";
+import Reviews from "@/components/Reviews";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -13,9 +12,8 @@ export default function Home() {
         <Hero />
         <Workflow />
         <Features />
-        <AgentCards />
         <Pricing />
-        <FAQ />
+        <Reviews />
       </main>
       <Footer />
     </div>

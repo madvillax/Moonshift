@@ -4,27 +4,21 @@ import { ExternalLink, Globe, Mail, MessageCircle } from "lucide-react";
 
 const footerLinks = {
   PRODUCT: [
-    { name: "Features", href: "#features" },
     { name: "Showcase", href: "#showcase" },
+    { name: "Templates", href: "#templates" },
     { name: "Pricing", href: "#pricing" },
     { name: "Changelog", href: "#changelog" },
   ],
   RESOURCES: [
-    { name: "Documentation", href: "#docs" },
-    { name: "FAQ", href: "#faq" },
+    { name: "Docs", href: "#docs" },
     { name: "Blog", href: "#blog" },
-    { name: "Community", href: "#community" },
-  ],
-  COMPANY: [
     { name: "About", href: "#about" },
-    { name: "Careers", href: "#careers" },
-    { name: "Contact", href: "#contact" },
-    { name: "Press", href: "#press" },
+    { name: "Status", href: "#status" },
   ],
   LEGAL: [
-    { name: "Terms", href: "#terms" },
     { name: "Privacy", href: "#privacy" },
-    { name: "Cookies", href: "#cookies" },
+    { name: "Terms", href: "#terms" },
+    { name: "AUP", href: "#aup" },
   ],
 };
 
@@ -195,7 +189,7 @@ export default function Footer() {
                     <a
                       key={social.label}
                       href={social.href}
-                      className="text-white/70 transition-colors duration-200 hover:text-white"
+                      className="text-white transition-colors duration-200 hover:text-[#69C0FF]"
                       aria-label={social.label}
                     >
                       <Icon className="h-5 w-5" />
@@ -205,7 +199,7 @@ export default function Footer() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+            <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
               {Object.entries(footerLinks).map(([category, links]) => (
                 <div key={category}>
                   <h4 className="mb-4 text-[11px] font-medium uppercase tracking-[0.14em] text-[#DDEFFF]" style={{ fontFamily: "var(--font-space-grotesk)" }}>
@@ -214,7 +208,7 @@ export default function Footer() {
                   <ul className="space-y-3">
                     {links.map((link) => (
                       <li key={link.name}>
-                        <a href={link.href} className="text-[13px] text-white/78 transition-colors duration-200 hover:text-white">
+                        <a href={link.href} className="text-[13px] font-medium text-white transition-colors duration-200 hover:text-[#69C0FF]">
                           {link.name}
                         </a>
                       </li>
@@ -232,13 +226,7 @@ export default function Footer() {
             >
               Moonshift
             </h2>
-            <div className="flex flex-col gap-3 px-5 py-5 text-[12px] uppercase tracking-[0.14em] text-white/70 md:flex-row md:items-center md:justify-between">
-              <p>&copy; {new Date().getFullYear()} Moonshift Inc.</p>
-              <div className="flex gap-5">
-                <a href="#" className="transition-colors hover:text-accent">Status</a>
-                <a href="#" className="transition-colors hover:text-accent">Security</a>
-              </div>
-            </div>
+
           </div>
         </div>
       </div>

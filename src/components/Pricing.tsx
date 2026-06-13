@@ -59,7 +59,7 @@ export default function Pricing() {
   const [billing, setBilling] = useState<Billing>("monthly");
 
   return (
-    <section id="pricing" className="relative overflow-hidden bg-bg-deep py-28 md:py-36">
+    <section id="pricing" className="relative overflow-hidden bg-bg-deep py-16 md:py-20">
       <div className="relative mx-auto max-w-[1320px] px-6 lg:px-8">
         <div className="mx-auto mb-10 max-w-4xl text-center md:mb-12">
           <p

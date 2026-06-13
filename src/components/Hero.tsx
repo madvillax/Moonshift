@@ -1,6 +1,7 @@
 "use client";
 
-import { Plus, Mic, ArrowUp, Lightbulb } from "lucide-react";
+import { useState } from "react";
+import { ArrowUp, Zap, Box, Rocket } from "lucide-react";
 
 
 const logos = [
@@ -19,7 +20,7 @@ const logos = [
 const Block = ({ className, color }: { className: string; color: string }) => (
   <div
     className={`absolute ${className}`}
-    style={{ backgroundColor: color, opacity: 0.7 }}
+    style={{ backgroundColor: color, opacity: 1 }}
   />
 );
 
@@ -108,7 +109,7 @@ const PixelRocket = () => {
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[100dvh] flex flex-col items-start overflow-hidden bg-bg-deep pt-28 pb-20">
+    <section className="relative min-h-[100dvh] flex flex-col items-start overflow-hidden bg-bg-deep pt-28 pb-10">
       <GridVisuals />
       <div className="relative max-w-[1200px] mx-auto px-6 lg:px-10 w-full z-10">
         <div
@@ -131,14 +132,7 @@ export default function Hero() {
           <div className="flex flex-wrap items-center justify-start gap-3">
             <a
               href="#"
-              className="inline-flex items-center justify-center px-5 py-2.5 bg-text-primary text-bg-deep rounded-none font-semibold text-[12px] tracking-[0.06em] hover:scale-[1.02] transition-transform duration-150"
-              style={{ fontFamily: "var(--font-space-grotesk)" }}
-            >
-              START BUILDING FOR FREE
-            </a>
-            <a
-              href="#"
-              className="inline-flex items-center justify-center px-5 py-2.5 bg-transparent text-text-primary rounded-none font-medium text-[14px] tracking-[0.02em] hover:text-text-secondary transition-colors duration-150 group"
+              className="inline-flex items-center justify-center px-5 py-2.5 bg-text-primary text-bg-deep rounded-none font-semibold text-[12px] tracking-[0.06em] hover:scale-[1.02] transition-transform duration-150 group"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
               GET A DEMO
@@ -322,7 +316,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="mt-24 border-t border-border-subtle pt-12 overflow-hidden">
+        <div className="mt-12 border-t border-border-subtle pt-8 overflow-hidden">
           <p className="text-center text-[11px] font-medium text-text-muted mb-8 uppercase tracking-[0.1em]">
             TRUSTED BY DEVELOPERS AT
           </p>
@@ -349,41 +343,57 @@ export default function Hero() {
 }
 
 function PromptBox() {
+  const [mode, setMode] = useState<'fast' | 'standard' | 'full'>('fast');
+
+  const modes = [
+    { id: 'fast' as const, label: 'FAST', icon: Zap, estimate: 'deploys app · ~3m · ~$1' },
+    { id: 'standard' as const, label: 'STANDARD', icon: Box, estimate: 'deploys app · ~6m · ~$3' },
+    { id: 'full' as const, label: 'FULL', icon: Rocket, estimate: 'deploys app · ~12m · ~$6' },
+  ];
+
+  const active = modes.find((m) => m.id === mode)!;
+
   return (
-    <div className="bg-bg-elevated border border-border-default rounded-none overflow-hidden ring-1 ring-accent/20 shadow-[0_0_20px_rgba(0,139,255,0.08)]">
-      <div className="p-4">
+    <div className="mx-auto max-w-[720px] bg-bg-elevated border border-border-default rounded-none overflow-hidden ring-1 ring-accent/20 shadow-[0_0_20px_rgba(0,139,255,0.08)]">
+      <div className="p-5">
         <textarea
-          placeholder="Describe the app you want to build..."
-          className="w-full h-[56px] bg-transparent text-text-primary text-[14px] placeholder:text-text-muted resize-none outline-none"
+          placeholder="A landing page for my new app idea"
+          className="w-full h-[80px] bg-transparent text-text-primary text-[15px] placeholder:text-text-muted resize-none outline-none"
           style={{ fontFamily: "var(--font-inter)" }}
         />
       </div>
 
-      <div className="flex items-center justify-between px-4 py-2.5 border-t border-border-default bg-bg-surface">
-        <div className="flex items-center gap-3">
-          <button className="p-1 text-text-muted hover:text-text-primary transition-colors">
-            <Plus className="w-4 h-4" />
-          </button>
-
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-4 bg-bg-elevated border border-border-subtle relative">
-              <div className="w-3.5 h-3 bg-text-muted absolute left-0.5 top-0.5" />
-            </div>
-            <span className="text-[12px] text-text-secondary" style={{ fontFamily: "var(--font-space-grotesk)" }}>
-              Plan
-            </span>
-            <Lightbulb className="w-3.5 h-3.5 text-text-muted" />
+      <div className="flex items-center justify-between gap-4 px-4 py-3 border-t border-border-default bg-bg-surface">
+        <div className="flex items-center gap-4">
+          <div className="flex items-center border border-border-default bg-bg-elevated">
+            {modes.map((m) => {
+              const Icon = m.icon;
+              const isActive = mode === m.id;
+              return (
+                <button
+                  key={m.id}
+                  onClick={() => setMode(m.id)}
+                  className={`flex items-center gap-1.5 px-3 py-2 text-[11px] font-medium uppercase tracking-[0.12em] transition-all duration-200 ease-out ${
+                    isActive
+                      ? 'bg-accent text-white'
+                      : 'text-text-secondary hover:bg-accent/10 hover:text-text-primary'
+                  }`}
+                >
+                  <Icon className="h-3.5 w-3.5" />
+                  {m.label}
+                </button>
+              );
+            })}
           </div>
+          <span className="hidden text-[12px] text-text-secondary sm:block" style={{ fontFamily: "var(--font-space-grotesk)" }}>
+            {active.estimate}
+          </span>
         </div>
 
-        <div className="flex items-center gap-2">
-          <button className="p-1.5 text-text-muted hover:text-text-primary transition-colors">
-            <Mic className="w-4 h-4" />
-          </button>
-          <button className="w-9 h-9 flex items-center justify-center bg-accent text-white hover:bg-accent/90 transition-all hover:shadow-[0_0_12px_rgba(0,139,255,0.4)]">
-            <ArrowUp className="w-4 h-4" />
-          </button>
-        </div>
+        <button className="flex items-center gap-2 bg-accent px-5 py-2 text-[12px] font-medium uppercase tracking-[0.14em] text-white hover:bg-accent/90 transition-all duration-200 ease-out">
+          Ship it
+          <ArrowUp className="h-4 w-4" />
+        </button>
       </div>
     </div>
   );

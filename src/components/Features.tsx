@@ -219,7 +219,7 @@ function FeatureCard({ feature }: { feature: typeof features[0] }) {
 
 export default function Features() {
   return (
-    <section id="features" className="relative bg-bg-deep py-24 md:py-32 overflow-hidden">
+    <section id="features" className="relative bg-bg-deep py-16 md:py-20 overflow-hidden">
       <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)`, backgroundSize: "60px 60px" }} />
 
       <div className="relative mx-auto max-w-[1200px] px-6 lg:px-10">
