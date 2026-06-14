@@ -164,7 +164,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="max-w-[640px] mx-auto w-full mb-12">
+        <div className="max-w-[720px] w-full mb-12">
           {/* Grid overlay — both children in same cell, pure opacity crossfade, zero layout shift */}
           <div style={{ display: 'grid' }}>
             <div
@@ -397,7 +397,7 @@ function PromptBox() {
   const active = modes.find((m) => m.id === mode)!;
 
   return (
-    <div className="mx-auto max-w-[720px] bg-bg-elevated border border-border-default rounded-none overflow-hidden ring-1 ring-accent/20 shadow-[0_0_20px_rgba(0,139,255,0.08)]">
+    <div className="max-w-[720px] bg-bg-elevated border border-border-default rounded-none overflow-hidden ring-1 ring-accent/20 shadow-[0_0_20px_rgba(0,139,255,0.08)]">
       <div className="p-5">
         <textarea
           placeholder="A landing page for my new app idea"
@@ -478,7 +478,7 @@ function CLIInstallBox() {
   };
 
   return (
-    <div className="mx-auto max-w-[720px] bg-bg-elevated border border-border-default rounded-none overflow-hidden ring-1 ring-accent/20 shadow-[0_0_20px_rgba(0,139,255,0.08)]">
+    <div className="max-w-[720px] bg-bg-elevated border border-border-default rounded-none overflow-hidden ring-1 ring-accent/20 shadow-[0_0_20px_rgba(0,139,255,0.08)]">
       <div className="p-5">
         <div
           className="w-full h-[80px] bg-bg-deep border border-border-subtle font-mono text-[13px] leading-[1.6] flex items-center px-4 overflow-x-auto gap-3"
