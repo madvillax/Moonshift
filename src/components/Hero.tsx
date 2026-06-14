@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUp, Zap, Box, Rocket } from "lucide-react";
+import { ArrowUp, Zap, Box, Rocket, Terminal, Globe, Copy, Check, Monitor } from "lucide-react";
 
 
 const logos = [
@@ -108,6 +108,8 @@ const PixelRocket = () => {
 };
 
 export default function Hero() {
+  const [activeMode, setActiveMode] = useState<'web' | 'cli'>('web');
+
   return (
     <section className="relative min-h-[100dvh] flex flex-col items-start overflow-hidden bg-bg-deep pt-28 pb-10">
       <GridVisuals />
@@ -129,22 +131,63 @@ export default function Hero() {
             platform built on web standards, so nothing gets lost in translation
           </p>
 
-          <div className="flex flex-wrap items-center justify-start gap-3">
-            <a
-              href="#"
-              className="inline-flex items-center justify-center px-5 py-2.5 bg-text-primary text-bg-deep rounded-none font-semibold text-[12px] tracking-[0.06em] hover:scale-[1.02] transition-transform duration-150 group"
-              style={{ fontFamily: "var(--font-space-grotesk)" }}
+          {/* Joined segmented CTA */}
+          <div
+            className="inline-flex items-center border border-border-default bg-bg-elevated overflow-hidden"
+            style={{ fontFamily: "var(--font-space-grotesk)" }}
+          >
+            <button
+              id="hero-try-web-btn"
+              onClick={() => setActiveMode('web')}
+              className={`flex items-center gap-2 px-5 py-2.5 text-[11px] font-medium uppercase tracking-[0.12em] transition-all duration-200 ease-out ${
+                activeMode === 'web'
+                  ? 'bg-text-primary text-bg-deep'
+                  : 'text-text-secondary hover:bg-accent/10 hover:text-text-primary'
+              }`}
             >
-              GET A DEMO
-              <span className="ml-1 group-hover:translate-x-0.5 transition-transform">→</span>
-            </a>
+              <Globe className="h-3.5 w-3.5" />
+              Try Web
+            </button>
+            <div className="w-px h-5 bg-border-default flex-shrink-0" />
+            <button
+              id="hero-moonshift-cli-btn"
+              onClick={() => setActiveMode('cli')}
+              className={`flex items-center gap-2 px-5 py-2.5 text-[11px] font-medium uppercase tracking-[0.12em] transition-all duration-200 ease-out ${
+                activeMode === 'cli'
+                  ? 'bg-accent text-white'
+                  : 'text-text-secondary hover:bg-accent/10 hover:text-text-primary'
+              }`}
+            >
+              <Terminal className="h-3.5 w-3.5" />
+              Moonshift CLI
+            </button>
           </div>
         </div>
 
-        <div
-          className="max-w-[640px] mx-auto w-full mb-12"
-        >
-          <PromptBox />
+        <div className="max-w-[640px] mx-auto w-full mb-12">
+          {/* Grid overlay — both children in same cell, pure opacity crossfade, zero layout shift */}
+          <div style={{ display: 'grid' }}>
+            <div
+              style={{
+                gridArea: '1/1',
+                opacity: activeMode === 'web' ? 1 : 0,
+                transition: 'opacity 0.25s ease',
+                pointerEvents: activeMode === 'web' ? 'auto' : 'none',
+              }}
+            >
+              <PromptBox />
+            </div>
+            <div
+              style={{
+                gridArea: '1/1',
+                opacity: activeMode === 'cli' ? 1 : 0,
+                transition: 'opacity 0.25s ease',
+                pointerEvents: activeMode === 'cli' ? 'auto' : 'none',
+              }}
+            >
+              <CLIInstallBox />
+            </div>
+          </div>
         </div>
 
         <div className="w-full">
@@ -394,6 +437,97 @@ function PromptBox() {
           Ship it
           <ArrowUp className="h-4 w-4" />
         </button>
+      </div>
+    </div>
+  );
+}
+
+function CLIInstallBox() {
+  const [platform, setPlatform] = useState<'mac' | 'windows'>('mac');
+  const [copied, setCopied] = useState(false);
+
+  const platforms = [
+    {
+      id: 'mac' as const,
+      label: 'macOS',
+      icon: (
+        <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+        </svg>
+      ),
+      command: 'curl -fsSL https://moonshift.io/install.sh | bash',
+      prompt: '$',
+      hint: 'Paste in your terminal. Requires macOS 12+ or Linux.',
+    },
+    {
+      id: 'windows' as const,
+      label: 'Windows',
+      icon: <Monitor className="h-3.5 w-3.5" />,
+      command: 'irm https://moonshift.io/install.ps1 | iex',
+      prompt: 'PS>',
+      hint: 'Paste in PowerShell (run as Administrator). Requires Windows 10+.',
+    },
+  ];
+
+  const active = platforms.find((p) => p.id === platform)!;
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(active.command);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="mx-auto max-w-[720px] bg-bg-elevated border border-border-default rounded-none overflow-hidden ring-1 ring-accent/20 shadow-[0_0_20px_rgba(0,139,255,0.08)]">
+      <div className="p-5">
+        <div
+          className="w-full h-[80px] bg-bg-deep border border-border-subtle font-mono text-[13px] leading-[1.6] flex items-center px-4 overflow-x-auto gap-3"
+          style={{ fontFamily: "var(--font-jetbrains-mono, monospace)" }}
+        >
+          <span className="text-text-muted select-none flex-shrink-0">{active.prompt}</span>
+          <span className="text-text-primary whitespace-nowrap">{active.command}</span>
+          {/* Inline copy square — sits right after the command */}
+          <button
+            id="cli-copy-btn"
+            onClick={handleCopy}
+            title={platform === 'mac' ? '⌘C' : 'Ctrl+C'}
+            className={`flex-shrink-0 w-6 h-6 flex items-center justify-center border transition-all duration-200 ease-out ${
+              copied
+                ? 'border-[#22C55E]/60 text-[#22C55E] bg-[#22C55E]/10'
+                : 'border-border-default text-text-muted hover:border-text-primary hover:text-text-primary'
+            }`}
+          >
+            {copied
+              ? <Check className="h-3 w-3" />
+              : <Copy className="h-3 w-3" />
+            }
+          </button>
+        </div>
+      </div>
+
+      {/* Bottom toolbar */}
+      <div className="flex items-center gap-4 px-4 py-3 border-t border-border-default bg-bg-surface">
+        {/* Platform pill selector — same style as FAST/STANDARD/FULL */}
+        <div className="flex items-center border border-border-default bg-bg-elevated">
+          {platforms.map((p) => {
+            const isActive = platform === p.id;
+            return (
+              <button
+                key={p.id}
+                id={`cli-${p.id}-tab`}
+                onClick={() => { setPlatform(p.id); setCopied(false); }}
+                className={`flex items-center gap-1.5 px-3 py-2 text-[11px] font-medium uppercase tracking-[0.12em] transition-all duration-200 ease-out ${
+                  isActive
+                    ? 'bg-accent text-white'
+                    : 'text-text-secondary hover:bg-accent/10 hover:text-text-primary'
+                }`}
+              >
+                {p.icon}
+                {p.label}
+              </button>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
