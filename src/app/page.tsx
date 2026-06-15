@@ -12,8 +12,8 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-bg-deep text-text-primary">
       <main className="flex-1">
         <Hero />
-        <CliSection />
         <Workflow />
+        <CliSection />
         <Features />
         <Pricing />
         <Reviews />

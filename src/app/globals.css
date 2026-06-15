@@ -127,7 +127,7 @@ body {
   }
 }
 
-@keyframes marquee {
+@keyframes marquee-left {
   0% {
     transform: translateX(0);
   }
@@ -136,8 +136,25 @@ body {
   }
 }
 
+@keyframes marquee-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 .animate-marquee {
-  animation: marquee 30s linear infinite;
+  animation: marquee-left 30s linear infinite;
+}
+
+.animate-marquee-left {
+  animation: marquee-left 30s linear infinite;
+}
+
+.animate-marquee-right {
+  animation: marquee-right 30s linear infinite;
 }
 
 @keyframes fade-up {
