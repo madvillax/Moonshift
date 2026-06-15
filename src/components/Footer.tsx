@@ -156,11 +156,11 @@ const cssAnimations = `
 
 function PixelSkyScene() {
   return (
-    <div className="relative h-[200px] overflow-hidden bg-[#38BDF8] shadow-[inset_0_-80px_100px_rgba(0,139,255,0.38)] md:h-[260px]" aria-hidden="true">
+    <div className="relative h-[360px] overflow-hidden bg-[#38BDF8] shadow-[inset_0_-120px_140px_rgba(0,139,255,0.38)] md:h-[430px]" aria-hidden="true">
       <style>{cssAnimations}</style>
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.14)_1px,transparent_1px)] bg-[size:100%_4px]" />
-      <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#008BFF]/45 to-transparent" />
-      <div className="absolute inset-x-0 bottom-0 h-16 bg-[#008BFF]" />
+      <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-[#008BFF]/45 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-28 bg-[#008BFF]" />
       {clouds.map((cloud) => (
         <PixelCloud key={cloud.className} className={cloud.className} delay={cloud.delay} />
       ))}
@@ -172,14 +172,16 @@ function PixelSkyScene() {
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[#0A0A0A] w-screen pb-8 pt-0 text-white">
+    <footer className="relative overflow-hidden bg-[#0A0A0A] w-screen pt-0 text-white">
       <div className="w-full">
         <div className="space-y-0">
           <PixelSkyScene />
 
-          <div className="bg-[linear-gradient(180deg,#008BFF_0%,#008BFF_26%,#0050B3_48%,#0A0A0A_72%,#0A0A0A_100%)] p-5 md:p-8">
-            <div className="max-w-sm">
-              <p className="mb-6 text-[14px] leading-[1.6] text-white/85">
+          {/* Gradient info + links row */}
+          <div className="grid gap-8 bg-[linear-gradient(180deg,#008BFF_0%,#008BFF_26%,#0050B3_48%,#0A0A0A_72%,#0A0A0A_100%)] p-5 md:grid-cols-[1.2fr_2fr] md:p-8">
+            {/* Left: description + socials */}
+            <div>
+              <p className="mb-6 max-w-sm text-[14px] leading-[1.6] text-white/85">
                 AI-powered autonomous software development platform. Type your idea, wake up launched.
               </p>
               <div className="flex gap-4">
@@ -198,17 +200,9 @@ export default function Footer() {
                 })}
               </div>
             </div>
-          </div>
 
-          <div className="relative overflow-hidden bg-[#0A0A0A]">
-            <h2
-              className="select-none px-2 pb-4 pt-2 text-[20vw] font-semibold leading-[0.78] tracking-[-0.09em] text-white md:text-[16vw] lg:text-[180px]"
-              style={{ fontFamily: "var(--font-dm-sans)" }}
-            >
-              Moonshift
-            </h2>
-
-            <div className="px-5 pb-10 md:px-8 lg:px-0 lg:pb-0 lg:absolute lg:bottom-10 lg:right-10 grid grid-cols-2 gap-x-12 gap-y-8 md:grid-cols-3">
+            {/* Right: nav columns */}
+            <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
               {Object.entries(footerLinks).map(([category, links]) => (
                 <div key={category}>
                   <h4 className="mb-4 text-[11px] font-medium uppercase tracking-[0.14em] text-[#DDEFFF]" style={{ fontFamily: "var(--font-space-grotesk)" }}>
@@ -225,6 +219,32 @@ export default function Footer() {
                   </ul>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Big Moonshift wordmark */}
+          <div className="overflow-hidden bg-[#0A0A0A]">
+            <h2
+              className="select-none px-2 pb-4 pt-2 text-[20vw] font-semibold leading-[0.78] tracking-[-0.09em] text-white md:text-[16vw] lg:text-[180px]"
+              style={{ fontFamily: "var(--font-dm-sans)" }}
+            >
+              Moonshift
+            </h2>
+          </div>
+
+          {/* Bottom bar */}
+          <div className="flex items-center justify-between border-t border-white/10 bg-[#0A0A0A] px-5 py-4 md:px-8">
+            <p className="text-[11px] font-medium uppercase tracking-[0.1em] text-white/30">
+              © 2026 Moonshift Inc.
+            </p>
+            <div className="flex items-center gap-4">
+              <a href="#status" className="text-[11px] font-medium uppercase tracking-[0.1em] text-white/30 hover:text-white/60 transition-colors duration-200">
+                Status
+              </a>
+              <span className="text-white/20">·</span>
+              <a href="#security" className="text-[11px] font-medium uppercase tracking-[0.1em] text-white/30 hover:text-white/60 transition-colors duration-200">
+                Security
+              </a>
             </div>
           </div>
         </div>
