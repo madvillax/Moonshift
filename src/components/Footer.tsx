@@ -231,22 +231,6 @@ export default function Footer() {
               Moonshift
             </h2>
           </div>
-
-          {/* Bottom bar */}
-          <div className="flex items-center justify-between border-t border-white/10 bg-[#0A0A0A] px-5 py-4 md:px-8">
-            <p className="text-[11px] font-medium uppercase tracking-[0.1em] text-white/30">
-              © 2026 Moonshift Inc.
-            </p>
-            <div className="flex items-center gap-4">
-              <a href="#status" className="text-[11px] font-medium uppercase tracking-[0.1em] text-white/30 hover:text-white/60 transition-colors duration-200">
-                Status
-              </a>
-              <span className="text-white/20">·</span>
-              <a href="#security" className="text-[11px] font-medium uppercase tracking-[0.1em] text-white/30 hover:text-white/60 transition-colors duration-200">
-                Security
-              </a>
-            </div>
-          </div>
         </div>
       </div>
     </footer>

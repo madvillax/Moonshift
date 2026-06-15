@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo, useCallback } from "react";
 
 import { Menu, X, Sun, Moon } from "lucide-react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useTheme } from "./ThemeProvider";
 
 const navLinks = [
@@ -19,6 +20,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const pathname = usePathname();
 
   const memoizedNavLinks = useMemo(() => navLinks, []);
   const handleToggleMobileMenu = useCallback(() => {
@@ -42,6 +44,10 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  if (pathname?.startsWith("/dashboard")) {
+    return null;
+  }
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center px-6 lg:px-10 animate-[slideDown_0.6s_ease-out]">
