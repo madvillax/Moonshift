@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, DM_Sans, Space_Grotesk } from "next/font/google";
+import { Manrope, Syne, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 
-const inter = Inter({
+const manrope = Manrope({
   variable: "--font-inter",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -19,10 +19,10 @@ const jetbrainsMono = JetBrains_Mono({
   preload: false,
 });
 
-const dmSans = DM_Sans({
+const syneHeading = Syne({
   variable: "--font-dm-sans",
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
   preload: false,
 });
@@ -54,7 +54,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jetbrainsMono.variable} ${dmSans.variable} ${spaceGrotesk.variable} h-full antialiased dark`}
+      className={`${manrope.variable} ${jetbrainsMono.variable} ${syneHeading.variable} ${spaceGrotesk.variable} h-full antialiased dark`}
     >
       <body className="min-h-full flex flex-col bg-bg-deep text-text-primary">
         <ThemeProvider>
