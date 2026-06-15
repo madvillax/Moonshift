@@ -62,7 +62,7 @@ export default function DashboardPage() {
       {/* Welcome Section */}
       <div className="flex flex-col gap-1">
         <div className="text-[11px] text-text-muted font-mono tracking-widest uppercase mb-2">
-          // OPERATOR CONSOLE
+          {'// OPERATOR CONSOLE'}
         </div>
         <div className="flex items-end justify-between">
           <h1 className="text-4xl md:text-5xl font-normal tracking-tight text-text-primary" style={{ fontFamily: "var(--font-dm-sans)" }}>
@@ -78,7 +78,7 @@ export default function DashboardPage() {
       {/* Launchpad Box */}
       <div className="flex flex-col gap-2">
         <div className="text-[11px] text-text-muted font-mono tracking-widest uppercase mb-1">
-          // WHAT DO YOU WANT TO BUILD?
+          {"// WHAT DO YOU WANT TO BUILD?"}
         </div>
         
         <div className="bg-bg-elevated border border-border-default ring-1 ring-accent/10 shadow-[0_0_30px_rgba(0,139,255,0.03)] flex flex-col">
@@ -94,7 +94,7 @@ export default function DashboardPage() {
           {/* Suggestions row */}
           <div className="border-t border-border-subtle bg-bg-surface/50 p-4 flex items-center gap-3 overflow-x-auto no-scrollbar">
             <span className="text-[11px] font-mono text-text-muted whitespace-nowrap flex-shrink-0">
-              // TRY:
+              {'// TRY:'}
             </span>
             {suggestions.map((s) => (
               <button 

@@ -7,7 +7,7 @@ Landing page for Moonshift — AI agent orchestration platform.
 - **Framework**: Next.js 16 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS v4
-- **Animations**: Framer Motion, GSAP
+- **Animations**: GSAP, CSS keyframes
 - **Icons**: Lucide React
 
 ## Getting Started

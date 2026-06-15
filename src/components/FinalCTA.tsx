@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Zap, Box, Rocket, Circle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const logos = [
   { name: "Vercel",    svg: <path d="M24 2L48 46H0L24 2Z" fill="currentColor" />, vb: "0 0 48 48" },

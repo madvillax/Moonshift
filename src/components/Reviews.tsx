@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { ExternalLink } from "lucide-react";
 
 interface Review {
@@ -139,12 +140,13 @@ function SocialAvatar({
 }) {
   if (imageUrl) {
     return (
-      <img
+      <Image
         src={imageUrl}
         alt={name}
+        width={40}
+        height={40}
         className="h-10 w-10 rounded-full object-cover border border-border-default"
-        loading="lazy"
-        referrerPolicy="no-referrer"
+        unoptimized
       />
     );
   }

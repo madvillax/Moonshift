@@ -18,7 +18,6 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useTheme } from "@/components/ThemeProvider";
 
 
@@ -57,7 +56,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         {isSidebarOpen && (
           <div className="flex items-center px-2 mb-3">
             <span className="text-[10px] font-mono tracking-widest text-text-muted uppercase whitespace-nowrap">
-              // Navigation
+              {'// Navigation'}
             </span>
           </div>
         )}
@@ -105,7 +104,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         {isSidebarOpen && (
           <div className="px-2 mb-3">
             <span className="text-[10px] font-mono tracking-widest text-text-muted uppercase whitespace-nowrap">
-              // Shortcuts
+              {'// Shortcuts'}
             </span>
           </div>
         )}
