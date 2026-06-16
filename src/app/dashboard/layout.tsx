@@ -1,20 +1,24 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 import {
   PanelLeftClose,
   LayoutGrid,
   Plus,
   Wand2,
-  Layers,
+  LayoutTemplate,
   Target,
-  AtSign,
+  Plug,
   Gift,
   Bell,
   Settings,
   Moon,
   Sun,
-  ChevronDown
+  ChevronDown,
+  Gem,
+  User,
+  HelpCircle,
+  LogOut,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,6 +28,8 @@ import { useTheme } from "@/components/ThemeProvider";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const profileRef = useRef<HTMLDivElement>(null);
   const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
 
@@ -31,13 +37,21 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     { label: "DASHBOARD", icon: LayoutGrid, href: "/dashboard" },
     { label: "CREATE", icon: Plus, href: "/dashboard/create" },
     { label: "LAUNCH", icon: Wand2, href: "/dashboard/launch" },
-    { label: "RUNS", icon: Layers, href: "/dashboard/runs" },
+    { label: "TEMPLATES", icon: LayoutTemplate, href: "/dashboard/templates" },
     { label: "ADVERTISING", icon: Target, href: "/dashboard/advertising" },
-    { label: "BILLING", icon: AtSign, href: "/dashboard/billing" },
+    { label: "INTEGRATIONS", icon: Plug, href: "/dashboard/integrations" },
     { label: "REFERRALS", icon: Gift, href: "/dashboard/referrals" },
-    { label: "NOTIFICATIONS", icon: Bell, href: "/dashboard/notifications" },
-    { label: "SETTINGS", icon: Settings, href: "/dashboard/settings" },
   ];
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
+        setProfileOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <div className="flex h-screen overflow-hidden bg-bg-deep text-text-primary font-sans">
@@ -52,7 +66,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 alt="Moonshift" 
                 width={140} 
                 height={28} 
-                className="dark:invert brightness-0"
+                className="dark:invert"
               />
             </Link>
           )}
@@ -65,15 +79,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <PanelLeftClose className={`w-3.5 h-3.5 transition-transform duration-300 ${!isSidebarOpen && "rotate-180"}`} />
           </button>
         </div>
-
-        {/* Navigation Header */}
-        {isSidebarOpen && (
-          <div className="flex items-center px-2 mb-3">
-            <span className="text-[10px] font-mono tracking-widest text-text-muted uppercase whitespace-nowrap">
-              {'// Navigation'}
-            </span>
-          </div>
-        )}
 
         {/* Nav Links */}
         <nav className={`flex flex-col gap-1 w-full mb-8 ${!isSidebarOpen && "items-center"}`}>
@@ -105,77 +110,71 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           })}
         </nav>
 
-        {/* Shortcuts Header */}
-        {isSidebarOpen && (
-          <div className="px-2 mb-3">
-            <span className="text-[10px] font-mono tracking-widest text-text-muted uppercase whitespace-nowrap">
-              {'// Shortcuts'}
-            </span>
-          </div>
-        )}
-
-        {/* Shortcut Buttons */}
-        <div className={`flex flex-col gap-2 mb-auto ${isSidebarOpen ? "px-1" : "items-center px-0"}`}>
-          <button 
-            className={`flex items-center ${isSidebarOpen ? "justify-between px-4" : "justify-center w-10"} py-3 bg-accent/10 border border-accent/20 rounded-sm hover:bg-accent/20 transition-colors`}
-            title={!isSidebarOpen ? "New Project" : undefined}
-          >
-            <div className="flex items-center gap-3 text-accent">
-              <div className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
-              {isSidebarOpen && (
-                <span className="text-[11px] font-medium uppercase tracking-[0.1em] whitespace-nowrap" style={{ fontFamily: "var(--font-space-grotesk)" }}>
-                  New Project
+        <div className={`mt-auto flex flex-col gap-3 ${isSidebarOpen ? "px-1" : "items-center px-0"}`}>
+          {isSidebarOpen && (
+            <Link
+              href="/dashboard/billing"
+              className="flex items-center justify-between p-3 bg-bg-surface border border-border-default hover:border-text-muted transition-colors"
+            >
+              <div className="flex flex-col">
+                <span className="text-[13px] font-medium text-text-primary" style={{ fontFamily: "var(--font-dm-sans)" }}>
+                  Upgrade your plan
                 </span>
-              )}
-            </div>
-            {isSidebarOpen && <span className="text-accent text-lg leading-none font-sans">&rarr;</span>}
-          </button>
-          
-          <button 
-            className={`flex items-center ${isSidebarOpen ? "justify-between px-4" : "justify-center w-10"} py-3 bg-bg-surface border border-border-default rounded-sm hover:border-text-muted transition-colors text-text-secondary hover:text-text-primary`}
-            title={!isSidebarOpen ? "New Launch" : undefined}
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-1.5 h-1.5 bg-text-muted flex-shrink-0" />
-              {isSidebarOpen && (
-                <span className="text-[11px] font-medium uppercase tracking-[0.1em] whitespace-nowrap" style={{ fontFamily: "var(--font-space-grotesk)" }}>
-                  New Launch
+                <span className="text-[11px] text-text-secondary">
+                  Get more out of your apps
                 </span>
-              )}
-            </div>
-            {isSidebarOpen && <span className="text-lg leading-none font-sans text-text-secondary hover:text-text-primary">&rarr;</span>}
-          </button>
-        </div>
+              </div>
+              <Gem className="w-5 h-5 text-accent flex-shrink-0" />
+            </Link>
+          )}
 
-        {/* User Profile Card */}
-        <div className={`mt-8 flex flex-col gap-2 ${isSidebarOpen ? "px-1" : "items-center px-0"}`}>
-          <div className={`flex items-center gap-3 ${isSidebarOpen ? "p-3 border border-border-subtle bg-bg-surface" : "p-0"} rounded-sm`}>
-            <div className="w-8 h-8 rounded-sm bg-gradient-to-tr from-pink-500 to-rose-400 shadow-[0_0_10px_rgba(236,72,153,0.2)] flex-shrink-0" title={!isSidebarOpen ? "Mohit Sharma" : undefined} />
-            {isSidebarOpen && (
-              <div className="flex flex-col overflow-hidden">
-                <span className="text-[13px] text-text-primary whitespace-nowrap" style={{ fontFamily: "var(--font-dm-sans)" }}>Mohit Sharma</span>
-                <span className="text-[9px] font-mono text-text-muted truncate uppercase" title="MOHIT.SHARMA80805@GMAIL.COM">MOHIT.SHARMA80...</span>
+          <div className="relative" ref={profileRef}>
+            <button
+              onClick={() => setProfileOpen(!profileOpen)}
+              className={`flex items-center ${isSidebarOpen ? "w-full px-2 py-2 gap-3" : "justify-center w-10 h-10"} hover:bg-bg-surface transition-colors`}
+              title={!isSidebarOpen ? "Mohit Sharma" : undefined}
+            >
+              <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-pink-500 to-rose-400 shadow-[0_0_10px_rgba(236,72,153,0.2)] flex-shrink-0" />
+              {isSidebarOpen && (
+                <div className="flex flex-col items-start overflow-hidden">
+                  <span className="text-[13px] text-text-primary whitespace-nowrap" style={{ fontFamily: "var(--font-dm-sans)" }}>Mohit Sharma</span>
+                  <span className="text-[9px] font-mono text-text-muted truncate uppercase" title="MOHIT.SHARMA80805@GMAIL.COM">MOHIT.SHARMA80...</span>
+                </div>
+              )}
+            </button>
+
+            {profileOpen && isSidebarOpen && (
+              <div className="absolute left-0 bottom-full mb-2 w-[220px] border border-border-default bg-bg-surface shadow-lg z-30">
+                <div className="flex items-center gap-3 p-3 border-b border-border-subtle">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-pink-500 to-rose-400 shadow-[0_0_10px_rgba(236,72,153,0.2)] flex-shrink-0" />
+                  <div className="flex flex-col overflow-hidden">
+                    <span className="text-[13px] text-text-primary whitespace-nowrap" style={{ fontFamily: "var(--font-dm-sans)" }}>Mohit Sharma</span>
+                    <span className="text-[10px] font-mono text-text-muted truncate">mohit.sharma80805@gmail.com</span>
+                  </div>
+                </div>
+                <div className="py-1">
+                  <button className="w-full flex items-center gap-3 px-3 py-2 text-[12px] text-text-secondary hover:bg-bg-elevated hover:text-text-primary transition-colors text-left">
+                    <User className="w-3.5 h-3.5" />
+                    View profile
+                  </button>
+                  <button className="w-full flex items-center gap-3 px-3 py-2 text-[12px] text-text-secondary hover:bg-bg-elevated hover:text-text-primary transition-colors text-left">
+                    <Settings className="w-3.5 h-3.5" />
+                    Account settings
+                  </button>
+                  <button className="w-full flex items-center gap-3 px-3 py-2 text-[12px] text-text-secondary hover:bg-bg-elevated hover:text-text-primary transition-colors text-left">
+                    <HelpCircle className="w-3.5 h-3.5" />
+                    Help & support
+                  </button>
+                </div>
+                <div className="border-t border-border-subtle py-1">
+                  <button className="w-full flex items-center gap-3 px-3 py-2 text-[12px] text-text-secondary hover:bg-bg-elevated hover:text-text-primary transition-colors text-left">
+                    <LogOut className="w-3.5 h-3.5" />
+                    Log out
+                  </button>
+                </div>
               </div>
             )}
           </div>
-          
-          {isSidebarOpen ? (
-            <button className="flex items-center justify-between p-3 border border-border-subtle hover:border-border-default bg-bg-deep rounded-sm transition-colors group">
-              <div className="flex items-center gap-3 text-text-secondary group-hover:text-text-primary">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#EF4444] flex-shrink-0" />
-                <span className="text-[11px] font-medium uppercase tracking-[0.1em] whitespace-nowrap" style={{ fontFamily: "var(--font-space-grotesk)" }}>
-                  Sign Out
-                </span>
-              </div>
-              <svg className="w-3.5 h-3.5 text-text-muted group-hover:text-text-primary transition-colors flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M7 17l9.2-9.2M17 17V7H7" />
-              </svg>
-            </button>
-          ) : (
-            <button className="w-10 h-10 flex items-center justify-center border border-border-subtle hover:border-border-default bg-bg-deep rounded-sm transition-colors group mt-2" title="Sign Out">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#EF4444]" />
-            </button>
-          )}
         </div>
       </aside>
 
@@ -184,26 +183,23 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         {/* Top Header */}
         <header className="h-[60px] flex-shrink-0 border-b border-border-subtle bg-bg-deep flex items-center justify-between px-6 sticky top-0 z-10">
           <h1 className="text-xl font-medium tracking-tight text-text-primary" style={{ fontFamily: "var(--font-dm-sans)" }}>
-            Operator console
+            Dashboard
           </h1>
 
           <div className="flex items-center gap-3">
-            <button className="bg-accent hover:bg-accent/90 text-white px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.08em] transition-colors rounded-sm" style={{ fontFamily: "var(--font-space-grotesk)" }}>
-              <span className="mr-1.5">•</span> New Project
+            <button
+              className="p-2 text-text-secondary hover:text-text-primary transition-colors border border-transparent hover:border-border-default rounded-sm"
+              title="Settings"
+            >
+              <Settings className="w-4 h-4" />
             </button>
-            <button className="border border-border-default hover:border-text-muted text-text-secondary hover:text-text-primary px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.08em] transition-colors rounded-sm" style={{ fontFamily: "var(--font-space-grotesk)" }}>
-              <span className="mr-1.5 text-accent">•</span> New Launch
-            </button>
-            <button className="border border-border-default hover:border-text-muted text-text-secondary hover:text-text-primary px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.08em] transition-colors rounded-sm" style={{ fontFamily: "var(--font-space-grotesk)" }}>
-              <span className="mr-1.5 text-accent">•</span> $MNSHFT
-            </button>
-            
-            <div className="w-px h-5 bg-border-subtle mx-1" />
-            
-            <button className="p-2 text-text-secondary hover:text-text-primary transition-colors border border-transparent hover:border-border-default rounded-sm">
+            <button
+              className="p-2 text-text-secondary hover:text-text-primary transition-colors border border-transparent hover:border-border-default rounded-sm"
+              title="Notifications"
+            >
               <Bell className="w-4 h-4" />
             </button>
-            <button 
+            <button
               onClick={toggleTheme}
               className="p-2 text-text-secondary hover:text-text-primary transition-colors border border-transparent hover:border-border-default rounded-sm"
               title="Toggle theme"
