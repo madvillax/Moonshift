@@ -18,17 +18,31 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTheme } from "@/components/ThemeProvider";
 
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const { theme, toggleTheme } = useTheme();
+  const pathname = usePathname();
+
+  const navLinks = [
+    { label: "DASHBOARD", icon: LayoutGrid, href: "/dashboard" },
+    { label: "CREATE", icon: Plus, href: "/dashboard/create" },
+    { label: "LAUNCH", icon: Wand2, href: "/dashboard/launch" },
+    { label: "RUNS", icon: Layers, href: "/dashboard/runs" },
+    { label: "ADVERTISING", icon: Target, href: "/dashboard/advertising" },
+    { label: "BILLING", icon: AtSign, href: "/dashboard/billing" },
+    { label: "REFERRALS", icon: Gift, href: "/dashboard/referrals" },
+    { label: "NOTIFICATIONS", icon: Bell, href: "/dashboard/notifications" },
+    { label: "SETTINGS", icon: Settings, href: "/dashboard/settings" },
+  ];
 
   return (
-    <div className="flex min-h-screen bg-bg-deep text-text-primary font-sans">
+    <div className="flex h-screen overflow-hidden bg-bg-deep text-text-primary font-sans">
       {/* Sidebar */}
-      <aside className={`${isSidebarOpen ? "w-[280px]" : "w-[64px]"} flex-shrink-0 border-r border-border-subtle bg-bg-deep flex flex-col py-6 px-3 relative z-20 transition-[width] duration-300 ease-in-out overflow-hidden`}>
+      <aside className={`${isSidebarOpen ? "w-[280px]" : "w-[64px]"} flex-shrink-0 h-full overflow-y-auto border-r border-border-subtle bg-bg-deep flex flex-col py-6 px-3 relative z-20 transition-[width] duration-300 ease-in-out`}>
         {/* Logo & Toggle Wrapper */}
         <div className={`flex items-center mb-8 ${isSidebarOpen ? "justify-between px-2" : "justify-center"}`}>
           {isSidebarOpen && (
@@ -63,30 +77,21 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
         {/* Nav Links */}
         <nav className={`flex flex-col gap-1 w-full mb-8 ${!isSidebarOpen && "items-center"}`}>
-          {[
-            { label: "DASHBOARD", icon: LayoutGrid, active: true },
-            { label: "CREATE", icon: Plus },
-            { label: "LAUNCH", icon: Wand2 },
-            { label: "RUNS", icon: Layers },
-            { label: "ADVERTISING", icon: Target },
-            { label: "BILLING", icon: AtSign },
-            { label: "REFERRALS", icon: Gift },
-            { label: "NOTIFICATIONS", icon: Bell },
-            { label: "SETTINGS", icon: Settings },
-          ].map((link, idx) => {
+          {navLinks.map((link, idx) => {
             const Icon = link.icon;
+            const isActive = pathname === link.href || (link.href !== "/dashboard" && pathname.startsWith(link.href));
             return (
-              <Link 
-                key={idx} 
-                href="#"
-                className={`flex items-center ${isSidebarOpen ? "justify-between px-3" : "justify-center w-10"} py-2.5 rounded-sm transition-colors ${
-                  link.active 
-                    ? "bg-accent/10 border border-accent/20" 
+              <Link
+                key={idx}
+                href={link.href}
+                className={`flex items-center ${isSidebarOpen ? "justify-between px-3" : "justify-center w-10"} py-2.5 transition-colors ${
+                  isActive
+                    ? "bg-accent/10 border border-accent/20"
                     : "hover:bg-bg-surface border border-transparent"
                 }`}
                 title={!isSidebarOpen ? link.label : undefined}
               >
-                <div className={`flex items-center gap-3 ${link.active ? "text-accent" : "text-text-secondary"}`}>
+                <div className={`flex items-center gap-3 ${isActive ? "text-accent" : "text-text-secondary"}`}>
                   <Icon className="w-4 h-4 flex-shrink-0" />
                   {isSidebarOpen && (
                     <span className="text-[12px] font-medium tracking-[0.08em] whitespace-nowrap" style={{ fontFamily: "var(--font-space-grotesk)" }}>
@@ -94,7 +99,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     </span>
                   )}
                 </div>
-                {isSidebarOpen && link.active && <div className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />}
+                {isSidebarOpen && isActive && <div className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />}
               </Link>
             );
           })}
