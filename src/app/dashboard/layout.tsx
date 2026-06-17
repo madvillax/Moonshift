@@ -182,7 +182,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <div className="flex-1 flex flex-col min-w-0">
         {/* Top Header */}
         <header className="h-[60px] flex-shrink-0 border-b border-border-subtle bg-bg-deep flex items-center justify-between px-6 sticky top-0 z-10">
-          <h1 className="text-xl font-medium tracking-tight text-text-primary" style={{ fontFamily: "var(--font-dm-sans)" }}>
+          <h1 className="text-base font-medium tracking-tight text-text-primary" style={{ fontFamily: "var(--font-dm-sans)" }}>
             Dashboard
           </h1>
 

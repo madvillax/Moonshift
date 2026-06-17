@@ -85,7 +85,7 @@ export default function CreatePage() {
     <div className="min-h-screen flex flex-col bg-bg-deep text-text-primary animate-in fade-in duration-500">
       <main className="flex-1 flex flex-col items-center px-6 py-12 md:py-20">
         <h1
-          className="text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight text-text-primary mb-10 text-center"
+          className="text-3xl md:text-4xl font-normal tracking-tight text-text-primary mb-8 text-center"
           style={{ fontFamily: "var(--font-dm-sans)" }}
         >
           What do you want to launch?
@@ -198,12 +198,6 @@ export default function CreatePage() {
           ))}
         </div>
 
-        <p className="mt-6 text-[13px] text-text-muted">
-          Need your own agent?{" "}
-          <a href="#" className="text-accent hover:underline">
-            Create superagent
-          </a>
-        </p>
       </main>
 
       <button className="fixed bottom-6 right-6 flex items-center gap-2 px-4 py-2.5 border border-border-default bg-bg-surface text-text-secondary hover:text-text-primary hover:border-text-muted transition-colors text-[11px] font-medium uppercase tracking-[0.1em] shadow-lg">
