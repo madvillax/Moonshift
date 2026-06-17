@@ -1,8 +1,9 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { MagicCard } from "@/components/ui/magic-card";
 import { BlurFade } from "@/components/ui/blur-fade";
-import { FlickeringGrid } from "@/components/ui/flickering-grid";
+const FlickeringGrid = dynamic(() => import("@/components/ui/flickering-grid").then(m => ({ default: m.FlickeringGrid })), { ssr: false });
 
 const features = [
   {

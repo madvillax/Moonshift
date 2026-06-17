@@ -1,5 +1,3 @@
-"use client";
-
 import { OpenNewWindow, Globe, Mail, MessageText } from "iconoir-react";
 
 const footerLinks = {

@@ -81,12 +81,13 @@ export default function CliSection() {
               
               {/* Video Container */}
               <div className="relative aspect-video w-full bg-[#0A0A0A]">
-                <video 
-                  src="/moonshift-cli.mp4" 
-                  autoPlay 
-                  loop 
-                  muted 
+                <video
+                  src="/moonshift-cli.mp4"
+                  autoPlay
+                  loop
+                  muted
                   playsInline
+                  preload="none"
                   className="w-full h-full object-cover"
                 />
               </div>

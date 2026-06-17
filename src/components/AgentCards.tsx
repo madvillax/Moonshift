@@ -1,7 +1,8 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { BlurFade } from "@/components/ui/blur-fade";
-import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
+const AnimatedGridPattern = dynamic(() => import("@/components/ui/animated-grid-pattern").then(m => ({ default: m.AnimatedGridPattern })), { ssr: false });
 import {
   Brain,
   Database,

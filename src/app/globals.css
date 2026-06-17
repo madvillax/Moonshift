@@ -68,7 +68,12 @@ html {
 
 section {
   content-visibility: auto;
-  contain-intrinsic-size: auto 500px;
+  contain-intrinsic-size: auto 600px;
+}
+
+/* Hero is above-fold — never defer its rendering */
+section:first-of-type {
+  content-visibility: visible;
 }
 
 .sticky {
@@ -149,14 +154,17 @@ body {
 
 .animate-marquee {
   animation: marquee-left 30s linear infinite;
+  will-change: transform;
 }
 
 .animate-marquee-left {
   animation: marquee-left 30s linear infinite;
+  will-change: transform;
 }
 
 .animate-marquee-right {
   animation: marquee-right 30s linear infinite;
+  will-change: transform;
 }
 
 @keyframes fade-up {

@@ -147,6 +147,7 @@ function SocialAvatar({
         alt={name}
         width={40}
         height={40}
+        loading="lazy"
         className="h-10 w-10 rounded-full object-cover border border-border-default"
         unoptimized
       />

@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { ArrowUp, Flash, Box, Rocket, Terminal, Globe, Copy, Check, Computer } from "iconoir-react";
+import dynamic from "next/dynamic";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { TextAnimate } from "@/components/ui/text-animate";
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text";
-import { Particles } from "@/components/ui/particles";
-import { Meteors } from "@/components/ui/meteors";
+const Particles = dynamic(() => import("@/components/ui/particles").then(m => ({ default: m.Particles })), { ssr: false });
+const Meteors = dynamic(() => import("@/components/ui/meteors").then(m => ({ default: m.Meteors })), { ssr: false });
 
 
 const logos = [
