@@ -170,7 +170,7 @@ function PixelSkyScene() {
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[#0A0A0A] w-screen pt-0 text-white">
+    <footer className="relative overflow-hidden bg-[#0A0A0A] w-full pt-0 text-white">
       <div className="w-full">
         <div className="space-y-0">
           <PixelSkyScene />

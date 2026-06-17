@@ -15,7 +15,7 @@ const SectionFallback = () => <div className="min-h-[400px] bg-bg-deep" />;
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-bg-deep text-text-primary">
+    <div className="flex flex-col min-h-screen bg-bg-deep text-text-primary overflow-x-hidden">
       <main className="flex-1">
         <Hero />
         <Suspense fallback={<SectionFallback />}>
