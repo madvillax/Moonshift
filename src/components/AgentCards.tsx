@@ -1,17 +1,18 @@
 "use client";
 
-
+import { BlurFade } from "@/components/ui/blur-fade";
+import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
 import {
   Brain,
   Database,
-  Code2,
-  Layout,
-  TestTube2,
+  Code,
+  LayoutLeft,
+  TestTube,
   ShieldCheck,
   Rocket,
   Megaphone,
   Bug,
-} from "lucide-react";
+} from "iconoir-react";
 
 const agents = [
   {
@@ -29,21 +30,21 @@ const agents = [
     description: "Designs schemas, writes migrations, and manages the data layer.",
   },
   {
-    icon: Code2,
+    icon: Code,
     label: "BACKEND",
     name: "Backend Agent",
     status: "Active",
     description: "Builds APIs, authentication, and core business logic.",
   },
   {
-    icon: Layout,
+    icon: LayoutLeft,
     label: "FRONTEND",
     name: "Frontend Agent",
     status: "Active",
     description: "Creates responsive UI components and connects to APIs.",
   },
   {
-    icon: TestTube2,
+    icon: TestTube,
     label: "QA",
     name: "Testing Agent",
     status: "Active",
@@ -81,25 +82,28 @@ const agents = [
 
 export default function AgentCards() {
   return (
-    <section id="showcase" className="relative py-32 bg-bg-deep">
+    <section id="showcase" className="relative py-32 bg-bg-deep overflow-hidden">
+      <AnimatedGridPattern className="absolute inset-0 text-[#008BFF]/30 stroke-[#008BFF]/20 fill-[#008BFF]/20 z-0" numSquares={30} maxOpacity={0.18} duration={3} />
       <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
+        <BlurFade delay={0} duration={0.5} inView>
         <div className="mb-20">
           <div className="text-[11px] md:text-[13px] font-medium uppercase tracking-[0.1em] text-text-muted mb-6" style={{ fontFamily: "var(--font-space-grotesk)" }}>
             THE AGENT SYSTEM
           </div>
-          <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-text-primary max-w-2xl leading-[1.1]" style={{ fontFamily: "var(--font-dm-sans)" }}>
+          <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-text-primary max-w-2xl leading-[1.1] text-balance" style={{ fontFamily: "var(--font-dm-sans)" }}>
             A specialized team of <span className="text-text-secondary">AI developers</span>
           </h2>
         </div>
+        </BlurFade>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {agents.map((agent) => {
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+          {agents.map((agent, i) => {
             const Icon = agent.icon;
             const isActive = agent.status === "Active";
-            
+
             return (
+              <BlurFade key={agent.name} delay={0.1 + i * 0.08} duration={0.5} inView className="h-full">
               <div
-                key={agent.name}
                 className="group bg-bg-surface border border-border-subtle rounded-none p-6 hover:border-border-default transition-colors duration-150 flex flex-col h-full"
               >
                 <div className="flex items-center justify-between mb-6">
@@ -130,6 +134,7 @@ export default function AgentCards() {
                   </a>
                 </div>
               </div>
+              </BlurFade>
             );
           })}
         </div>

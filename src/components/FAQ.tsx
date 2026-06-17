@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { NavArrowDown } from "iconoir-react";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { DotPattern } from "@/components/ui/dot-pattern";
 
 const faqs = [
   {
@@ -51,7 +53,7 @@ function FAQItem({ faq }: { faq: typeof faqs[0] }) {
           {faq.question}
         </h3>
         <div className={`flex-shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>
-          <ChevronDown className="w-5 h-5 text-text-muted group-hover:text-accent transition-colors" />
+          <NavArrowDown className="w-5 h-5 text-text-muted group-hover:text-accent transition-colors" />
         </div>
       </button>
       <div className={`overflow-hidden transition-all duration-300 ease-out ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
@@ -65,17 +67,22 @@ function FAQItem({ faq }: { faq: typeof faqs[0] }) {
 
 export default function FAQ() {
   return (
-    <section id="faq" className="relative py-32 bg-bg-deep">
+    <section id="faq" className="relative py-32 bg-bg-deep overflow-hidden">
+      <DotPattern className="text-[#008BFF]/25 dark:text-[#008BFF]/15 [mask-image:radial-gradient(ellipse_50%_60%_at_50%_0%,white,transparent)]" cr={1} width={20} height={20} />
       <div className="max-w-[800px] mx-auto px-6 lg:px-10">
+        <BlurFade delay={0} duration={0.5} inView>
         <div className="mb-16 text-center">
-          <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-text-primary" style={{ fontFamily: "var(--font-dm-sans)" }}>
+          <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-text-primary text-balance" style={{ fontFamily: "var(--font-dm-sans)" }}>
             Frequently Asked Questions
           </h2>
         </div>
+        </BlurFade>
 
         <div className="bg-bg-surface border border-border-subtle rounded-none p-6 md:p-8">
-          {faqs.map((faq) => (
-            <FAQItem key={faq.question} faq={faq} />
+          {faqs.map((faq, i) => (
+            <BlurFade key={faq.question} delay={i * 0.07} duration={0.4} inView>
+            <FAQItem faq={faq} />
+            </BlurFade>
           ))}
         </div>
       </div>

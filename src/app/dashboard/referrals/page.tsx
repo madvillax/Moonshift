@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Check, Mail, Share2, MessageCircle } from "lucide-react";
+import { Copy, Check, Mail, ShareAndroid, MessageText } from "iconoir-react";
 
 const referralCode = "HQRB4G5N";
 const shareLink = "https://moonshift.io/login?mode=signup&ref=HQRB4G5N";
@@ -134,9 +134,9 @@ export default function ReferralsPage() {
           {[
             { label: "TWITTER / X", icon: XIcon },
             { label: "LINKEDIN", icon: LinkedInIcon },
-            { label: "WHATSAPP", icon: MessageCircle },
+            { label: "WHATSAPP", icon: MessageText },
             { label: "EMAIL", icon: Mail },
-            { label: "MORE...", icon: Share2 },
+            { label: "MORE...", icon: ShareAndroid },
           ].map(({ label, icon: Icon }) => (
             <button
               key={label}

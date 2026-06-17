@@ -1,6 +1,8 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight } from "iconoir-react";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
 
 const logos = [
   { name: "Vercel",    svg: <path d="M24 2L48 46H0L24 2Z" fill="currentColor" />, vb: "0 0 48 48" },
@@ -21,9 +23,9 @@ const steps = [
 
 function MoonshiftMockup() {
   return (
-    <div className="relative w-full h-full select-none">
+    <div className="flex flex-col h-full w-full select-none">
       {/* Window chrome */}
-      <div className="rounded-none border border-border-default overflow-hidden shadow-[0_0_60px_rgba(0,139,255,0.12)] ring-1 ring-white/5 bg-bg-surface">
+      <div className="flex flex-col flex-1 overflow-hidden bg-bg-surface">
         {/* Title bar */}
         <div className="flex items-center px-4 py-2.5 border-b border-border-subtle bg-bg-elevated">
           <div className="flex gap-1.5">
@@ -36,7 +38,7 @@ function MoonshiftMockup() {
         </div>
 
         {/* Body: sidebar + main */}
-        <div className="grid grid-cols-[140px_1fr] min-h-[340px]">
+        <div className="grid grid-cols-[140px_1fr] flex-1">
           {/* Sidebar */}
           <div className="border-r border-border-subtle bg-bg-surface p-3 space-y-4">
             <div className="space-y-1">
@@ -63,25 +65,25 @@ function MoonshiftMockup() {
             </div>
           </div>
 
-          {/* Main canvas */}
-          <div className="bg-[#0D0D0D] p-4 flex flex-col gap-3 relative overflow-hidden">
+          {/* Main canvas — IDE simulation, light/dark aware */}
+          <div className="bg-[#F7F7F7] dark:bg-[#0D0D0D] p-4 flex flex-col gap-3 relative overflow-hidden">
             {/* Mini kanban preview */}
-            <div className="text-[10px] text-text-muted font-mono mb-1 flex items-center gap-2">
-              <span className="text-text-secondary">≡ KanbanBoard</span>
-              <span className="ml-auto text-[9px] bg-accent/20 text-accent px-2 py-0.5">Preview</span>
+            <div className="text-[10px] font-mono mb-1 flex items-center gap-2">
+              <span className="text-[#666] dark:text-[#888]">≡ KanbanBoard</span>
+              <span className="ml-auto text-[9px] bg-[#008BFF]/20 text-[#008BFF] px-2 py-0.5">Preview</span>
             </div>
 
             <div className="grid grid-cols-3 gap-2 flex-1">
               {[
-                { col: "Todo", color: "border-text-muted/20", cards: ["Design system", "API spec"] },
-                { col: "In Progress", color: "border-accent/40", cards: ["Auth flow"] },
+                { col: "Todo", color: "border-[#D8D8D8] dark:border-[#333]", cards: ["Design system", "API spec"] },
+                { col: "In Progress", color: "border-[#008BFF]/40", cards: ["Auth flow"] },
                 { col: "Done", color: "border-[#22C55E]/30", cards: ["Setup repo", "DB schema", "CI/CD"] },
               ].map(({ col, color, cards }) => (
-                <div key={col} className={`border ${color} bg-bg-elevated/40 p-2 rounded-none`}>
-                  <div className="text-[9px] font-medium text-text-muted uppercase tracking-[0.1em] mb-2">{col}</div>
+                <div key={col} className={`border ${color} bg-[#EBEBEB] dark:bg-[#1A1A1A] p-2`}>
+                  <div className="text-[9px] font-medium text-[#888] dark:text-[#555] uppercase tracking-[0.1em] mb-2">{col}</div>
                   <div className="space-y-1.5">
                     {cards.map((card) => (
-                      <div key={card} className="bg-bg-surface border border-border-subtle p-1.5 text-[9px] text-text-secondary">
+                      <div key={card} className="bg-white dark:bg-[#252525] border border-[#E0E0E0] dark:border-[#333] p-1.5 text-[9px] text-[#555] dark:text-[#A0A0A0]">
                         {card}
                       </div>
                     ))}
@@ -91,15 +93,15 @@ function MoonshiftMockup() {
             </div>
 
             {/* Agent log overlay at bottom */}
-            <div className="absolute bottom-0 left-0 right-0 border-t border-border-subtle bg-bg-surface/95 px-3 py-2">
+            <div className="absolute bottom-0 left-0 right-0 border-t border-[#E5E5E5] dark:border-[#222] bg-[#F7F7F7]/95 dark:bg-[#0D0D0D]/95 px-3 py-2">
               <div className="flex items-center gap-2 mb-1.5">
-                <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-                <span className="text-[9px] font-mono text-text-muted">moonshift agent · running</span>
+                <div className="w-1.5 h-1.5 rounded-full bg-[#008BFF] animate-pulse" />
+                <span className="text-[9px] font-mono text-[#777] dark:text-[#555]">moonshift agent · running</span>
               </div>
               <div className="space-y-0.5 font-mono text-[9px]">
-                <div className="text-text-muted"><span className="text-accent">●</span> paper — create_component (MCP)</div>
-                <div className="text-text-muted pl-3">name: &quot;KanbanBoard&quot;</div>
-                <div className="text-text-muted pl-3">→ writing Tailwind layout...</div>
+                <div className="text-[#777] dark:text-[#555]"><span className="text-[#008BFF]">●</span> paper — create_component (MCP)</div>
+                <div className="text-[#777] dark:text-[#555] pl-3">name: &quot;KanbanBoard&quot;</div>
+                <div className="text-[#777] dark:text-[#555] pl-3">→ writing Tailwind layout...</div>
               </div>
             </div>
           </div>
@@ -146,23 +148,41 @@ function MoonshiftMockup() {
 export default function FinalCTA() {
   return (
     <section className="relative overflow-hidden bg-bg-deep py-0 border-t border-border-subtle">
-      <div className="relative mx-auto max-w-[1200px] px-6 lg:px-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[520px]">
+      <div className="relative mx-auto max-w-[2000px]">
+        <div className="flex flex-col lg:flex-row min-h-[520px]">
 
           {/* Left: headline + CTAs + logos */}
-          <div className="flex flex-col justify-center py-16 pr-0 lg:pr-16 border-r-0 lg:border-r border-border-subtle">
+          <div
+            className="lg:w-1/2 lg:shrink-0 flex flex-col justify-center py-24 lg:py-32 px-6 lg:pr-16 border-b lg:border-b-0 lg:border-r border-border-subtle relative overflow-hidden"
+            style={{ paddingLeft: "max(1.5rem, calc((100vw - 1320px) / 2 + 2rem))" }}
+          >
+            {/* CSS grid — tiles at exactly 40px matching hero GridVisuals */}
+            <div
+              className="absolute inset-0 z-0 opacity-40 [mask-image:radial-gradient(ellipse_80%_90%_at_30%_50%,white,transparent)]"
+              style={{
+                backgroundImage: `linear-gradient(rgba(0,139,255,0.14) 1px, transparent 1px), linear-gradient(90deg, rgba(0,139,255,0.14) 1px, transparent 1px)`,
+                backgroundSize: "40px 40px",
+              }}
+            />
+            <BlurFade delay={0} duration={0.5} inView>
             <h2
-              className="text-4xl md:text-5xl lg:text-[52px] font-medium leading-[1.08] tracking-[-0.03em] text-text-primary mb-4"
+              className="text-4xl md:text-5xl lg:text-6xl font-medium leading-[1.04] tracking-[-0.03em] text-text-primary mb-4 text-balance"
               style={{ fontFamily: "var(--font-dm-sans)" }}
             >
-              Type your idea.<br />
-              <span className="text-accent">Wake up launched.</span>
+              One prompt.<br />
+              <AnimatedGradientText colorFrom="#008BFF" colorTo="#69C0FF" speed={0.8} className="whitespace-nowrap">
+                Shipped overnight.
+              </AnimatedGradientText>
             </h2>
+            </BlurFade>
 
-            <p className="text-[16px] text-text-secondary leading-[1.6] max-w-[440px] mb-8">
+            <BlurFade delay={0.15} duration={0.5} inView>
+            <p className="text-[16px] text-text-secondary leading-[1.6] max-w-[440px] mb-8 text-pretty">
               One prompt → deployed app + owned repo + drafted launch posts + hero image. Ready before you need to tell anyone you&apos;re shipping.
             </p>
+            </BlurFade>
 
+            <BlurFade delay={0.3} duration={0.5} inView>
             <div className="flex flex-wrap items-center gap-3 mb-10">
               <a
                 href="#"
@@ -180,6 +200,7 @@ export default function FinalCTA() {
                 <ArrowRight className="h-3.5 w-3.5" />
               </a>
             </div>
+            </BlurFade>
 
             {/* Logo grid */}
             <div className="border border-border-subtle">
@@ -187,7 +208,7 @@ export default function FinalCTA() {
                 {logos.map((logo) => (
                   <div
                     key={logo.name}
-                    className="flex items-center justify-center px-6 py-5 opacity-40 hover:opacity-70 transition-opacity duration-200 cursor-default"
+                    className="flex items-center justify-center px-6 py-5 opacity-40 hover:opacity-80 bg-bg-surface hover:bg-bg-elevated transition-all duration-200 cursor-default"
                   >
                     <svg viewBox={logo.vb} className="h-5 text-text-primary" fill="none">
                       {logo.svg}
@@ -199,11 +220,9 @@ export default function FinalCTA() {
           </div>
 
           {/* Right: visual mockup */}
-          <div className="hidden lg:flex items-center justify-center py-12 pl-10">
-            <div className="w-full max-w-[520px]">
-              <MoonshiftMockup />
-            </div>
-          </div>
+          <BlurFade delay={0.2} duration={0.6} inView className="hidden lg:flex flex-col flex-1 min-w-0 overflow-hidden">
+            <MoonshiftMockup />
+          </BlurFade>
 
         </div>
       </div>

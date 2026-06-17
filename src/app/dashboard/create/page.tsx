@@ -2,21 +2,21 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import {
-  Zap,
+  Flash,
   Box,
   Rocket,
   ArrowRight,
-  Mic,
-  Paperclip,
-  ChevronDown,
-  MessageSquare,
-  Wand2,
-} from "lucide-react";
+  Microphone,
+  Attachment,
+  NavArrowDown,
+  MessageText,
+  MagicWand,
+} from "iconoir-react";
 
 type Mode = "fast" | "standard" | "full";
 
-const modes: { id: Mode; label: string; icon: typeof Zap; estimate: string; price: string }[] = [
-  { id: "fast", label: "FAST", icon: Zap, estimate: "deploys app · ~3m", price: "~$0.50" },
+const modes: { id: Mode; label: string; icon: typeof Flash; estimate: string; price: string }[] = [
+  { id: "fast", label: "FAST", icon: Flash, estimate: "deploys app · ~3m", price: "~$0.50" },
   { id: "standard", label: "STANDARD", icon: Box, estimate: "real deploy · ~8m", price: "~$2.50" },
   { id: "full", label: "FULL", icon: Rocket, estimate: "deploys app · ~12m", price: "~$6.00" },
 ];
@@ -107,16 +107,16 @@ export default function CreatePage() {
           <div className="border-t border-border-subtle px-4 py-3 flex items-center justify-between gap-3 bg-bg-surface/50">
             <div className="flex items-center gap-2">
               <button className="w-8 h-8 flex items-center justify-center text-text-secondary hover:text-text-primary transition-colors">
-                <Paperclip className="w-4 h-4" />
+                <Attachment className="w-4 h-4" />
               </button>
               <button className="w-8 h-8 flex items-center justify-center text-text-secondary hover:text-text-primary transition-colors">
-                <Wand2 className="w-4 h-4" />
+                <MagicWand className="w-4 h-4" />
               </button>
             </div>
 
             <div className="flex items-center gap-2">
               <button className="w-8 h-8 flex items-center justify-center text-text-secondary hover:text-text-primary transition-colors">
-                <Mic className="w-4 h-4" />
+                <Microphone className="w-4 h-4" />
               </button>
               <button className="w-9 h-8 flex items-center justify-center bg-accent text-white hover:opacity-90 transition-opacity">
                 <ArrowRight className="w-4 h-4" />
@@ -157,10 +157,10 @@ export default function CreatePage() {
                   style={{ fontFamily: "var(--font-dm-sans)" }}
                 >
                   {projectType}
-                  <ChevronDown className={`w-3 h-3 text-text-muted transition-transform ${dropdownOpen ? "rotate-180" : ""}`} />
+                  <NavArrowDown className={`w-3 h-3 text-text-muted transition-transform ${dropdownOpen ? "rotate-180" : ""}`} />
                 </button>
                 {dropdownOpen && (
-                  <div className="absolute right-0 bottom-full mb-1 w-44 border border-border-default bg-bg-surface shadow-lg z-10">
+                  <div className="absolute right-0 bottom-full mb-1 w-44 border border-border-default bg-bg-surface z-10">
                     {projectTypes.map((type) => (
                       <button
                         key={type}
@@ -200,8 +200,8 @@ export default function CreatePage() {
 
       </main>
 
-      <button className="fixed bottom-6 right-6 flex items-center gap-2 px-4 py-2.5 border border-border-default bg-bg-surface text-text-secondary hover:text-text-primary hover:border-text-muted transition-colors text-[11px] font-medium uppercase tracking-[0.1em] shadow-lg">
-        <MessageSquare className="w-3.5 h-3.5" />
+      <button className="fixed bottom-6 right-6 flex items-center gap-2 px-4 py-2.5 border border-border-default bg-bg-surface text-text-secondary hover:text-text-primary hover:border-text-muted transition-colors text-[11px] font-medium uppercase tracking-[0.1em]">
+        <MessageText className="w-3.5 h-3.5" />
         FEEDBACK
       </button>
     </div>

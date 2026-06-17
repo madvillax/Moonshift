@@ -73,7 +73,7 @@ export default function Workflow() {
         {steps.map((step, index) => (
           <div
             key={step.number}
-            className="sticky top-0 md:top-[80px]"
+            className="sticky top-0 md:top-[112px]"
             style={{ zIndex: index + 1 }}
           >
             <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
@@ -101,11 +101,11 @@ export default function Workflow() {
                         {step.label}
                       </div>
 
-                      <h3 className="text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.1] tracking-[-0.02em] text-text-primary mb-4" style={{ fontFamily: "var(--font-dm-sans)" }}>
+                      <h3 className="text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.1] tracking-[-0.02em] text-text-primary mb-4 text-balance" style={{ fontFamily: "var(--font-dm-sans)" }}>
                         {step.title}
                       </h3>
 
-                      <p className="text-[14px] md:text-[15px] leading-[1.6] text-text-secondary max-w-md">
+                      <p className="text-[14px] md:text-[15px] leading-[1.6] text-text-secondary max-w-md text-pretty">
                         {step.description}
                       </p>
                     </div>
@@ -125,12 +125,12 @@ export default function Workflow() {
                       <div className="flex items-center justify-between mb-6">
                         <div className="flex items-center gap-2">
                           <div className="w-2 h-2 rounded-full bg-[#008BFF]" />
-                          <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-text-muted">
+                          <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#888]">
                             {step.right.header}
                           </span>
                         </div>
                         {step.right.count && (
-                          <span className="text-[11px] font-mono text-text-muted">{step.right.count}</span>
+                          <span className="text-[11px] font-mono text-[#888]">{step.right.count}</span>
                         )}
                       </div>
 
@@ -141,8 +141,8 @@ export default function Workflow() {
                               <div className="flex items-start gap-3">
                                 <span className="text-[#008BFF] text-sm mt-0.5">{block.icon}</span>
                                 <div>
-                                  <div className="text-[14px] font-mono text-text-primary">{block.text}</div>
-                                  <div className="text-[12px] font-mono text-text-muted mt-1">{block.tags}</div>
+                                  <div className="text-[14px] font-mono text-[#F0F0F0]">{block.text}</div>
+                                  <div className="text-[12px] font-mono text-[#888] mt-1">{block.tags}</div>
                                 </div>
                               </div>
                             </div>
@@ -155,7 +155,7 @@ export default function Workflow() {
                           {step.right.agents.map((agent, i) => (
                             <div key={i} className="flex items-center gap-3">
                               <div className="w-2 h-2 rounded-full bg-[#008BFF]" />
-                              <span className="text-[14px] font-mono text-text-secondary flex-1">{agent.name}</span>
+                              <span className="text-[14px] font-mono text-[#B0B0B0] flex-1">{agent.name}</span>
                               <div className="w-20 h-1 bg-[#1A1A1A]">
                                 <div className="h-full bg-[#008BFF]" style={{ width: agent.w }} />
                               </div>
@@ -168,12 +168,12 @@ export default function Workflow() {
                         <div className="space-y-4">
                           <div className="flex items-center gap-3 border border-[#1A1A1A] p-3">
                             <div className="w-2 h-2 rounded-full bg-[#008BFF]" />
-                            <span className="text-[14px] font-mono text-text-primary">{step.right.url}</span>
-                            <span className="text-text-muted ml-auto text-sm">→</span>
+                            <span className="text-[14px] font-mono text-[#F0F0F0]">{step.right.url}</span>
+                            <span className="text-[#888] ml-auto text-sm">→</span>
                           </div>
                           <div className="flex items-center gap-6">
                             {step.right.tags.map((tag, i) => (
-                              <span key={i} className="text-[11px] font-mono uppercase tracking-[0.15em] text-text-muted">{tag}</span>
+                              <span key={i} className="text-[11px] font-mono uppercase tracking-[0.15em] text-[#888]">{tag}</span>
                             ))}
                           </div>
                           <div className="border-t border-[#1A1A1A] pt-4 space-y-3">
@@ -181,9 +181,9 @@ export default function Workflow() {
                               <div key={i} className="flex items-center justify-between">
                                 <div className="flex items-center gap-3">
                                   <span className="text-[#008BFF] text-sm">{item.icon}</span>
-                                  <span className="text-[14px] font-mono text-text-secondary">{item.text}</span>
+                                  <span className="text-[14px] font-mono text-[#B0B0B0]">{item.text}</span>
                                 </div>
-                                <span className={`text-[12px] font-mono ${item.status === "awaiting" ? "text-[#008BFF]" : "text-text-muted"}`}>{item.status}</span>
+                                <span className={`text-[12px] font-mono ${item.status === "awaiting" ? "text-[#008BFF]" : "text-[#888]"}`}>{item.status}</span>
                               </div>
                             ))}
                           </div>
@@ -196,7 +196,7 @@ export default function Workflow() {
                             <div key={i} className="flex items-center justify-between">
                               <div className="flex items-center gap-3">
                                 <span className="text-[#008BFF] text-sm">{item.icon}</span>
-                                <span className="text-[14px] font-mono text-text-secondary">{item.text}</span>
+                                <span className="text-[14px] font-mono text-[#B0B0B0]">{item.text}</span>
                               </div>
                               <span className="text-[12px] font-mono text-[#008BFF]">{item.status}</span>
                             </div>

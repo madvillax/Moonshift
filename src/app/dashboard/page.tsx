@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Zap, Box, Rocket, ArrowRight, Wand2, ChevronDown } from "lucide-react";
+import { Flash, Box, Rocket, ArrowRight, MagicWand, NavArrowDown } from "iconoir-react";
 
 export default function DashboardPage() {
   const [mode, setMode] = useState<'fast' | 'standard' | 'full'>('fast');
 
   const modes = [
-    { id: 'fast' as const, label: 'FAST', icon: Zap, estimate: 'deploys app · ~3m · ~$1' },
+    { id: 'fast' as const, label: 'FAST', icon: Flash, estimate: 'deploys app · ~3m · ~$1' },
     { id: 'standard' as const, label: 'STANDARD', icon: Box, estimate: 'deploys app · ~6m · ~$3' },
     { id: 'full' as const, label: 'FULL', icon: Rocket, estimate: 'deploys app · ~12m · ~$6' },
   ];
@@ -81,7 +81,7 @@ export default function DashboardPage() {
           {"// WHAT DO YOU WANT TO BUILD?"}
         </div>
         
-        <div className="bg-bg-elevated border border-border-default ring-1 ring-accent/10 shadow-[0_0_30px_rgba(0,139,255,0.03)] flex flex-col">
+        <div className="bg-bg-elevated border border-border-default flex flex-col">
           {/* Main Textarea */}
           <div className="p-6">
             <textarea
@@ -150,9 +150,9 @@ export default function DashboardPage() {
             <div className="flex flex-col gap-1.5">
                <span className="text-[10px] font-medium uppercase tracking-widest text-text-muted" style={{ fontFamily: "var(--font-space-grotesk)" }}>Project Type</span>
                <div className="flex items-center gap-2 border border-border-subtle bg-bg-surface px-3 py-2 text-[13px] text-text-primary rounded-sm min-w-[200px] cursor-pointer hover:border-text-muted transition-colors">
-                  <Wand2 className="w-4 h-4 text-accent" />
+                  <MagicWand className="w-4 h-4 text-accent" />
                   <span>Auto-detect</span>
-                  <ChevronDown className="w-4 h-4 text-text-muted ml-auto" />
+                  <NavArrowDown className="w-4 h-4 text-text-muted ml-auto" />
                </div>
             </div>
           </div>

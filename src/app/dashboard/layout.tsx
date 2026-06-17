@@ -2,24 +2,24 @@
 import { useState, useRef, useEffect } from "react";
 
 import {
-  PanelLeftClose,
-  LayoutGrid,
+  SidebarCollapse,
+  GridPlus,
   Plus,
-  Wand2,
-  LayoutTemplate,
-  Target,
-  Plug,
+  MagicWand,
+  LayoutRight,
+  CursorPointer,
+  PlugTypeA,
   Gift,
   Bell,
   Settings,
-  Moon,
-  Sun,
-  ChevronDown,
-  Gem,
+  HalfMoon,
+  SunLight,
+  NavArrowDown,
+  Rhombus,
   User,
   HelpCircle,
   LogOut,
-} from "lucide-react";
+} from "iconoir-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -34,12 +34,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const pathname = usePathname();
 
   const navLinks = [
-    { label: "DASHBOARD", icon: LayoutGrid, href: "/dashboard" },
+    { label: "DASHBOARD", icon: GridPlus, href: "/dashboard" },
     { label: "CREATE", icon: Plus, href: "/dashboard/create" },
-    { label: "LAUNCH", icon: Wand2, href: "/dashboard/launch" },
-    { label: "TEMPLATES", icon: LayoutTemplate, href: "/dashboard/templates" },
-    { label: "ADVERTISING", icon: Target, href: "/dashboard/advertising" },
-    { label: "INTEGRATIONS", icon: Plug, href: "/dashboard/integrations" },
+    { label: "LAUNCH", icon: MagicWand, href: "/dashboard/launch" },
+    { label: "TEMPLATES", icon: LayoutRight, href: "/dashboard/templates" },
+    { label: "ADVERTISING", icon: CursorPointer, href: "/dashboard/advertising" },
+    { label: "INTEGRATIONS", icon: PlugTypeA, href: "/dashboard/integrations" },
     { label: "REFERRALS", icon: Gift, href: "/dashboard/referrals" },
   ];
 
@@ -76,7 +76,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             className={`w-6 h-6 flex-shrink-0 flex items-center justify-center border border-border-subtle hover:border-text-muted rounded-sm text-text-muted hover:text-text-primary transition-colors ${!isSidebarOpen && "mt-1"}`}
             title={isSidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
           >
-            <PanelLeftClose className={`w-3.5 h-3.5 transition-transform duration-300 ${!isSidebarOpen && "rotate-180"}`} />
+            <SidebarCollapse className={`w-3.5 h-3.5 transition-transform duration-300 ${!isSidebarOpen && "rotate-180"}`} />
           </button>
         </div>
 
@@ -124,7 +124,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   Get more out of your apps
                 </span>
               </div>
-              <Gem className="w-5 h-5 text-accent flex-shrink-0" />
+              <Rhombus className="w-5 h-5 text-accent flex-shrink-0" />
             </Link>
           )}
 
@@ -134,7 +134,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               className={`flex items-center ${isSidebarOpen ? "w-full px-2 py-2 gap-3" : "justify-center w-10 h-10"} hover:bg-bg-surface transition-colors`}
               title={!isSidebarOpen ? "Mohit Sharma" : undefined}
             >
-              <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-pink-500 to-rose-400 shadow-[0_0_10px_rgba(236,72,153,0.2)] flex-shrink-0" />
+              <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-pink-500 to-rose-400 flex-shrink-0" />
               {isSidebarOpen && (
                 <div className="flex flex-col items-start overflow-hidden">
                   <span className="text-[13px] text-text-primary whitespace-nowrap" style={{ fontFamily: "var(--font-dm-sans)" }}>Mohit Sharma</span>
@@ -144,9 +144,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </button>
 
             {profileOpen && isSidebarOpen && (
-              <div className="absolute left-0 bottom-full mb-2 w-[220px] border border-border-default bg-bg-surface shadow-lg z-30">
+              <div className="absolute left-0 bottom-full mb-2 w-[220px] border border-border-default bg-bg-surface z-30">
                 <div className="flex items-center gap-3 p-3 border-b border-border-subtle">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-pink-500 to-rose-400 shadow-[0_0_10px_rgba(236,72,153,0.2)] flex-shrink-0" />
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-pink-500 to-rose-400 flex-shrink-0" />
                   <div className="flex flex-col overflow-hidden">
                     <span className="text-[13px] text-text-primary whitespace-nowrap" style={{ fontFamily: "var(--font-dm-sans)" }}>Mohit Sharma</span>
                     <span className="text-[10px] font-mono text-text-muted truncate">mohit.sharma80805@gmail.com</span>
@@ -204,13 +204,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               className="p-2 text-text-secondary hover:text-text-primary transition-colors border border-transparent hover:border-border-default rounded-sm"
               title="Toggle theme"
             >
-              {theme === "light" ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+              {theme === "light" ? <HalfMoon className="w-4 h-4" /> : <SunLight className="w-4 h-4" />}
             </button>
 
             <button className="flex items-center gap-2 pl-2 py-1">
-               <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-pink-500 to-rose-400 shadow-[0_0_10px_rgba(236,72,153,0.3)]" />
+               <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-pink-500 to-rose-400" />
                <span className="text-[11px] font-medium uppercase tracking-widest text-text-primary" style={{ fontFamily: "var(--font-space-grotesk)" }}>Mohit Sharma</span>
-               <ChevronDown className="w-3 h-3 text-text-muted" />
+               <NavArrowDown className="w-3 h-3 text-text-muted" />
             </button>
           </div>
         </header>

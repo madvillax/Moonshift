@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Search, Plug, ArrowUpRight } from "lucide-react";
+import { Lens, PlugTypeA, ArrowUpRight } from "iconoir-react";
 import { useTheme } from "@/components/ThemeProvider";
 
 type Category = "All" | "Deploy" | "Social" | "Database" | "Advertising";
@@ -163,7 +163,7 @@ export default function IntegrationsPage() {
       <div className="mb-10">
         <div className="flex items-center gap-3 mb-3">
           <div className="flex items-center justify-center w-10 h-10 border border-border-subtle bg-bg-surface">
-            <Plug className="w-5 h-5 text-accent" />
+            <PlugTypeA className="w-5 h-5 text-accent" />
           </div>
           <h1
             className="text-2xl md:text-3xl font-normal tracking-tight text-text-primary"
@@ -195,7 +195,7 @@ export default function IntegrationsPage() {
         </div>
 
         <div className="relative w-full md:w-72">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
+          <Lens className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
           <input
             type="text"
             value={query}
@@ -208,7 +208,7 @@ export default function IntegrationsPage() {
 
       {filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-24 border border-border-subtle bg-bg-surface">
-          <Plug className="w-8 h-8 text-text-muted mb-3" />
+          <PlugTypeA className="w-8 h-8 text-text-muted mb-3" />
           <p className="text-[14px] text-text-secondary">No integrations found.</p>
         </div>
       ) : (

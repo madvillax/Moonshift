@@ -1,16 +1,21 @@
 "use client";
 
-import { Terminal, Zap, Code2, Globe, ArrowRight } from "lucide-react";
+import { Terminal, Flash, Code, Globe, ArrowRight } from "iconoir-react";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { DotPattern } from "@/components/ui/dot-pattern";
 
 export default function CliSection() {
   return (
-    <section className="relative py-24 overflow-hidden bg-bg-deep border-t border-border-subtle">
+    <section className="relative py-24 overflow-hidden bg-bg-deep border-t border-b border-border-subtle">
+      <div className="absolute inset-0 opacity-[0.2] dark:opacity-[0.1]">
+        <DotPattern className="text-[#008BFF]" cr={1} width={24} height={24} />
+      </div>
 
       <div className="relative max-w-[1200px] mx-auto px-6 lg:px-10 z-10">
         
         <div className="flex flex-col md:flex-row gap-12 lg:gap-20 items-center">
           {/* Text Content */}
-          <div className="flex-1 text-left space-y-6">
+          <BlurFade delay={0} duration={0.5} inView className="flex-1 text-left space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-none border border-accent/30 bg-accent/10">
               <Terminal className="w-4 h-4 text-accent" />
               <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-accent" style={{ fontFamily: "var(--font-space-grotesk)" }}>
@@ -19,21 +24,21 @@ export default function CliSection() {
             </div>
             
             <h2 
-              className="text-4xl md:text-[48px] font-medium leading-[1.1] tracking-[-0.02em] text-text-primary"
+              className="text-4xl md:text-5xl lg:text-6xl font-medium leading-[1.04] tracking-[-0.03em] text-text-primary text-balance"
               style={{ fontFamily: "var(--font-dm-sans)" }}
             >
               Bring the power of Moonshift to your terminal.
             </h2>
             
-            <p className="text-[16px] text-text-secondary leading-[1.6] max-w-[480px]">
+            <p className="text-[16px] text-text-secondary leading-[1.6] max-w-[480px] text-pretty">
               One prompt, a deployed app, from a single self-contained binary. Type an idea, and Moonshift builds, deploys, and iterates entirely server-side without leaving your command line.
             </p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
               {[
-                { icon: Zap, label: "No Node, Bun, or build step" },
+                { icon: Flash, label: "No Node, Bun, or build step" },
                 { icon: Terminal, label: "Interactive launchpad" },
-                { icon: Code2, label: "Live build log streaming" },
+                { icon: Code, label: "Live build log streaming" },
                 { icon: Globe, label: "Connect domains & accounts" },
               ].map((feature, i) => {
                 const Icon = feature.icon;
@@ -54,11 +59,11 @@ export default function CliSection() {
                 <ArrowRight className="h-4 w-4" />
               </button>
             </div>
-          </div>
-          
+          </BlurFade>
+
           {/* Video Mockup */}
-          <div className="flex-1 w-full max-w-[600px] mx-auto">
-            <div className="relative bg-bg-elevated border border-border-default rounded-lg overflow-hidden shadow-[0_0_40px_rgba(0,139,255,0.15)] ring-1 ring-white/5">
+          <BlurFade delay={0.2} duration={0.6} inView className="flex-1 w-full max-w-[600px] mx-auto">
+            <div className="relative bg-bg-elevated border border-border-default overflow-hidden">
               
               {/* Terminal Header */}
               <div className="flex items-center px-4 py-3 border-b border-border-subtle bg-bg-surface">
@@ -87,8 +92,8 @@ export default function CliSection() {
               </div>
               
             </div>
-          </div>
-          
+          </BlurFade>
+
         </div>
       </div>
     </section>

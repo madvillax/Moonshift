@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Megaphone, ExternalLink, RefreshCw } from "lucide-react";
+import { Plus, Megaphone, OpenNewWindow, RefreshDouble } from "iconoir-react";
 
 export default function AdvertisingPage() {
   const [campaigns] = useState([]);
@@ -70,10 +70,10 @@ export default function AdvertisingPage() {
           </div>
           <div className="flex items-center gap-3">
             <button className="p-2 text-text-secondary hover:text-text-primary transition-colors">
-              <RefreshCw className="w-4 h-4" />
+              <RefreshDouble className="w-4 h-4" />
             </button>
             <button className="inline-flex items-center gap-2 px-4 py-2.5 bg-accent hover:bg-accent/90 text-white text-[13px] font-medium transition-colors">
-              <ExternalLink className="w-4 h-4" />
+              <OpenNewWindow className="w-4 h-4" />
               Connect Google Ads
             </button>
           </div>

@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ExternalLink } from "lucide-react";
+import { OpenNewWindow } from "iconoir-react";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { DotPattern } from "@/components/ui/dot-pattern";
 
 interface Review {
   id: string;
@@ -234,7 +236,7 @@ function ReviewCard({
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1 text-[13px] text-accent hover:underline transition-colors"
         >
-          View post <ExternalLink className="h-3 w-3" />
+          View post <OpenNewWindow className="h-3 w-3" />
         </a>
       )}
     </div>
@@ -282,6 +284,9 @@ export default function Reviews() {
 
   return (
     <section id="reviews" className="relative overflow-hidden bg-bg-deep py-20 md:py-28">
+      <div className="absolute inset-0 opacity-[0.25] dark:opacity-[0.12]">
+        <DotPattern className="text-[#008BFF] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_50%,white,transparent)]" cr={1} width={20} height={20} />
+      </div>
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
@@ -290,15 +295,16 @@ export default function Reviews() {
         }}
       />
 
+      <BlurFade delay={0} duration={0.5} inView>
       <div className="relative mx-auto max-w-[1320px] px-6 lg:px-8 mb-14 md:mb-16">
         <p className="mb-5 text-[11px] font-medium uppercase tracking-[0.18em] text-text-muted">
           Reviews
         </p>
         <h2
-          className="text-4xl font-medium leading-[1.04] tracking-[-0.03em] text-text-primary md:text-5xl lg:text-6xl"
+          className="text-4xl font-medium leading-[1.04] tracking-[-0.03em] text-text-primary md:text-5xl lg:text-6xl text-balance"
           style={{ fontFamily: "var(--font-dm-sans)" }}
         >
-          What our clients say.
+          What our users say.
         </h2>
         <div className="mt-8 flex flex-wrap gap-3">
           {badges.map((badge) => (
@@ -306,11 +312,14 @@ export default function Reviews() {
           ))}
         </div>
       </div>
+      </BlurFade>
 
+      <BlurFade delay={0.1} duration={0.6} inView>
       <div className="relative space-y-6">
         <MarqueeRow items={topRow} direction="left" speed={35} />
         <MarqueeRow items={bottomRow} direction="right" speed={42} />
       </div>
+      </BlurFade>
     </section>
   );
 }

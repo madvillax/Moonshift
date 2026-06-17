@@ -1,6 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { BorderBeam } from "@/components/ui/border-beam";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { DotPattern } from "@/components/ui/dot-pattern";
 
 type Billing = "monthly" | "annual";
 
@@ -60,7 +63,9 @@ export default function Pricing() {
 
   return (
     <section id="pricing" className="relative overflow-hidden bg-bg-deep py-16 md:py-20">
+      <DotPattern className="text-[#008BFF]/30 dark:text-[#008BFF]/20 [mask-image:radial-gradient(ellipse_80%_70%_at_50%_50%,white,transparent)]" cr={1} width={20} height={20} />
       <div className="relative mx-auto max-w-[1320px] px-6 lg:px-8">
+        <BlurFade delay={0} duration={0.5} inView>
         <div className="mx-auto mb-10 max-w-4xl text-center md:mb-12">
           <p
             className="mb-5 text-[11px] font-medium uppercase tracking-[0.28em] text-accent"
@@ -69,18 +74,20 @@ export default function Pricing() {
             Pricing
           </p>
           <h2
-            className="text-[32px] font-medium leading-[0.98] tracking-[-0.045em] text-text-primary md:text-[52px] lg:text-[64px]"
+            className="text-4xl font-medium leading-[1.04] tracking-[-0.03em] text-text-primary md:text-5xl lg:text-6xl text-balance"
             style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             Pay only for what <em className="italic">you ship.</em>
           </h2>
           <p
-            className="mx-auto mt-7 max-w-3xl text-[15px] leading-[1.6] text-text-secondary md:text-[17px]"
+            className="mx-auto mt-7 max-w-3xl text-[15px] leading-[1.6] text-text-secondary md:text-[17px] text-pretty"
           >
             Your first launch is free: <strong className="text-text-primary">5,000 moons, no card.</strong> A typical launch costs ~$0.60, and every run has a <strong className="text-text-primary">hard spend ceiling.</strong>
           </p>
         </div>
+        </BlurFade>
 
+        <BlurFade delay={0.1} duration={0.5} inView>
         <div className="mx-auto mb-10 flex max-w-[1320px] flex-col items-center justify-between gap-5 md:mb-12 md:flex-row">
           <div className="flex w-full flex-col gap-3 rounded-none border border-border-default bg-bg-surface p-4 md:w-auto md:min-w-[520px]">
             <div className="flex items-center justify-between">
@@ -124,7 +131,7 @@ export default function Pricing() {
               className="relative px-5 py-2.5 text-[13px] font-medium uppercase tracking-[0.16em] transition-colors duration-200"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              <span className={`relative z-10 ${billing === "monthly" ? "text-bg-deep" : "text-text-secondary hover:text-text-primary"}`}>
+              <span className={`relative z-10 ${billing === "monthly" ? "text-text-primary" : "text-text-muted hover:text-text-secondary"}`}>
                 Monthly
               </span>
             </button>
@@ -133,13 +140,13 @@ export default function Pricing() {
               className="relative flex items-center gap-2 px-5 py-2.5 text-[13px] font-medium uppercase tracking-[0.16em] transition-colors duration-200"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              <span className={`relative z-10 ${billing === "annual" ? "text-bg-deep" : "text-text-secondary hover:text-text-primary"}`}>
+              <span className={`relative z-10 ${billing === "annual" ? "text-text-primary" : "text-text-muted hover:text-text-secondary"}`}>
                 Annual
               </span>
               <span
                 className={`relative z-10 rounded-none px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.1em] ${
                   billing === "annual"
-                    ? "bg-white/20 text-bg-deep"
+                    ? "bg-accent text-white"
                     : "bg-accent/10 text-accent"
                 }`}
               >
@@ -148,19 +155,30 @@ export default function Pricing() {
             </button>
           </div>
         </div>
+        </BlurFade>
 
-        <div className="grid gap-4 lg:grid-cols-3 lg:gap-4">
-          {plans.map((plan) => {
+        <div className="grid gap-4 lg:grid-cols-3 lg:gap-4 items-stretch">
+          {plans.map((plan, i) => {
             const tier = plan[billing];
             return (
+              <BlurFade key={plan.label} delay={0.2 + i * 0.1} duration={0.5} inView className="h-full">
               <article
-                key={`${plan.label}-${billing}`}
-                className={`group relative flex min-h-[500px] flex-col overflow-hidden border p-5 md:p-6 ${
+                key={plan.label}
+                className={`group relative flex h-full flex-col overflow-hidden border p-5 md:p-6 ${
                     plan.highlighted
                       ? "border-accent bg-[#008bff] text-white"
                       : "border-border-default bg-bg-surface text-text-primary"
                   }`}
                 >
+                  {plan.highlighted && (
+                    <BorderBeam
+                      size={180}
+                      duration={6}
+                      colorFrom="#ffffff"
+                      colorTo="#69C0FF"
+                      className="opacity-60"
+                    />
+                  )}
                   <div className="relative flex flex-1 flex-col">
                     <div className="mb-6 flex items-start gap-4">
                       <div className="flex items-center gap-4">
@@ -193,13 +211,15 @@ export default function Pricing() {
                           </span>
                         )}
                       </div>
+                      <div className="mt-2 min-h-[22px]">
                       {"save" in tier && (tier as {save: string}).save && (
-                        <p className={`mt-2 text-[13px] tracking-[0.04em] ${plan.highlighted ? "text-white/80" : "text-accent"}`}>
+                        <p className={`text-[13px] tracking-[0.04em] ${plan.highlighted ? "text-white/80" : "text-accent"}`}>
                           <span className="line-through opacity-50">{plan.monthly.price}{plan.monthly.billing}</span>
                           <span className="ml-2">{tier.price}{tier.billing}</span>
                           <span className="ml-2 text-[12px] uppercase tracking-[0.12em] opacity-80">· {(tier as {save: string}).save}</span>
                         </p>
                       )}
+                      </div>
                       <p
                         className={`mt-4 text-[12px] uppercase leading-[1.6] tracking-[0.2em] ${plan.highlighted ? "text-white/72" : "text-text-secondary"}`}
                         style={{ fontFamily: "var(--font-space-grotesk)" }}
@@ -220,10 +240,10 @@ export default function Pricing() {
                         {plan.includes.map((feature) => (
                           <li
                             key={feature}
-                            className={`flex gap-3 text-[15px] leading-[1.45] tracking-[-0.03em] md:text-[17px] lg:text-[15px] xl:text-[17px] ${plan.highlighted ? "text-white/90" : "text-text-secondary"}`}
+                            className={`flex items-center gap-3 text-[14px] leading-[1.45] tracking-[-0.02em] ${plan.highlighted ? "text-white/90" : "text-text-secondary"}`}
                           >
-                            <span className={`mt-[0.16em] flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-[13px] ${plan.highlighted ? "border-white/35 bg-white/10 text-white" : "border-accent/45 bg-accent-dim text-accent"}`}>✓</span>
-                            <span>{feature}</span>
+                            <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-[12px] ${plan.highlighted ? "border-white/35 bg-white/10 text-white" : "border-accent/45 bg-accent-dim text-accent"}`}>✓</span>
+                            <span className="line-clamp-1">{feature}</span>
                           </li>
                         ))}
                       </ul>
@@ -242,7 +262,8 @@ export default function Pricing() {
                     </a>
                   </div>
                 </article>
-              );
+              </BlurFade>
+            );
           })}
         </div>
       </div>

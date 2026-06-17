@@ -1,6 +1,6 @@
 "use client";
 
-import { ExternalLink, Globe, Mail, MessageCircle } from "lucide-react";
+import { OpenNewWindow, Globe, Mail, MessageText } from "iconoir-react";
 
 const footerLinks = {
   PRODUCT: [
@@ -24,8 +24,8 @@ const footerLinks = {
 
 const socialLinks = [
   { icon: Globe, href: "#", label: "Website" },
-  { icon: MessageCircle, href: "#", label: "Community" },
-  { icon: ExternalLink, href: "#", label: "External" },
+  { icon: MessageText, href: "#", label: "Community" },
+  { icon: OpenNewWindow, href: "#", label: "External" },
   { icon: Mail, href: "#", label: "Email" },
 ];
 
@@ -177,59 +177,64 @@ export default function Footer() {
         <div className="space-y-0">
           <PixelSkyScene />
 
-          {/* Gradient info + links row */}
-          <div className="grid gap-8 bg-[linear-gradient(180deg,#008BFF_0%,#008BFF_26%,#0050B3_48%,#0A0A0A_72%,#0A0A0A_100%)] p-5 md:grid-cols-[1.2fr_2fr] md:p-8">
-            {/* Left: description + socials */}
-            <div>
-              <p className="mb-6 max-w-sm text-[14px] leading-[1.6] text-white/85">
-                AI-powered autonomous software development platform. Type your idea, wake up launched.
-              </p>
-              <div className="flex gap-4">
-                {socialLinks.map((social) => {
-                  const Icon = social.icon;
-                  return (
-                    <a
-                      key={social.label}
-                      href={social.href}
-                      className="text-white transition-colors duration-200 hover:text-[#69C0FF]"
-                      aria-label={social.label}
-                    >
-                      <Icon className="h-5 w-5" />
-                    </a>
-                  );
-                })}
+          {/* Unified gradient section: info + wordmark */}
+          <div className="bg-[linear-gradient(180deg,#008BFF_0%,#0050B3_30%,#001A4D_58%,#0A0A0A_82%)]">
+
+            {/* Info + links row */}
+            <div className="grid gap-8 p-5 md:grid-cols-[1.2fr_2fr] md:p-8">
+              {/* Left: description + socials */}
+              <div>
+                <p className="mb-6 max-w-sm text-[14px] leading-[1.6] text-white/85">
+                  AI-powered autonomous software development platform. Type your idea, wake up launched.
+                </p>
+                <div className="flex gap-4">
+                  {socialLinks.map((social) => {
+                    const Icon = social.icon;
+                    return (
+                      <a
+                        key={social.label}
+                        href={social.href}
+                        className="text-white transition-colors duration-200 hover:text-[#69C0FF]"
+                        aria-label={social.label}
+                      >
+                        <Icon className="h-5 w-5" />
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Right: nav columns */}
+              <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
+                {Object.entries(footerLinks).map(([category, links]) => (
+                  <div key={category}>
+                    <h4 className="mb-4 text-[11px] font-medium uppercase tracking-[0.14em] text-[#DDEFFF]" style={{ fontFamily: "var(--font-space-grotesk)" }}>
+                      {category}
+                    </h4>
+                    <ul className="space-y-3">
+                      {links.map((link) => (
+                        <li key={link.name}>
+                          <a href={link.href} className="text-[13px] font-medium text-white transition-colors duration-200 hover:text-[#69C0FF]">
+                            {link.name}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Right: nav columns */}
-            <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
-              {Object.entries(footerLinks).map(([category, links]) => (
-                <div key={category}>
-                  <h4 className="mb-4 text-[11px] font-medium uppercase tracking-[0.14em] text-[#DDEFFF]" style={{ fontFamily: "var(--font-space-grotesk)" }}>
-                    {category}
-                  </h4>
-                  <ul className="space-y-3">
-                    {links.map((link) => (
-                      <li key={link.name}>
-                        <a href={link.href} className="text-[13px] font-medium text-white transition-colors duration-200 hover:text-[#69C0FF]">
-                          {link.name}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+            {/* Big Moonshift wordmark — difference blend burns text through the gradient */}
+            <div className="overflow-hidden pt-24">
+              <h2
+                className="select-none px-2 pb-4 pt-2 text-[20vw] font-semibold leading-[0.78] tracking-[-0.09em] text-white md:text-[16vw] lg:text-[244px]"
+                style={{ fontFamily: "var(--font-dm-sans)", mixBlendMode: "difference" }}
+              >
+                Moonshift
+              </h2>
             </div>
-          </div>
 
-          {/* Big Moonshift wordmark */}
-          <div className="overflow-hidden bg-[#0A0A0A]">
-            <h2
-              className="select-none px-2 pb-4 pt-2 text-[20vw] font-semibold leading-[0.78] tracking-[-0.09em] text-white md:text-[16vw] lg:text-[180px]"
-              style={{ fontFamily: "var(--font-dm-sans)" }}
-            >
-              Moonshift
-            </h2>
           </div>
         </div>
       </div>

@@ -13,8 +13,8 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <Workflow />
-        <CliSection />
         <Features />
+        <CliSection />
         <Pricing />
         <Reviews />
         <FinalCTA />

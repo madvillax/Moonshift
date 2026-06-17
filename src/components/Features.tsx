@@ -1,5 +1,9 @@
 "use client";
 
+import { MagicCard } from "@/components/ui/magic-card";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { FlickeringGrid } from "@/components/ui/flickering-grid";
+
 const features = [
   {
     id: "deploy",
@@ -201,7 +205,11 @@ const visualMap: Record<string, React.FC> = {
 function FeatureCard({ feature }: { feature: typeof features[0] }) {
   const Visual = visualMap[feature.visual];
   return (
-    <div className="border border-border-default bg-bg-deep overflow-hidden flex flex-col h-[320px]">
+    <MagicCard
+      className="bg-bg-deep overflow-hidden flex flex-col h-[320px] cursor-default"
+      gradientColor="#008BFF"
+      gradientOpacity={0.06}
+    >
       <div className="h-[160px] relative overflow-hidden">
         <Visual />
       </div>
@@ -213,33 +221,37 @@ function FeatureCard({ feature }: { feature: typeof features[0] }) {
           {feature.description}
         </p>
       </div>
-    </div>
+    </MagicCard>
   );
 }
 
 export default function Features() {
   return (
     <section id="features" className="relative bg-bg-deep py-16 md:py-20 overflow-hidden">
-      <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)`, backgroundSize: "60px 60px" }} />
+      <FlickeringGrid className="absolute inset-0 z-0 opacity-[0.25] dark:opacity-[0.15]" color="rgb(0,139,255)" squareSize={3} gridGap={8} flickerChance={0.15} maxOpacity={0.35} />
 
       <div className="relative mx-auto max-w-[1200px] px-6 lg:px-10">
+        <BlurFade delay={0} duration={0.5} inView>
         <div className="mb-16 md:mb-20 max-w-3xl">
           <div className="mb-5 text-[11px] font-medium uppercase tracking-[0.18em] text-accent" style={{ fontFamily: "var(--font-space-grotesk)" }}>
             Platform Features
           </div>
-          <h2 className="text-4xl font-medium leading-[1.04] tracking-[-0.03em] text-text-primary md:text-5xl lg:text-6xl" style={{ fontFamily: "var(--font-dm-sans)" }}>
+          <h2 className="text-4xl font-medium leading-[1.04] tracking-[-0.03em] text-text-primary md:text-5xl lg:text-6xl text-balance" style={{ fontFamily: "var(--font-dm-sans)" }}>
             Everything you need to ship faster.
           </h2>
-          <p className="mt-6 max-w-2xl text-[16px] leading-[1.7] text-text-secondary font-sans">
+          <p className="mt-6 max-w-2xl text-[16px] leading-[1.7] text-text-secondary font-sans text-pretty">
             From one prompt to a deployed product — Moonshift handles the entire lifecycle.
           </p>
         </div>
+        </BlurFade>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-border-default border border-border-default" style={{ contain: "layout style" }}>
-          {features.map((feature) => (
-            <div key={feature.id} className="bg-bg-deep">
-              <FeatureCard feature={feature} />
-            </div>
+        <div className="border border-border-default grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-border-default" style={{ contain: "layout style" }}>
+          {features.map((feature, i) => (
+            <BlurFade key={feature.id} delay={i * 0.08} duration={0.5} inView className="h-full">
+              <div className="bg-bg-deep h-full">
+                <FeatureCard feature={feature} />
+              </div>
+            </BlurFade>
           ))}
         </div>
       </div>

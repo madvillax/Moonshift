@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight } from "iconoir-react";
 
 type Source = "url" | "github" | "existing" | "zip";
 
@@ -54,7 +54,7 @@ export default function LaunchPage() {
           Existing product · ~30 sec · launch kit + branded PDF
         </p>
 
-        <div className="w-full max-w-[920px] border border-border-default bg-bg-elevated flex flex-col shadow-[0_0_40px_rgba(0,139,255,0.04)]">
+        <div className="w-full max-w-[920px] border border-border-default bg-bg-elevated flex flex-col">
           <div className="p-5 sm:p-7 md:p-9">
             <span
               className="text-[11px] font-mono tracking-[0.18em] text-text-muted uppercase"

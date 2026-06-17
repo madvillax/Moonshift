@@ -1,7 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUp, Zap, Box, Rocket, Terminal, Globe, Copy, Check, Monitor } from "lucide-react";
+import { ArrowUp, Flash, Box, Rocket, Terminal, Globe, Copy, Check, Computer } from "iconoir-react";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { TextAnimate } from "@/components/ui/text-animate";
+import { AnimatedShinyText } from "@/components/ui/animated-shiny-text";
+import { Particles } from "@/components/ui/particles";
+import { Meteors } from "@/components/ui/meteors";
 
 
 const logos = [
@@ -17,35 +22,52 @@ const logos = [
   "Hugging Face",
 ];
 
-const Block = ({ className, color }: { className: string; color: string }) => (
+const gridVisualsCSS = `
+@keyframes gv-pulse {
+  0%,15%,100% { transform:translate(0,0); filter:brightness(1); }
+  3%  { transform:translate(6px,0); filter:brightness(1.15); }
+  6%  { transform:translate(6px,-6px); filter:brightness(1.15); }
+  10% { transform:translate(0,-6px); filter:brightness(1); }
+}
+`;
+
+const Block = ({ className, color, delay = 0, duration = 7 }: { className: string; color: string; delay?: number; duration?: number }) => (
   <div
     className={`absolute ${className}`}
-    style={{ backgroundColor: color, opacity: 1 }}
+    style={{
+      backgroundColor: color,
+      animation: `gv-pulse ${duration}s steps(1) infinite`,
+      animationDelay: `${delay}s`,
+    }}
   />
 );
 
 const GridVisuals = () => {
   return (
-    <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden flex justify-center">
-      <div className="absolute top-[560px] w-full max-w-[1200px] h-[300px] relative">
-        <Block className="top-[0px] left-[0px] w-[160px] h-[90px] hidden md:block" color="#0050B3" />
-        <Block className="top-[80px] left-[130px] w-[110px] h-[75px] hidden lg:block" color="#008BFF" />
-        <Block className="top-[140px] left-[0px] w-[140px] h-[70px] hidden md:block" color="#38BDF8" />
-        <Block className="top-[200px] left-[100px] w-[100px] h-[60px] hidden lg:block" color="#69C0FF" />
+    <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+      <style>{gridVisualsCSS}</style>
+      {/* Left edge blocks — scattered */}
+      <div className="absolute top-[500px] left-[-30px] w-[300px] h-[360px]">
+        <Block className="top-[0px]   left-[-15px] w-[175px] h-[115px] hidden md:block"  color="#0050B3" delay={1.3}  duration={6.7} />
+        <Block className="top-[45px]  left-[140px] w-[115px] h-[80px]  hidden xl:block"  color="#69C0FF" delay={4.1}  duration={8.3} />
+        <Block className="top-[115px] left-[60px]  w-[145px] h-[85px]  hidden lg:block"  color="#38BDF8" delay={0.7}  duration={5.9} />
+        <Block className="top-[195px] left-[-10px] w-[160px] h-[75px]  hidden md:block"  color="#008BFF" delay={3.4}  duration={7.4} />
+        <Block className="top-[248px] left-[80px]  w-[130px] h-[65px]  hidden lg:block"  color="#0050B3" delay={2.1}  duration={9.1} />
       </div>
 
-      <div className="absolute top-[520px] w-full max-w-[1200px] h-[320px] relative">
-        <Block className="top-[0px] right-[0px] w-[180px] h-[120px] hidden md:block" color="#008BFF" />
-        <Block className="top-[100px] right-[150px] w-[140px] h-[90px] hidden lg:block" color="#0050B3" />
-        <Block className="top-[30px] right-[220px] w-[110px] h-[75px] hidden xl:block" color="#69C0FF" />
-        <Block className="top-[200px] right-[0px] w-[160px] h-[75px] hidden md:block" color="#38BDF8" />
-        <Block className="top-[250px] right-[130px] w-[130px] h-[60px] hidden lg:block" color="#0050B3" />
+      {/* Right edge blocks — pushed to viewport right */}
+      <div className="absolute top-[680px] right-[-30px] w-[280px] h-[360px]">
+        <Block className="top-[0px] right-[-15px] w-[180px] h-[120px] hidden md:block"  color="#008BFF" delay={2.8}  duration={7.8} />
+        <Block className="top-[110px] right-[90px] w-[140px] h-[90px] hidden lg:block"  color="#0050B3" delay={0.4}  duration={6.2} />
+        <Block className="top-[40px] right-[160px] w-[110px] h-[75px] hidden xl:block"  color="#69C0FF" delay={5.2}  duration={8.9} />
+        <Block className="top-[210px] right-[-10px] w-[160px] h-[75px] hidden md:block" color="#38BDF8" delay={1.7}  duration={5.5} />
+        <Block className="top-[270px] right-[70px] w-[130px] h-[60px] hidden lg:block"  color="#0050B3" delay={3.9}  duration={7.1} />
       </div>
     </div>
   );
 };
 
-const ROCKET_PIXEL_SIZE = 10;
+const ROCKET_PIXEL_SIZE = 16;
 const rocketArt = [
   "......BBB..............",
   "....BBBBBBB............",
@@ -97,10 +119,10 @@ const PixelRocket = () => {
             })
           )}
         </svg>
-        <div className="rocket-exhaust absolute right-[-38px] top-1/2 flex -translate-y-1/2 flex-col gap-[4px]">
-          <div className="exhaust-1 h-[7px] w-[26px] bg-[#38BDF8]" />
-          <div className="exhaust-2 h-[9px] w-[40px] bg-[#69C0FF]" />
-          <div className="exhaust-3 h-[7px] w-[24px] bg-[#38BDF8]" />
+        <div className="rocket-exhaust absolute right-[-60px] top-1/2 flex -translate-y-1/2 flex-col gap-[6px]">
+          <div className="exhaust-1 h-[11px] w-[42px] bg-[#38BDF8]" />
+          <div className="exhaust-2 h-[14px] w-[64px] bg-[#69C0FF]" />
+          <div className="exhaust-3 h-[11px] w-[38px] bg-[#38BDF8]" />
         </div>
       </div>
     </div>
@@ -111,27 +133,44 @@ export default function Hero() {
   const [activeMode, setActiveMode] = useState<'web' | 'cli'>('web');
 
   return (
-    <section className="relative min-h-[100dvh] flex flex-col items-start overflow-hidden bg-bg-deep pt-28 pb-10">
+    <section className="relative min-h-[100dvh] flex flex-col items-start overflow-hidden bg-bg-deep pt-36 pb-10">
       <GridVisuals />
+      <Particles className="absolute inset-0 z-0" quantity={60} color="#008BFF" size={0.6} staticity={80} />
+      <Meteors number={10} className="text-[#008BFF]/60" />
       <div className="relative max-w-[1200px] mx-auto px-6 lg:px-10 w-full z-10">
         <div
           className="flex flex-col items-start text-left mb-6"
         >
+          <BlurFade delay={0} duration={0.5} inView>
+            <div className="mb-4 inline-flex items-center gap-2 border border-border-default bg-bg-surface px-3 py-1.5">
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+              <AnimatedShinyText className="text-[11px] font-medium uppercase tracking-[0.22em] text-text-secondary" shimmerWidth={120}>
+                AI agents. Overnight. Deployed.
+              </AnimatedShinyText>
+            </div>
+          </BlurFade>
+
           <h1
-            className="text-4xl md:text-[52px] lg:text-[60px] font-medium leading-[1.08] tracking-[-0.02em] mb-5"
+            className="text-5xl md:text-[68px] lg:text-[82px] font-medium leading-[1.06] tracking-[-0.03em] mb-5 text-balance"
             style={{ fontFamily: "var(--font-dm-sans)" }}
           >
-            <span className="text-text-primary">Type your idea.</span>
-            <br />
-            <span className="text-accent">Wake up launched.</span>
+            <TextAnimate animation="blurInUp" by="word" as="span" once delay={0.1} duration={0.5} className="block text-text-primary">
+              Type your idea.
+            </TextAnimate>
+            <TextAnimate animation="blurInUp" by="word" as="span" once delay={0.35} duration={0.5} className="block text-accent">
+              Wake up launched.
+            </TextAnimate>
           </h1>
 
-          <p className="text-[15px] md:text-[16px] text-text-secondary max-w-[480px] leading-[1.6] mb-6">
-            Moonshift connects your teams, agents, code, and data on a single
-            platform built on web standards, so nothing gets lost in translation
-          </p>
+          <BlurFade delay={0.55} duration={0.5} inView>
+            <p className="text-[15px] md:text-[16px] text-text-secondary max-w-[480px] leading-[1.6] mb-6 text-pretty">
+              Moonshift connects your teams, agents, code, and data on a single
+              platform built on web standards, so nothing gets lost in translation
+            </p>
+          </BlurFade>
 
           {/* Joined segmented CTA */}
+          <BlurFade delay={0.7} duration={0.5} inView>
           <div
             className="inline-flex items-center border border-border-default bg-bg-elevated overflow-hidden"
             style={{ fontFamily: "var(--font-space-grotesk)" }}
@@ -162,8 +201,10 @@ export default function Hero() {
               Moonshift CLI
             </button>
           </div>
+          </BlurFade>
         </div>
 
+        <BlurFade delay={0.85} duration={0.5} inView>
         <div className="max-w-[720px] w-full mb-12">
           {/* Grid overlay — both children in same cell, pure opacity crossfade, zero layout shift */}
           <div style={{ display: 'grid' }}>
@@ -189,7 +230,9 @@ export default function Hero() {
             </div>
           </div>
         </div>
+        </BlurFade>
 
+        <BlurFade delay={1.0} duration={0.6} inView>
         <div className="w-full">
           <div className="bg-bg-elevated border border-border-subtle rounded-none overflow-hidden">
             <div className="flex items-center px-4 py-3 border-b border-border-subtle bg-bg-surface">
@@ -264,7 +307,7 @@ export default function Hero() {
                   </div>
                 </div>
 
-                <div className="absolute bottom-4 left-4 right-4 md:right-auto md:w-[280px] bg-bg-surface border border-border-subtle rounded-none p-3 shadow-xl">
+                <div className="absolute bottom-4 left-4 right-4 md:right-auto md:w-[280px] bg-bg-surface border border-border-subtle rounded-none p-3">
                   <div className="flex items-center gap-2 mb-2">
                     <div className="flex gap-1.5">
                       <div className="w-2.5 h-2.5 rounded-full bg-text-muted" />
@@ -358,7 +401,9 @@ export default function Hero() {
             </div>
           </div>
         </div>
+        </BlurFade>
 
+        <BlurFade delay={1.15} duration={0.5} inView>
         <div className="mt-12 border-t border-border-subtle pt-8 overflow-hidden">
           <p className="text-center text-[11px] font-medium text-text-muted mb-8 uppercase tracking-[0.1em]">
             TRUSTED BY DEVELOPERS AT
@@ -376,6 +421,7 @@ export default function Hero() {
             </div>
           </div>
         </div>
+        </BlurFade>
       </div>
 
       <div className="absolute top-[180px] right-[12%] z-10 hidden lg:block">
@@ -389,7 +435,7 @@ function PromptBox() {
   const [mode, setMode] = useState<'fast' | 'standard' | 'full'>('fast');
 
   const modes = [
-    { id: 'fast' as const, label: 'FAST', icon: Zap, estimate: 'deploys app · ~3m · ~$1' },
+    { id: 'fast' as const, label: 'FAST', icon: Flash, estimate: 'deploys app · ~3m · ~$1' },
     { id: 'standard' as const, label: 'STANDARD', icon: Box, estimate: 'deploys app · ~6m · ~$3' },
     { id: 'full' as const, label: 'FULL', icon: Rocket, estimate: 'deploys app · ~12m · ~$6' },
   ];
@@ -397,7 +443,7 @@ function PromptBox() {
   const active = modes.find((m) => m.id === mode)!;
 
   return (
-    <div className="max-w-[720px] bg-bg-elevated border border-border-default rounded-none overflow-hidden ring-1 ring-accent/20 shadow-[0_0_20px_rgba(0,139,255,0.08)]">
+    <div className="max-w-[720px] bg-bg-elevated border border-border-default rounded-none overflow-hidden ring-0">
       <div className="p-5">
         <textarea
           placeholder="A landing page for my new app idea"
@@ -462,7 +508,7 @@ function CLIInstallBox() {
     {
       id: 'windows' as const,
       label: 'Windows',
-      icon: <Monitor className="h-3.5 w-3.5" />,
+      icon: <Computer className="h-3.5 w-3.5" />,
       command: 'irm https://moonshift.io/install.ps1 | iex',
       prompt: 'PS>',
       hint: 'Paste in PowerShell (run as Administrator). Requires Windows 10+.',
@@ -478,7 +524,7 @@ function CLIInstallBox() {
   };
 
   return (
-    <div className="max-w-[720px] bg-bg-elevated border border-border-default rounded-none overflow-hidden ring-1 ring-accent/20 shadow-[0_0_20px_rgba(0,139,255,0.08)]">
+    <div className="max-w-[720px] bg-bg-elevated border border-border-default rounded-none overflow-hidden ring-0">
       <div className="p-5">
         <div
           className="w-full h-[80px] bg-bg-deep border border-border-subtle font-mono text-[13px] leading-[1.6] flex items-center px-4 overflow-x-auto gap-3"
