@@ -134,7 +134,7 @@ export default function Hero() {
   const [activeMode, setActiveMode] = useState<'web' | 'cli'>('web');
 
   return (
-    <section className="relative min-h-[100dvh] flex flex-col items-start overflow-hidden bg-bg-deep pt-36 pb-10">
+    <section className="relative min-h-[100dvh] flex flex-col items-start overflow-hidden bg-bg-deep pt-24 pb-8 md:pt-36 md:pb-10">
       <GridVisuals />
       <Particles className="absolute inset-0 z-0" quantity={60} color="#008BFF" size={0.6} staticity={80} />
       <Meteors number={10} className="text-[#008BFF]/60" />
@@ -152,7 +152,7 @@ export default function Hero() {
           </BlurFade>
 
           <h1
-            className="text-5xl md:text-[68px] lg:text-[82px] font-medium leading-[1.06] tracking-[-0.03em] mb-5 text-balance"
+            className="text-[2.5rem] sm:text-5xl md:text-[68px] lg:text-[82px] font-medium leading-[1.06] tracking-[-0.02em] sm:tracking-[-0.03em] mb-5 text-balance"
             style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             <TextAnimate animation="blurInUp" by="word" as="span" once delay={0.1} duration={0.5} className="block text-text-primary">

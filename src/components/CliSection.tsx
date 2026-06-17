@@ -6,14 +6,14 @@ import { DotPattern } from "@/components/ui/dot-pattern";
 
 export default function CliSection() {
   return (
-    <section className="relative py-24 overflow-hidden bg-bg-deep border-t border-b border-border-subtle">
+    <section className="relative py-14 md:py-24 overflow-hidden bg-bg-deep border-t border-b border-border-subtle">
       <div className="absolute inset-0 opacity-[0.2] dark:opacity-[0.1]">
         <DotPattern className="text-[#008BFF]" cr={1} width={24} height={24} />
       </div>
 
       <div className="relative max-w-[1200px] mx-auto px-6 lg:px-10 z-10">
         
-        <div className="flex flex-col md:flex-row gap-12 lg:gap-20 items-center">
+        <div className="flex flex-col md:flex-row gap-8 md:gap-12 lg:gap-20 items-center">
           {/* Text Content */}
           <BlurFade delay={0} duration={0.5} inView className="flex-1 text-left space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-none border border-accent/30 bg-accent/10">

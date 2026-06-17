@@ -83,7 +83,7 @@ const agents = [
 
 export default function AgentCards() {
   return (
-    <section id="showcase" className="relative py-32 bg-bg-deep overflow-hidden">
+    <section id="showcase" className="relative py-16 md:py-32 bg-bg-deep overflow-hidden">
       <AnimatedGridPattern className="absolute inset-0 text-[#008BFF]/30 stroke-[#008BFF]/20 fill-[#008BFF]/20 z-0" numSquares={30} maxOpacity={0.18} duration={3} />
       <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
         <BlurFade delay={0} duration={0.5} inView>

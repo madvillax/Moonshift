@@ -89,7 +89,7 @@ export default function Pricing() {
 
         <BlurFade delay={0.1} duration={0.5} inView>
         <div className="mx-auto mb-10 flex max-w-[1320px] flex-col items-center justify-between gap-5 md:mb-12 md:flex-row">
-          <div className="flex w-full flex-col gap-3 rounded-none border border-border-default bg-bg-surface p-4 md:w-auto md:min-w-[520px]">
+          <div className="flex w-full flex-col gap-3 rounded-none border border-border-default bg-bg-surface p-4 md:w-auto md:min-w-[460px]">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="inline-block h-2 w-2 rounded-full bg-accent" />

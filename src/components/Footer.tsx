@@ -203,7 +203,7 @@ export default function Footer() {
               </div>
 
               {/* Right: nav columns */}
-              <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
+              <div className="grid grid-cols-3 gap-3 md:gap-6">
                 {Object.entries(footerLinks).map(([category, links]) => (
                   <div key={category}>
                     <h4 className="mb-4 text-[11px] font-medium uppercase tracking-[0.14em] text-[#DDEFFF]" style={{ fontFamily: "var(--font-space-grotesk)" }}>
@@ -226,7 +226,7 @@ export default function Footer() {
             {/* Big Moonshift wordmark — difference blend burns text through the gradient */}
             <div className="overflow-hidden pt-24">
               <h2
-                className="select-none px-2 pb-4 pt-2 text-[20vw] font-semibold leading-[0.78] tracking-[-0.09em] text-white md:text-[16vw] lg:text-[244px]"
+                className="select-none px-2 pb-4 pt-2 text-[20vw] font-semibold leading-[0.78] tracking-[-0.03em] text-white md:text-[16vw] md:tracking-[-0.06em] lg:text-[244px] lg:tracking-[-0.09em]"
                 style={{ fontFamily: "var(--font-dm-sans)", mixBlendMode: "difference" }}
               >
                 Moonshift

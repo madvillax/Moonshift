@@ -71,14 +71,14 @@ export default function Workflow() {
         {steps.map((step, index) => (
           <div
             key={step.number}
-            className="sticky top-0 md:top-[112px]"
+            className="sticky top-[80px] md:top-[112px]"
             style={{ zIndex: index + 1 }}
           >
             <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
               <div className="border border-border-default bg-bg-deep overflow-hidden">
-                <div className="flex flex-col md:flex-row min-h-[55vh] md:min-h-[480px]">
+                <div className="flex flex-col md:flex-row md:min-h-[480px]">
 
-                  <div className="flex-1 md:w-[55%] p-6 md:p-8 lg:p-10 flex flex-col justify-between">
+                  <div className="flex-1 md:w-[55%] p-5 md:p-8 lg:p-10 flex flex-col justify-between min-h-[400px] md:min-h-0">
                     <div>
                       <div className="flex items-center justify-between mb-6">
                         <div className="flex items-center gap-3">
@@ -117,7 +117,7 @@ export default function Workflow() {
                     </a>
                   </div>
 
-                  <div className="flex-1 md:w-[45%] p-6 md:p-8 lg:p-10 flex items-center justify-center bg-[#008BFF]">
+                  <div className="flex-1 md:w-[45%] p-5 md:p-8 lg:p-10 flex items-center justify-center bg-[#008BFF] min-h-[300px] md:min-h-0">
                     <div className="w-full max-w-[360px] bg-[#0A0A0A] border border-[#1A1A1A] p-5">
 
                       <div className="flex items-center justify-between mb-6">

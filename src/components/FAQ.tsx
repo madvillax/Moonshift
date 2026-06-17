@@ -67,7 +67,7 @@ function FAQItem({ faq }: { faq: typeof faqs[0] }) {
 
 export default function FAQ() {
   return (
-    <section id="faq" className="relative py-32 bg-bg-deep overflow-hidden">
+    <section id="faq" className="relative py-16 md:py-32 bg-bg-deep overflow-hidden">
       <DotPattern className="text-[#008BFF]/25 dark:text-[#008BFF]/15 [mask-image:radial-gradient(ellipse_50%_60%_at_50%_0%,white,transparent)]" cr={1} width={20} height={20} />
       <div className="max-w-[800px] mx-auto px-6 lg:px-10">
         <BlurFade delay={0} duration={0.5} inView>
