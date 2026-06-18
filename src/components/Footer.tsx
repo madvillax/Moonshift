@@ -226,7 +226,7 @@ export default function Footer() {
           <div className="overflow-hidden bg-[#0A0A0A]">
             <h2
               className="select-none px-2 pb-4 pt-2 text-[20vw] font-semibold leading-[0.78] tracking-[-0.09em] text-white md:text-[16vw] lg:text-[180px]"
-              style={{ fontFamily: "var(--font-dm-sans)" }}
+              style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
               Moonshift
             </h2>

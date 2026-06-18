@@ -20,7 +20,7 @@ export default function CliSection() {
             
             <h2 
               className="text-4xl md:text-[48px] font-medium leading-[1.1] tracking-[-0.02em] text-text-primary"
-              style={{ fontFamily: "var(--font-dm-sans)" }}
+              style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
               Bring the power of Moonshift to your terminal.
             </h2>

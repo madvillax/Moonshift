@@ -296,7 +296,7 @@ export default function Reviews() {
         </p>
         <h2
           className="text-4xl font-medium leading-[1.04] tracking-[-0.03em] text-text-primary md:text-5xl lg:text-6xl"
-          style={{ fontFamily: "var(--font-dm-sans)" }}
+          style={{ fontFamily: "var(--font-space-grotesk)" }}
         >
           What our clients say.
         </h2>

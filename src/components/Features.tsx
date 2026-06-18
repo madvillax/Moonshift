@@ -227,7 +227,7 @@ export default function Features() {
           <div className="mb-5 text-[11px] font-medium uppercase tracking-[0.18em] text-accent" style={{ fontFamily: "var(--font-space-grotesk)" }}>
             Platform Features
           </div>
-          <h2 className="text-4xl font-medium leading-[1.04] tracking-[-0.03em] text-text-primary md:text-5xl lg:text-6xl" style={{ fontFamily: "var(--font-dm-sans)" }}>
+          <h2 className="text-4xl font-medium leading-[1.04] tracking-[-0.03em] text-text-primary md:text-5xl lg:text-6xl" style={{ fontFamily: "var(--font-space-grotesk)" }}>
             Everything you need to ship faster.
           </h2>
           <p className="mt-6 max-w-2xl text-[16px] leading-[1.7] text-text-secondary font-sans">

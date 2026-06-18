@@ -70,7 +70,7 @@ export default function Pricing() {
           </p>
           <h2
             className="text-[32px] font-medium leading-[0.98] tracking-[-0.045em] text-text-primary md:text-[52px] lg:text-[64px]"
-            style={{ fontFamily: "var(--font-dm-sans)" }}
+            style={{ fontFamily: "var(--font-space-grotesk)" }}
           >
             Pay only for what <em className="italic">you ship.</em>
           </h2>

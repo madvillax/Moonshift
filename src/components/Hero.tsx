@@ -119,7 +119,7 @@ export default function Hero() {
         >
           <h1
             className="text-4xl md:text-[52px] lg:text-[60px] font-medium leading-[1.08] tracking-[-0.02em] mb-5"
-            style={{ fontFamily: "var(--font-dm-sans)" }}
+            style={{ fontFamily: "var(--font-space-grotesk)" }}
           >
             <span className="text-text-primary">Type your idea.</span>
             <br />

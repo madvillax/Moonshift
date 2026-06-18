@@ -1,15 +1,6 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
 
-const logos = [
-  { name: "Vercel",    svg: <path d="M24 2L48 46H0L24 2Z" fill="currentColor" />, vb: "0 0 48 48" },
-  { name: "Stripe",    svg: <text x="0" y="22" fontSize="26" fontWeight="700" fill="currentColor" fontFamily="sans-serif">stripe</text>, vb: "0 0 90 28" },
-  { name: "Linear",    svg: <><circle cx="14" cy="14" r="14" fill="currentColor" opacity="0.15"/><path d="M2 14C2 7.37 7.37 2 14 2s12 5.37 12 12-5.37 12-12 12S2 20.63 2 14zm11-6.5L7.5 14H13v6.5l5.5-6.5H13V7.5z" fill="currentColor"/></>, vb: "0 0 28 28" },
-  { name: "Notion",    svg: <text x="0" y="22" fontSize="26" fontWeight="700" fill="currentColor" fontFamily="sans-serif">Notion</text>, vb: "0 0 90 28" },
-  { name: "Supabase",  svg: <text x="0" y="22" fontSize="22" fontWeight="700" fill="currentColor" fontFamily="sans-serif">supabase</text>, vb: "0 0 110 28" },
-  { name: "Langchain", svg: <text x="0" y="22" fontSize="20" fontWeight="600" fill="currentColor" fontFamily="sans-serif">LangChain</text>, vb: "0 0 120 28" },
-];
 
 const steps = [
   { cmd: "moonshift create \"a website for my bakery\"", delay: 0 },
@@ -147,13 +138,12 @@ export default function FinalCTA() {
   return (
     <section className="relative overflow-hidden bg-bg-deep py-0 border-t border-border-subtle">
       <div className="relative mx-auto max-w-[1200px] px-6 lg:px-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[520px]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[360px]">
 
-          {/* Left: headline + CTAs + logos */}
-          <div className="flex flex-col justify-center py-16 pr-0 lg:pr-16 border-r-0 lg:border-r border-border-subtle">
+          <div className="flex flex-col justify-center py-12 pr-0 lg:pr-16 border-r-0 lg:border-r border-border-subtle">
             <h2
               className="text-4xl md:text-5xl lg:text-[52px] font-medium leading-[1.08] tracking-[-0.03em] text-text-primary mb-4"
-              style={{ fontFamily: "var(--font-dm-sans)" }}
+              style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
               Type your idea.<br />
               <span className="text-accent">Wake up launched.</span>
@@ -163,43 +153,16 @@ export default function FinalCTA() {
               One prompt → deployed app + owned repo + drafted launch posts + hero image. Ready before you need to tell anyone you&apos;re shipping.
             </p>
 
-            <div className="flex flex-wrap items-center gap-3 mb-10">
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 bg-text-primary text-bg-deep px-6 py-3 text-[12px] font-semibold uppercase tracking-[0.12em] hover:bg-text-primary/90 transition-all duration-200"
-                style={{ fontFamily: "var(--font-space-grotesk)" }}
-              >
-                Start for free
-              </a>
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 border border-border-default text-text-secondary px-6 py-3 text-[12px] font-semibold uppercase tracking-[0.12em] hover:border-text-primary hover:text-text-primary transition-all duration-200"
-                style={{ fontFamily: "var(--font-space-grotesk)" }}
-              >
-                Get a demo
-                <ArrowRight className="h-3.5 w-3.5" />
-              </a>
-            </div>
-
-            {/* Logo grid */}
-            <div className="border border-border-subtle">
-              <div className="grid grid-cols-3 divide-x divide-y divide-border-subtle">
-                {logos.map((logo) => (
-                  <div
-                    key={logo.name}
-                    className="flex items-center justify-center px-6 py-5 opacity-40 hover:opacity-70 transition-opacity duration-200 cursor-default"
-                  >
-                    <svg viewBox={logo.vb} className="h-5 text-text-primary" fill="none">
-                      {logo.svg}
-                    </svg>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <a
+              href="#"
+              className="inline-flex items-center gap-2 bg-text-primary text-bg-deep px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] hover:bg-text-primary/90 transition-all duration-200"
+              style={{ fontFamily: "var(--font-space-grotesk)" }}
+            >
+              Start for free
+            </a>
           </div>
 
-          {/* Right: visual mockup */}
-          <div className="hidden lg:flex items-center justify-center py-12 pl-10">
+          <div className="hidden lg:flex items-center justify-center py-8 pl-10">
             <div className="w-full max-w-[520px]">
               <MoonshiftMockup />
             </div>
