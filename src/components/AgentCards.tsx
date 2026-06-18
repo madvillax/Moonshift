@@ -86,17 +86,6 @@ export default function AgentCards() {
     <section id="showcase" className="relative py-16 md:py-32 bg-bg-deep overflow-hidden">
       <AnimatedGridPattern className="absolute inset-0 text-[#008BFF]/30 stroke-[#008BFF]/20 fill-[#008BFF]/20 z-0" numSquares={30} maxOpacity={0.18} duration={3} />
       <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
-        <BlurFade delay={0} duration={0.5} inView>
-        <div className="mb-20">
-          <div className="text-[11px] md:text-[13px] font-medium uppercase tracking-[0.1em] text-text-muted mb-6" style={{ fontFamily: "var(--font-space-grotesk)" }}>
-            THE AGENT SYSTEM
-          </div>
-          <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-text-primary max-w-2xl leading-[1.1] text-balance" style={{ fontFamily: "var(--font-dm-sans)" }}>
-            A specialized team of <span className="text-text-secondary">AI developers</span>
-          </h2>
-        </div>
-        </BlurFade>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
           {agents.map((agent, i) => {
             const Icon = agent.icon;

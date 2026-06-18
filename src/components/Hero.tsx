@@ -10,19 +10,6 @@ const Particles = dynamic(() => import("@/components/ui/particles").then(m => ({
 const Meteors = dynamic(() => import("@/components/ui/meteors").then(m => ({ default: m.Meteors })), { ssr: false });
 
 
-const logos = [
-  "Vercel",
-  "Stripe",
-  "Linear",
-  "Notion",
-  "Figma",
-  "Supabase",
-  "Langchain",
-  "OpenAI",
-  "Replicate",
-  "Hugging Face",
-];
-
 const gridVisualsCSS = `
 @keyframes gv-pulse {
   0%,15%,100% { transform:translate(0,0); filter:brightness(1); }
@@ -134,7 +121,7 @@ export default function Hero() {
   const [activeMode, setActiveMode] = useState<'web' | 'cli'>('web');
 
   return (
-    <section className="relative min-h-[100dvh] flex flex-col items-start overflow-hidden bg-bg-deep pt-24 pb-8 md:pt-36 md:pb-10">
+    <section className="relative min-h-[100dvh] flex flex-col items-start overflow-hidden overflow-x-hidden bg-bg-deep pt-28 pb-8 md:pt-36 md:pb-10">
       <GridVisuals />
       <Particles className="absolute inset-0 z-0" quantity={60} color="#008BFF" size={0.6} staticity={80} />
       <Meteors number={10} className="text-[#008BFF]/60" />
@@ -144,15 +131,15 @@ export default function Hero() {
         >
           <BlurFade delay={0} duration={0.5} inView>
             <div className="mb-4 inline-flex items-center gap-2 border border-border-default bg-bg-surface px-3 py-1.5">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
-              <AnimatedShinyText className="text-[11px] font-medium uppercase tracking-[0.22em] text-text-secondary" shimmerWidth={120}>
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent animate-pulse flex-shrink-0" />
+              <AnimatedShinyText className="text-[10px] sm:text-[11px] font-medium uppercase tracking-[0.05em] sm:tracking-[0.22em] text-text-secondary" shimmerWidth={120}>
                 AI agents. Overnight. Deployed.
               </AnimatedShinyText>
             </div>
           </BlurFade>
 
           <h1
-            className="text-[2.5rem] sm:text-5xl md:text-[68px] lg:text-[82px] font-medium leading-[1.06] tracking-[-0.02em] sm:tracking-[-0.03em] mb-5 text-balance"
+            className="text-[2rem] sm:text-5xl md:text-[68px] lg:text-[68px] xl:text-[82px] font-medium leading-[1.06] tracking-[-0.02em] sm:tracking-[-0.03em] mb-5"
             style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             <TextAnimate animation="blurInUp" by="word" as="span" once delay={0.1} duration={0.5} className="block text-text-primary">
@@ -205,32 +192,27 @@ export default function Hero() {
           </BlurFade>
         </div>
 
-        <BlurFade delay={0.85} duration={0.5} inView>
-        <div className="max-w-[720px] w-full mb-12">
-          {/* Grid overlay — both children in same cell, pure opacity crossfade, zero layout shift */}
-          <div style={{ display: 'grid' }}>
-            <div
-              style={{
-                gridArea: '1/1',
-                opacity: activeMode === 'web' ? 1 : 0,
-                transition: 'opacity 0.25s ease',
-                pointerEvents: activeMode === 'web' ? 'auto' : 'none',
-              }}
-            >
-              <PromptBox />
-            </div>
-            <div
-              style={{
-                gridArea: '1/1',
-                opacity: activeMode === 'cli' ? 1 : 0,
-                transition: 'opacity 0.25s ease',
-                pointerEvents: activeMode === 'cli' ? 'auto' : 'none',
-              }}
-            >
-              <CLIInstallBox />
-            </div>
+        <BlurFade delay={0.85} duration={0.5} inView className="w-full max-w-[720px] mb-12 overflow-hidden">
+          <div
+            style={{
+              opacity: activeMode === 'web' ? 1 : 0,
+              transition: 'opacity 0.25s ease',
+              pointerEvents: activeMode === 'web' ? 'auto' : 'none',
+              display: activeMode === 'web' ? 'block' : 'none',
+            }}
+          >
+            <PromptBox />
           </div>
-        </div>
+          <div
+            style={{
+              opacity: activeMode === 'cli' ? 1 : 0,
+              transition: 'opacity 0.25s ease',
+              pointerEvents: activeMode === 'cli' ? 'auto' : 'none',
+              display: activeMode === 'cli' ? 'block' : 'none',
+            }}
+          >
+            <CLIInstallBox />
+          </div>
         </BlurFade>
 
         <BlurFade delay={1.0} duration={0.6} inView>
@@ -404,28 +386,9 @@ export default function Hero() {
         </div>
         </BlurFade>
 
-        <BlurFade delay={1.15} duration={0.5} inView>
-        <div className="mt-12 border-t border-border-subtle pt-8 overflow-hidden">
-          <p className="text-center text-[11px] font-medium text-text-muted mb-8 uppercase tracking-[0.1em]">
-            TRUSTED BY DEVELOPERS AT
-          </p>
-          <div className="relative w-full overflow-hidden">
-            <div className="flex animate-marquee">
-              {[...logos, ...logos].map((logo, i) => (
-                <span
-                  key={i}
-                  className="flex-shrink-0 mx-8 text-text-muted/50 hover:text-text-secondary transition-colors text-lg font-semibold tracking-wide whitespace-nowrap"
-                >
-                  {logo}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-        </BlurFade>
       </div>
 
-      <div className="absolute top-[180px] right-[12%] z-10 hidden lg:block">
+      <div className="absolute top-[180px] right-[6%] xl:right-[10%] z-10 hidden lg:block">
         <PixelRocket />
       </div>
     </section>
@@ -444,7 +407,7 @@ function PromptBox() {
   const active = modes.find((m) => m.id === mode)!;
 
   return (
-    <div className="max-w-[720px] bg-bg-elevated border border-border-default rounded-none overflow-hidden ring-0">
+    <div className="w-full max-w-[720px] bg-bg-elevated border border-border-default rounded-none overflow-hidden ring-0">
       <div className="p-5">
         <textarea
           placeholder="A landing page for my new app idea"
@@ -453,9 +416,9 @@ function PromptBox() {
         />
       </div>
 
-      <div className="flex items-center justify-between gap-4 px-4 py-3 border-t border-border-default bg-bg-surface">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center border border-border-default bg-bg-elevated">
+      <div className="flex items-center justify-between gap-2 sm:gap-4 px-3 sm:px-4 py-3 border-t border-border-default bg-bg-surface">
+        <div className="flex items-center gap-2 sm:gap-4 min-w-0">
+          <div className="flex items-center border border-border-default bg-bg-elevated flex-shrink-0">
             {modes.map((m) => {
               const Icon = m.icon;
               const isActive = mode === m.id;
@@ -463,26 +426,26 @@ function PromptBox() {
                 <button
                   key={m.id}
                   onClick={() => setMode(m.id)}
-                  className={`flex items-center gap-1.5 px-3 py-2 text-[11px] font-medium uppercase tracking-[0.12em] transition-all duration-200 ease-out ${
+                  className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-2 text-[11px] font-medium uppercase tracking-[0.10em] sm:tracking-[0.12em] transition-all duration-200 ease-out ${
                     isActive
                       ? 'bg-accent text-white'
                       : 'text-text-secondary hover:bg-accent/10 hover:text-text-primary'
                   }`}
                 >
-                  <Icon className="h-3.5 w-3.5" />
-                  {m.label}
+                  <Icon className="h-3.5 w-3.5 flex-shrink-0" />
+                  <span className="hidden sm:inline">{m.label}</span>
                 </button>
               );
             })}
           </div>
-          <span className="hidden text-[12px] text-text-secondary sm:block" style={{ fontFamily: "var(--font-space-grotesk)" }}>
+          <span className="hidden text-[12px] text-text-secondary sm:block truncate" style={{ fontFamily: "var(--font-space-grotesk)" }}>
             {active.estimate}
           </span>
         </div>
 
-        <button className="flex items-center gap-2 bg-accent px-5 py-2 text-[12px] font-medium uppercase tracking-[0.14em] text-white hover:bg-accent/90 transition-all duration-200 ease-out">
+        <button className="flex items-center gap-1.5 sm:gap-2 bg-accent px-3 sm:px-5 py-2 text-[11px] sm:text-[12px] font-medium uppercase tracking-[0.12em] sm:tracking-[0.14em] text-white hover:bg-accent/90 transition-all duration-200 ease-out flex-shrink-0">
           Ship it
-          <ArrowUp className="h-4 w-4" />
+          <ArrowUp className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
         </button>
       </div>
     </div>
@@ -525,7 +488,7 @@ function CLIInstallBox() {
   };
 
   return (
-    <div className="max-w-[720px] bg-bg-elevated border border-border-default rounded-none overflow-hidden ring-0">
+    <div className="w-full max-w-[720px] bg-bg-elevated border border-border-default rounded-none overflow-hidden ring-0">
       <div className="p-5">
         <div
           className="w-full h-[80px] bg-bg-deep border border-border-subtle font-mono text-[13px] leading-[1.6] flex items-center px-4 overflow-x-auto gap-3"

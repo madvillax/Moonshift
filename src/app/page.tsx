@@ -4,7 +4,6 @@ import Hero from "@/components/Hero";
 
 const Workflow = dynamic(() => import("@/components/Workflow"));
 const Features = dynamic(() => import("@/components/Features"));
-const AgentCards = dynamic(() => import("@/components/AgentCards"));
 const CliSection = dynamic(() => import("@/components/CliSection"));
 const Pricing = dynamic(() => import("@/components/Pricing"));
 const Reviews = dynamic(() => import("@/components/Reviews"));
@@ -15,7 +14,7 @@ const SectionFallback = () => <div className="min-h-[400px] bg-bg-deep" />;
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-bg-deep text-text-primary overflow-x-hidden">
+    <div className="flex flex-col min-h-screen bg-bg-deep text-text-primary">
       <main className="flex-1">
         <Hero />
         <Suspense fallback={<SectionFallback />}>
@@ -24,10 +23,7 @@ export default function Home() {
         <Suspense fallback={<SectionFallback />}>
           <Features />
         </Suspense>
-        <Suspense fallback={<SectionFallback />}>
-          <AgentCards />
-        </Suspense>
-        <Suspense fallback={<SectionFallback />}>
+<Suspense fallback={<SectionFallback />}>
           <CliSection />
         </Suspense>
         <Suspense fallback={<SectionFallback />}>

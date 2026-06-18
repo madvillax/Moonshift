@@ -311,6 +311,15 @@ export default function Reviews() {
           {badges.map((badge) => (
             <BadgeCard key={badge.label} label={badge.label} url={badge.url} />
           ))}
+          <a
+            href="https://www.everfeatured.com/products/moonshift-turn-text-prompt-into-live-website"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 border border-border-default bg-bg-surface px-4 py-3 transition-colors hover:border-accent"
+          >
+            <span className="text-[12px] font-bold text-accent leading-none">8.3</span>
+            <span className="text-[12px] font-medium uppercase tracking-[0.12em] text-text-primary">#1 All Time on EverFeatured</span>
+          </a>
         </div>
       </div>
       </BlurFade>

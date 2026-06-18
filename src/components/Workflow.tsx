@@ -4,7 +4,8 @@ const steps = [
     label: "PROMPT TO EXECUTABLE PLAN",
     title: "Describe the outcome.",
     description: "Write what you want shipped in plain language. Moonshift turns the prompt into requirements, constraints, flows, data, gates, and a build plan you can approve.",
-    cta: "Start building",
+    cta: "Write your prompt",
+    iconPath: "M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z",
     right: {
       header: "/MOONSHIFT · PROMPT",
       blocks: [
@@ -18,7 +19,8 @@ const steps = [
     label: "AUTONOMY BEGINS",
     title: "Approve once. Watch it build.",
     description: "Agents fan out across frontend, backend, tests, deploy, copy, and release work. Every phase streams progress so you are watching the launch, not managing tickets.",
-    cta: "Start building",
+    cta: "Watch agents build",
+    iconPath: "M13 2L3 14h9l-1 8 10-12h-9l1-8z",
     right: {
       header: "PHASE 04 · STREAMING",
       count: "14/14",
@@ -35,7 +37,8 @@ const steps = [
     label: "PRODUCTION-READY OUTPUT",
     title: "Wake up launched.",
     description: "A deployed URL, repository, tests, release notes, and launch assets are prepared together. The product ships with the operational pieces already connected.",
-    cta: "Start building",
+    cta: "See a live deploy",
+    iconPath: "M12 2a10 10 0 110 20A10 10 0 0112 2zm0 0v10m0 0l-3-3m3 3l3-3",
     right: {
       header: "PHASE 04 · DEPLOYED",
       url: "acme.moonshift.page",
@@ -52,7 +55,8 @@ const steps = [
     label: "TEST-AND-GATE CULTURE",
     title: "Every run is checked.",
     description: "Tests run on every build. A security scan gates every deploy. You ship clean, or you don't ship.",
-    cta: "Learn about security",
+    cta: "See security gates",
+    iconPath: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
     right: {
       header: "PHASE 04 · AUDIT",
       items: [
@@ -71,7 +75,7 @@ export default function Workflow() {
         {steps.map((step, index) => (
           <div
             key={step.number}
-            className="sticky top-[80px] md:top-[112px]"
+            className="sticky top-[100px] md:top-[112px]"
             style={{ zIndex: index + 1 }}
           >
             <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
@@ -91,7 +95,7 @@ export default function Workflow() {
                           </span>
                         </div>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-text-muted">
-                          <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+                          <path d={step.iconPath} />
                         </svg>
                       </div>
 

@@ -60,7 +60,7 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  overflow-x: clip;
   background: var(--bg-deep);
   scrollbar-width: thin;
   scrollbar-color: var(--border-default) var(--bg-deep);
@@ -76,13 +76,9 @@ section:first-of-type {
   content-visibility: visible;
 }
 
-.sticky {
-  transform: translateZ(0);
-  will-change: transform;
-}
-
-#solutions .sticky {
-  contain: layout style;
+/* Sticky stacking — must not have content-visibility containment */
+#solutions {
+  content-visibility: visible;
 }
 
 body {
@@ -91,8 +87,7 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  max-width: 100vw;
+  overflow-x: clip;
 }
 
 ::-webkit-scrollbar {
