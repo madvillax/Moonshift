@@ -9,7 +9,6 @@ import {
   Mic,
   Paperclip,
   ChevronDown,
-  MessageSquare,
   Wand2,
 } from "lucide-react";
 
@@ -200,10 +199,6 @@ export default function CreatePage() {
 
       </main>
 
-      <button className="fixed bottom-6 right-6 flex items-center gap-2 px-4 py-2.5 border border-border-default bg-bg-surface text-text-secondary hover:text-text-primary hover:border-text-muted transition-colors text-[11px] font-medium uppercase tracking-[0.1em] shadow-lg">
-        <MessageSquare className="w-3.5 h-3.5" />
-        FEEDBACK
-      </button>
     </div>
   );
 }

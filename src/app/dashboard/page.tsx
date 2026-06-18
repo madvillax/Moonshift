@@ -1,164 +1,157 @@
 "use client";
 
 import { useState } from "react";
-import { Zap, Box, Rocket, ArrowRight, Wand2, ChevronDown } from "lucide-react";
+import { Star, ExternalLink, MoreHorizontal, Plus } from "lucide-react";
+import Link from "next/link";
 
-export default function DashboardPage() {
-  const [mode, setMode] = useState<'fast' | 'standard' | 'full'>('fast');
+interface Project {
+  id: string;
+  name: string;
+  type: string;
+  status: "live" | "draft" | "building";
+  updatedAt: string;
+  fav: boolean;
+}
 
-  const modes = [
-    { id: 'fast' as const, label: 'FAST', icon: Zap, estimate: 'deploys app · ~3m · ~$1' },
-    { id: 'standard' as const, label: 'STANDARD', icon: Box, estimate: 'deploys app · ~6m · ~$3' },
-    { id: 'full' as const, label: 'FULL', icon: Rocket, estimate: 'deploys app · ~12m · ~$6' },
-  ];
+const initialProjects: Project[] = [
+  { id: "1", name: "SaaS Dashboard", type: "Web app", status: "live", updatedAt: "2 days ago", fav: true },
+  { id: "2", name: "Portfolio Site", type: "Landing page", status: "live", updatedAt: "1 week ago", fav: true },
+  { id: "3", name: "Trip Planner", type: "Web app", status: "draft", updatedAt: "3 days ago", fav: false },
+  { id: "4", name: "Bookshelf Online", type: "Web app", status: "building", updatedAt: "Just now", fav: false },
+  { id: "5", name: "Dog Walker Finder", type: "Mobile app", status: "draft", updatedAt: "2 weeks ago", fav: false },
+  { id: "6", name: "Budget Tracker", type: "Web app", status: "live", updatedAt: "5 days ago", fav: true },
+];
 
-  const active = modes.find((m) => m.id === mode)!;
-
-  const suggestions = [
-    "PLAN MY GROUP TRIP",
-    "MY BOOKSHELF ONLINE",
-    "DOG WALKER FINDER",
-    "FAMILY SHARED CALENDAR",
-    "STUDENT BUDGET TRACKER"
-  ];
+function CreditWidget() {
+  const remaining = 10000;
+  const total = 10000;
+  const percentage = Math.round((remaining / total) * 100);
 
   return (
-    <div className="flex flex-col gap-12 pb-20 pt-8 animate-in fade-in duration-500">
-      
-      {/* Onboarding Banner */}
-      <div className="bg-bg-surface border border-border-default p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden group">
-        <div className="absolute top-0 left-0 w-1 h-full bg-accent/50 group-hover:bg-accent transition-colors" />
-        
+    <div className="p-4 border border-border-subtle bg-bg-surface">
+      <div className="flex items-center justify-between mb-2">
+        <span
+          className="text-[11px] font-medium tracking-[0.15em] text-text-muted uppercase"
+          style={{ fontFamily: "var(--font-space-grotesk)" }}
+        >
+          Current credit usage
+        </span>
+        <span className="text-[13px] text-text-secondary">Free plan</span>
+      </div>
+      <div className="flex items-center justify-between mb-2">
+        <span
+          className="text-xl font-normal text-text-primary"
+          style={{ fontFamily: "var(--font-dm-sans)" }}
+        >
+          {remaining.toLocaleString()} / {total.toLocaleString()} moons
+        </span>
+        <span className="text-[13px] text-text-secondary">{percentage}%</span>
+      </div>
+      <div className="w-full h-2 bg-bg-deep border border-border-subtle">
+        <div className="h-full bg-accent transition-all duration-500" style={{ width: `${percentage}%` }} />
+      </div>
+    </div>
+  );
+}
+
+export default function DashboardPage() {
+  const [projects, setProjects] = useState(initialProjects);
+
+  const toggleFav = (id: string) => {
+    setProjects((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, fav: !p.fav } : p))
+    );
+  };
+
+  const statusClasses: Record<Project["status"], string> = {
+    live: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30",
+    draft: "bg-text-muted/10 text-text-muted border-text-muted/30",
+    building: "bg-accent/10 text-accent border-accent/30",
+  };
+
+  return (
+    <div className="flex flex-col gap-8 pb-20 pt-6 animate-in fade-in duration-500">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <div className="text-[10px] font-semibold uppercase tracking-[0.1em] text-accent mb-2" style={{ fontFamily: "var(--font-space-grotesk)" }}>
-            Finish Onboarding
-          </div>
-          <h2 className="text-xl font-medium text-text-primary mb-2" style={{ fontFamily: "var(--font-dm-sans)" }}>
-            Connect your stack so launches actually ship.
-          </h2>
-          <p className="text-[13px] text-text-secondary max-w-[600px] leading-relaxed mb-4">
-            We push code to your GitHub, deploy to your Vercel, and post to your X + LinkedIn — all under your accounts. Takes ~3-4 minutes.
-          </p>
-          
-          <div className="flex flex-wrap gap-2">
-            {["GITHUB", "VERCEL", "LINKEDIN", "X", "META ADS"].map((tag) => (
-              <span key={tag} className="px-2.5 py-1 text-[10px] font-medium tracking-wider text-text-muted border border-border-subtle bg-bg-deep rounded-sm" style={{ fontFamily: "var(--font-space-grotesk)" }}>
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex items-center gap-4 flex-shrink-0">
-          <button className="text-[13px] text-text-muted hover:text-text-primary transition-colors">
-            Not now
-          </button>
-          <button className="bg-text-primary text-bg-deep hover:opacity-90 px-5 py-2.5 text-[12px] font-semibold tracking-wide transition-all" style={{ fontFamily: "var(--font-space-grotesk)" }}>
-            Connect now
-          </button>
-        </div>
-      </div>
-
-      {/* Welcome Section */}
-      <div className="flex flex-col gap-1">
-        <div className="text-[11px] text-text-muted font-mono tracking-widest uppercase mb-2">
-          {'// OPERATOR CONSOLE'}
-        </div>
-        <div className="flex items-end justify-between">
-          <h1 className="text-4xl md:text-5xl font-normal tracking-tight text-text-primary" style={{ fontFamily: "var(--font-dm-sans)" }}>
-            Welcome back, <span className="text-accent font-medium">Mohit</span>
+          <span
+            className="text-[11px] font-medium tracking-[0.2em] text-text-muted uppercase block mb-2"
+            style={{ fontFamily: "var(--font-space-grotesk)" }}
+          >
+            OPERATOR CONSOLE
+          </span>
+          <h1
+            className="text-3xl md:text-4xl font-normal tracking-tight text-text-primary"
+            style={{ fontFamily: "var(--font-dm-sans)" }}
+          >
+            Your projects
           </h1>
-          
-          <div className="text-[11px] font-mono text-text-muted tracking-widest hidden md:block">
-            0 RUNS <span className="mx-2">·</span> $0.00 LIFETIME <span className="mx-2">·</span> <a href="#" className="hover:text-text-primary transition-colors">BILLING &rarr;</a>
-          </div>
         </div>
+        <Link
+          href="/dashboard/create"
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-accent text-white text-[12px] font-semibold tracking-[0.05em] uppercase hover:bg-accent/90 transition-colors self-start md:self-auto"
+        >
+          <Plus className="w-4 h-4" />
+          New project
+        </Link>
       </div>
 
-      {/* Launchpad Box */}
-      <div className="flex flex-col gap-2">
-        <div className="text-[11px] text-text-muted font-mono tracking-widest uppercase mb-1">
-          {"// WHAT DO YOU WANT TO BUILD?"}
-        </div>
-        
-        <div className="bg-bg-elevated border border-border-default ring-1 ring-accent/10 shadow-[0_0_30px_rgba(0,139,255,0.03)] flex flex-col">
-          {/* Main Textarea */}
-          <div className="p-6">
-            <textarea
-              placeholder="Describe your app idea with specific features. Best for: SaaS dashboards, landing pages, internal tools, feedback portals, portfolios."
-              className="w-full h-[140px] bg-transparent text-text-primary text-[16px] md:text-[18px] leading-[1.6] placeholder:text-text-muted resize-none outline-none"
-              style={{ fontFamily: "var(--font-dm-sans)" }}
-            />
-          </div>
+      <CreditWidget />
 
-          {/* Suggestions row */}
-          <div className="border-t border-border-subtle bg-bg-surface/50 p-4 flex items-center gap-3 overflow-x-auto no-scrollbar">
-            <span className="text-[11px] font-mono text-text-muted whitespace-nowrap flex-shrink-0">
-              {'// TRY:'}
-            </span>
-            {suggestions.map((s) => (
-              <button 
-                key={s}
-                className="whitespace-nowrap px-3 py-1.5 text-[10px] font-medium tracking-widest text-text-secondary border border-border-subtle hover:border-text-muted hover:text-text-primary transition-colors bg-bg-deep rounded-sm"
-                style={{ fontFamily: "var(--font-space-grotesk)" }}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {projects.map((project) => (
+          <div
+            key={project.id}
+            className="group relative p-4 border border-border-subtle bg-bg-surface hover:border-border-default transition-colors"
+          >
+            <div className="flex items-start justify-between mb-3">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 border border-border-subtle bg-bg-deep flex items-center justify-center text-[15px] font-medium text-text-secondary">
+                  {project.name.charAt(0)}
+                </div>
+                <div>
+                  <h3
+                    className="text-[15px] font-medium text-text-primary"
+                    style={{ fontFamily: "var(--font-dm-sans)" }}
+                  >
+                    {project.name}
+                  </h3>
+                  <span className="text-[12px] text-text-secondary">{project.type}</span>
+                </div>
+              </div>
+              <button
+                onClick={() => toggleFav(project.id)}
+                className={`p-1.5 border transition-colors ${
+                  project.fav
+                    ? "border-accent/30 bg-accent/10 text-accent"
+                    : "border-border-subtle bg-bg-deep text-text-muted hover:text-text-primary"
+                }`}
+                title={project.fav ? "Unfavorite" : "Favorite"}
               >
-                {s}
+                <Star className={`w-3.5 h-3.5 ${project.fav ? "fill-current" : ""}`} />
               </button>
-            ))}
-          </div>
-
-          {/* Bottom Toolbar */}
-          <div className="border-t border-border-default bg-bg-surface p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
-            
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center border border-border-default bg-bg-deep w-fit">
-                {modes.map((m) => {
-                  const Icon = m.icon;
-                  const isActive = mode === m.id;
-                  return (
-                    <button
-                      key={m.id}
-                      onClick={() => setMode(m.id)}
-                      className={`flex items-center gap-1.5 px-4 py-2.5 text-[11px] font-medium uppercase tracking-[0.12em] transition-all duration-200 ease-out ${
-                        isActive
-                          ? 'bg-accent text-white'
-                          : 'text-text-secondary hover:bg-accent/10 hover:text-text-primary'
-                      }`}
-                    >
-                      <Icon className="h-3.5 w-3.5" />
-                      {m.label}
-                    </button>
-                  );
-                })}
-              </div>
-              <div className="text-[11px] font-mono text-text-muted pl-1">
-                {active.estimate}
-              </div>
             </div>
 
-            <button className="flex items-center gap-3 bg-transparent border border-border-default hover:border-text-primary text-text-primary pl-6 pr-2 py-2 transition-all duration-200 group w-fit self-end md:self-center">
-              <span className="text-[12px] font-semibold uppercase tracking-[0.15em]" style={{ fontFamily: "var(--font-space-grotesk)" }}>Launch</span>
-              <div className="bg-bg-elevated border border-border-subtle px-3 py-1.5 text-[11px] font-mono text-text-secondary group-hover:text-text-primary flex items-center gap-1 transition-colors">
-                ~$0.50 <ArrowRight className="w-3 h-3" />
-              </div>
-            </button>
+            <div className="flex items-center justify-between mb-4">
+              <span
+                className={`px-2 py-0.5 text-[10px] font-semibold tracking-wide uppercase border ${statusClasses[project.status]}`}
+              >
+                {project.status}
+              </span>
+              <span className="text-[11px] text-text-muted">{project.updatedAt}</span>
+            </div>
 
-          </div>
-          
-          {/* Project Type Row */}
-          <div className="border-t border-border-subtle bg-bg-deep p-4 flex items-center justify-between">
-            <div className="flex flex-col gap-1.5">
-               <span className="text-[10px] font-medium uppercase tracking-widest text-text-muted" style={{ fontFamily: "var(--font-space-grotesk)" }}>Project Type</span>
-               <div className="flex items-center gap-2 border border-border-subtle bg-bg-surface px-3 py-2 text-[13px] text-text-primary rounded-sm min-w-[200px] cursor-pointer hover:border-text-muted transition-colors">
-                  <Wand2 className="w-4 h-4 text-accent" />
-                  <span>Auto-detect</span>
-                  <ChevronDown className="w-4 h-4 text-text-muted ml-auto" />
-               </div>
+            <div className="flex items-center gap-2">
+              <button className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 border border-border-subtle bg-bg-deep text-[11px] font-medium uppercase tracking-[0.08em] text-text-secondary hover:text-text-primary hover:border-border-default transition-colors">
+                Open
+                <ExternalLink className="w-3 h-3" />
+              </button>
+              <button className="p-2 border border-border-subtle bg-bg-deep text-text-secondary hover:text-text-primary hover:border-border-default transition-colors">
+                <MoreHorizontal className="w-3.5 h-3.5" />
+              </button>
             </div>
           </div>
-        </div>
+        ))}
       </div>
-      
     </div>
   );
 }

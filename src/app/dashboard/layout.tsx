@@ -19,6 +19,7 @@ import {
   User,
   HelpCircle,
   LogOut,
+  ArrowRight,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,7 +30,9 @@ import { useTheme } from "@/components/ThemeProvider";
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
+  const notificationsRef = useRef<HTMLDivElement>(null);
   const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
 
@@ -47,6 +50,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     const handleClickOutside = (event: MouseEvent) => {
       if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
         setProfileOpen(false);
+      }
+      if (notificationsRef.current && !notificationsRef.current.contains(event.target as Node)) {
+        setNotificationsOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -111,22 +117,18 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </nav>
 
         <div className={`mt-auto flex flex-col gap-3 ${isSidebarOpen ? "px-1" : "items-center px-0"}`}>
-          {isSidebarOpen && (
-            <Link
-              href="/dashboard/billing"
-              className="flex items-center justify-between p-3 bg-bg-surface border border-border-default hover:border-text-muted transition-colors"
-            >
-              <div className="flex flex-col">
-                <span className="text-[13px] font-medium text-text-primary" style={{ fontFamily: "var(--font-dm-sans)" }}>
-                  Upgrade your plan
-                </span>
-                <span className="text-[11px] text-text-secondary">
-                  Get more out of your apps
-                </span>
-              </div>
-              <Gem className="w-5 h-5 text-accent flex-shrink-0" />
-            </Link>
-          )}
+          <Link
+            href="/dashboard/billing"
+            className={`flex items-center justify-center gap-2 border border-accent bg-bg-surface text-accent hover:bg-accent hover:text-white transition-colors ${isSidebarOpen ? "w-full px-4 py-3" : "w-10 h-10"}`}
+            title={!isSidebarOpen ? "Billing" : undefined}
+          >
+            <Gem className="w-4 h-4 flex-shrink-0" />
+            {isSidebarOpen && (
+              <span className="text-[12px] font-semibold tracking-[0.08em] uppercase" style={{ fontFamily: "var(--font-space-grotesk)" }}>
+                Billing
+              </span>
+            )}
+          </Link>
 
           <div className="relative" ref={profileRef}>
             <button
@@ -157,10 +159,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     <User className="w-3.5 h-3.5" />
                     View profile
                   </button>
-                  <button className="w-full flex items-center gap-3 px-3 py-2 text-[12px] text-text-secondary hover:bg-bg-elevated hover:text-text-primary transition-colors text-left">
+                  <Link
+                    href="/dashboard/settings"
+                    className="w-full flex items-center gap-3 px-3 py-2 text-[12px] text-text-secondary hover:bg-bg-elevated hover:text-text-primary transition-colors text-left"
+                  >
                     <Settings className="w-3.5 h-3.5" />
                     Account settings
-                  </button>
+                  </Link>
                   <button className="w-full flex items-center gap-3 px-3 py-2 text-[12px] text-text-secondary hover:bg-bg-elevated hover:text-text-primary transition-colors text-left">
                     <HelpCircle className="w-3.5 h-3.5" />
                     Help & support
@@ -187,18 +192,49 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           </h1>
 
           <div className="flex items-center gap-3">
-            <button
+            <Link
+              href="/dashboard/settings"
               className="p-2 text-text-secondary hover:text-text-primary transition-colors border border-transparent hover:border-border-default rounded-sm"
               title="Settings"
             >
               <Settings className="w-4 h-4" />
-            </button>
-            <button
-              className="p-2 text-text-secondary hover:text-text-primary transition-colors border border-transparent hover:border-border-default rounded-sm"
-              title="Notifications"
-            >
-              <Bell className="w-4 h-4" />
-            </button>
+            </Link>
+            <div className="relative" ref={notificationsRef}>
+              <button
+                onClick={() => setNotificationsOpen(!notificationsOpen)}
+                className="p-2 text-text-secondary hover:text-text-primary transition-colors border border-transparent hover:border-border-default rounded-sm"
+                title="Notifications"
+              >
+                <Bell className="w-4 h-4" />
+              </button>
+
+              {notificationsOpen && (
+                <div className="absolute right-0 top-full mt-2 w-[320px] border border-border-default bg-bg-surface shadow-lg z-30">
+                  <div className="px-4 py-3 border-b border-border-subtle">
+                    <span
+                      className="text-[11px] font-medium tracking-[0.15em] text-text-muted uppercase"
+                      style={{ fontFamily: "var(--font-space-grotesk)" }}
+                    >
+                      Notifications
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-center py-12">
+                    <span
+                      className="text-[12px] font-medium tracking-[0.1em] text-text-muted uppercase"
+                      style={{ fontFamily: "var(--font-space-grotesk)" }}
+                    >
+                      No notifications yet
+                    </span>
+                  </div>
+                  <div className="border-t border-border-subtle px-4 py-3">
+                    <button className="w-full flex items-center justify-center gap-2 text-[11px] font-semibold tracking-[0.1em] text-text-secondary uppercase hover:text-text-primary transition-colors">
+                      See all notifications
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
             <button
               onClick={toggleTheme}
               className="p-2 text-text-secondary hover:text-text-primary transition-colors border border-transparent hover:border-border-default rounded-sm"
