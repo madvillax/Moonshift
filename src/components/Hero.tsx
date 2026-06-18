@@ -4,19 +4,6 @@ import { useState } from "react";
 import { ArrowUp, Zap, Box, Rocket, Terminal, Globe, Copy, Check, Monitor } from "lucide-react";
 
 
-const logos = [
-  "Vercel",
-  "Stripe",
-  "Linear",
-  "Notion",
-  "Figma",
-  "Supabase",
-  "Langchain",
-  "OpenAI",
-  "Replicate",
-  "Hugging Face",
-];
-
 const Block = ({ className, color }: { className: string; color: string }) => (
   <div
     className={`absolute ${className}`}
@@ -359,23 +346,6 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-border-subtle pt-8 overflow-hidden">
-          <p className="text-center text-[11px] font-medium text-text-muted mb-8 uppercase tracking-[0.1em]">
-            TRUSTED BY DEVELOPERS AT
-          </p>
-          <div className="relative w-full overflow-hidden">
-            <div className="flex animate-marquee">
-              {[...logos, ...logos].map((logo, i) => (
-                <span
-                  key={i}
-                  className="flex-shrink-0 mx-8 text-text-muted/50 hover:text-text-secondary transition-colors text-lg font-semibold tracking-wide whitespace-nowrap"
-                >
-                  {logo}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
 
       <div className="absolute top-[180px] right-[12%] z-10 hidden lg:block">

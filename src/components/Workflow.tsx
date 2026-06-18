@@ -6,7 +6,6 @@ const steps = [
     label: "PROMPT TO EXECUTABLE PLAN",
     title: "Describe the outcome.",
     description: "Write what you want shipped in plain language. Moonshift turns the prompt into requirements, constraints, flows, data, gates, and a build plan you can approve.",
-    cta: "Start building",
     right: {
       header: "/MOONSHIFT · PROMPT",
       blocks: [
@@ -20,7 +19,6 @@ const steps = [
     label: "AUTONOMY BEGINS",
     title: "Approve once. Watch it build.",
     description: "Agents fan out across frontend, backend, tests, deploy, copy, and release work. Every phase streams progress so you are watching the launch, not managing tickets.",
-    cta: "Start building",
     right: {
       header: "PHASE 04 · STREAMING",
       count: "14/14",
@@ -37,7 +35,6 @@ const steps = [
     label: "PRODUCTION-READY OUTPUT",
     title: "Wake up launched.",
     description: "A deployed URL, repository, tests, release notes, and launch assets are prepared together. The product ships with the operational pieces already connected.",
-    cta: "Start building",
     right: {
       header: "PHASE 04 · DEPLOYED",
       url: "acme.moonshift.page",
@@ -54,7 +51,6 @@ const steps = [
     label: "TEST-AND-GATE CULTURE",
     title: "Every run is checked.",
     description: "Tests run on every build. A security scan gates every deploy. You ship clean, or you don't ship.",
-    cta: "Learn about security",
     right: {
       header: "PHASE 04 · AUDIT",
       items: [
@@ -78,11 +74,11 @@ export default function Workflow() {
           >
             <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
               <div className="border border-border-default bg-bg-deep overflow-hidden">
-                <div className="flex flex-col md:flex-row min-h-[55vh] md:min-h-[480px]">
+                <div className="flex flex-col md:flex-row min-h-[45vh] md:min-h-[400px]">
 
-                  <div className="flex-1 md:w-[55%] p-6 md:p-8 lg:p-10 flex flex-col justify-between">
+                  <div className="flex-1 md:w-[55%] p-6 md:p-8 flex flex-col justify-center">
                     <div>
-                      <div className="flex items-center justify-between mb-6">
+                      <div className="flex items-center justify-between mb-5">
                         <div className="flex items-center gap-3">
                           <span className="text-2xl md:text-3xl font-mono font-medium text-text-primary">
                             {step.number}
@@ -101,7 +97,7 @@ export default function Workflow() {
                         {step.label}
                       </div>
 
-                      <h3 className="text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.1] tracking-[-0.02em] text-text-primary mb-4" style={{ fontFamily: "var(--font-dm-sans)" }}>
+                      <h3 className="text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.1] tracking-[-0.02em] text-text-primary mb-4" style={{ fontFamily: "var(--font-space-grotesk)" }}>
                         {step.title}
                       </h3>
 
@@ -109,17 +105,9 @@ export default function Workflow() {
                         {step.description}
                       </p>
                     </div>
-
-                    <a
-                      href="#"
-                      className="inline-flex items-center justify-center px-6 py-3 bg-text-primary text-bg-deep rounded-full font-medium text-[14px] tracking-[0.02em] hover:scale-[1.02] transition-transform duration-150 mt-8 w-fit"
-                      style={{ fontFamily: "var(--font-dm-sans)" }}
-                    >
-                      {step.cta}
-                    </a>
                   </div>
 
-                  <div className="flex-1 md:w-[45%] p-6 md:p-8 lg:p-10 flex items-center justify-center bg-[#008BFF]">
+                  <div className="flex-1 md:w-[45%] p-6 md:p-8 flex items-center justify-center bg-[#008BFF]">
                     <div className="w-full max-w-[360px] bg-[#0A0A0A] border border-[#1A1A1A] p-5">
 
                       <div className="flex items-center justify-between mb-6">

@@ -87,7 +87,7 @@ export default function AgentCards() {
           <div className="text-[11px] md:text-[13px] font-medium uppercase tracking-[0.1em] text-text-muted mb-6" style={{ fontFamily: "var(--font-space-grotesk)" }}>
             THE AGENT SYSTEM
           </div>
-          <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-text-primary max-w-2xl leading-[1.1]" style={{ fontFamily: "var(--font-dm-sans)" }}>
+          <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-text-primary max-w-2xl leading-[1.1]" style={{ fontFamily: "var(--font-space-grotesk)" }}>
             A specialized team of <span className="text-text-secondary">AI developers</span>
           </h2>
         </div>
