@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   generateEtags: false,
   experimental: {
-    optimizePackageImports: ["lucide-react"],
+    optimizePackageImports: ["lucide-react", "gsap", "@gsap/react"],
   },
 };
 
