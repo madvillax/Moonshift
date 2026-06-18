@@ -13,7 +13,8 @@ const navLinks = [
   { name: "Roadmap", href: "/roadmap" },
   { name: "Night Shift", href: "/#showcase" },
   { name: "Pricing", href: "/#pricing" },
-  { name: "Docs", href: "/#faq" },
+  { name: "Docs", href: "/docs" },
+  { name: "FAQ", href: "/faq" },
 ];
 
 export default function Navbar() {

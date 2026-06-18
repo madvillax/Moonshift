@@ -43,13 +43,20 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Moonshift - AI-Powered Autonomous Software Development",
+  metadataBase: new URL("https://moonshift.io"),
+  title: "Moonshift — AI-Powered Autonomous Software Development",
   description: "Convert text prompts into fully deployed production-ready applications. Moonshift plans, builds, tests, audits, deploys, and launches automatically.",
-  keywords: ["AI", "software development", "autonomous", "deployment", "full-stack"],
   openGraph: {
-    title: "Moonshift - AI-Powered Autonomous Software Development",
+    title: "Moonshift — AI-Powered Autonomous Software Development",
     description: "Convert text prompts into fully deployed production-ready applications.",
     type: "website",
+    siteName: "Moonshift",
+    url: "https://moonshift.io",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Moonshift — AI-Powered Autonomous Software Development",
+    description: "Convert text prompts into fully deployed production-ready applications.",
   },
 };
 
