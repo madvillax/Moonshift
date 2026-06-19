@@ -1,17 +1,8 @@
 "use client";
 
-import { ArrowRight } from "iconoir-react";
+
 import { BlurFade } from "@/components/ui/blur-fade";
 import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
-
-const logos = [
-  { name: "Vercel",    svg: <path d="M24 2L48 46H0L24 2Z" fill="currentColor" />, vb: "0 0 48 48" },
-  { name: "Stripe",    svg: <text x="0" y="22" fontSize="26" fontWeight="700" fill="currentColor" fontFamily="sans-serif">stripe</text>, vb: "0 0 90 28" },
-  { name: "Linear",    svg: <><circle cx="14" cy="14" r="14" fill="currentColor" opacity="0.15"/><path d="M2 14C2 7.37 7.37 2 14 2s12 5.37 12 12-5.37 12-12 12S2 20.63 2 14zm11-6.5L7.5 14H13v6.5l5.5-6.5H13V7.5z" fill="currentColor"/></>, vb: "0 0 28 28" },
-  { name: "Notion",    svg: <text x="0" y="22" fontSize="26" fontWeight="700" fill="currentColor" fontFamily="sans-serif">Notion</text>, vb: "0 0 90 28" },
-  { name: "Supabase",  svg: <text x="0" y="22" fontSize="22" fontWeight="700" fill="currentColor" fontFamily="sans-serif">supabase</text>, vb: "0 0 110 28" },
-  { name: "Langchain", svg: <text x="0" y="22" fontSize="20" fontWeight="600" fill="currentColor" fontFamily="sans-serif">LangChain</text>, vb: "0 0 120 28" },
-];
 
 const steps = [
   { cmd: "moonshift create \"a website for my bakery\"", delay: 0 },
@@ -183,7 +174,7 @@ export default function FinalCTA() {
             </BlurFade>
 
             <BlurFade delay={0.3} duration={0.5} inView>
-            <div className="flex flex-wrap items-center gap-3 mb-10">
+            <div className="flex flex-wrap items-center gap-3 mb-10 pl-2">
               <a
                 href="#"
                 className="inline-flex items-center gap-2 bg-text-primary text-bg-deep px-6 py-3 text-[12px] font-semibold uppercase tracking-[0.12em] hover:bg-text-primary/90 transition-all duration-200"
@@ -191,32 +182,10 @@ export default function FinalCTA() {
               >
                 Start for free
               </a>
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 border border-border-default text-text-secondary px-6 py-3 text-[12px] font-semibold uppercase tracking-[0.12em] hover:border-text-primary hover:text-text-primary transition-all duration-200"
-                style={{ fontFamily: "var(--font-space-grotesk)" }}
-              >
-                Get a demo
-                <ArrowRight className="h-3.5 w-3.5" />
-              </a>
             </div>
             </BlurFade>
 
-            {/* Logo grid */}
-            <div className="border border-border-subtle">
-              <div className="grid grid-cols-3 divide-x divide-y divide-border-subtle">
-                {logos.map((logo) => (
-                  <div
-                    key={logo.name}
-                    className="flex items-center justify-center px-6 py-5 opacity-40 hover:opacity-80 bg-bg-surface hover:bg-bg-elevated transition-all duration-200 cursor-default"
-                  >
-                    <svg viewBox={logo.vb} className="h-5 text-text-primary" fill="none">
-                      {logo.svg}
-                    </svg>
-                  </div>
-                ))}
-              </div>
-            </div>
+
           </div>
 
           {/* Right: visual mockup */}
