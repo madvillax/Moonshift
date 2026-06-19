@@ -22,7 +22,7 @@
     "iconoir-react": "^7.11.0",
     "lucide-react": "^1.17.0",
     "motion": "^12.40.0",
-    "next": "16.2.7",
+    "next": "16.2.9",
     "next-themes": "^0.4.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",
@@ -39,11 +39,16 @@
     "@vitejs/plugin-react": "^6.0.2",
     "axe-core": "^4.12.0",
     "eslint": "^9",
-    "eslint-config-next": "16.2.7",
+    "eslint-config-next": "16.2.9",
     "jsdom": "^29.1.1",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^4.1.8",
     "vitest-axe": "^0.1.0"
+  },
+  "overrides": {
+    "next": {
+      "postcss": ">=8.5.10"
+    }
   }
 }
