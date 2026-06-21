@@ -59,7 +59,7 @@ export default function Navbar() {
         className={`w-full max-w-[1200px] transition-all duration-500 ${
           isScrolled
             ? theme === "light"
-              ? "mt-0 bg-white/95 border border-black/10"
+              ? "mt-0 bg-[#FAF8F2]/95 border border-black/10"
               : "mt-0 bg-[#0A0A0A]/98 border border-white/10"
             : "mt-3 bg-bg-deep border border-transparent"
         }`}
