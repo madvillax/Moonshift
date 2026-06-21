@@ -29,9 +29,9 @@
 }
 
 .light {
-  --bg-deep: #F8F8F8;
-  --bg-surface: #FFFFFF;
-  --bg-elevated: #F0F0F0;
+  --bg-deep: #F3EFE6;
+  --bg-surface: #FAF8F2;
+  --bg-elevated: #EAE4D8;
   --border-subtle: #E5E5E5;
   --border-default: #D1D1D1;
   --text-primary: #0A0A0A;
