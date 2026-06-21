@@ -11,6 +11,7 @@ import {
   ChevronDown,
   Wand2,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 type Mode = "fast" | "standard" | "full";
 
@@ -50,6 +51,20 @@ export default function CreatePage() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const router = useRouter();
+
+  const handleSubmit = () => {
+    if (prompt.trim()) {
+      router.push("/code");
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
 
   const activeMode = modes.find((m) => m.id === mode)!;
 
@@ -96,6 +111,7 @@ export default function CreatePage() {
               ref={textareaRef}
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
+              onKeyDown={handleKeyDown}
               placeholder="Describe the app you want to create..."
               rows={1}
               className="w-full min-h-[40px] max-h-[160px] overflow-y-auto bg-transparent text-text-primary text-[15px] leading-[1.5] placeholder:text-text-muted outline-none resize-none py-0"
@@ -117,7 +133,7 @@ export default function CreatePage() {
               <button className="w-8 h-8 flex items-center justify-center text-text-secondary hover:text-text-primary transition-colors">
                 <Mic className="w-4 h-4" />
               </button>
-              <button className="w-9 h-8 flex items-center justify-center bg-accent text-white hover:opacity-90 transition-opacity">
+              <button onClick={handleSubmit} className="w-9 h-8 flex items-center justify-center bg-accent text-white hover:opacity-90 transition-opacity">
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
